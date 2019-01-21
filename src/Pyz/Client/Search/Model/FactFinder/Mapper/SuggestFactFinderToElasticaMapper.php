@@ -10,10 +10,13 @@ namespace Pyz\Client\Search\Model\FactFinder\Mapper;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\ResultSet\DefaultBuilder;
+use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Client\Locale\LocaleClientInterface;
 use Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface;
 use Spryker\Client\ProductImageStorage\ProductImageStorageClientInterface;
 use Spryker\Client\ProductStorage\ProductStorageClientInterface;
+use Spryker\Client\Search\Plugin\Elasticsearch\QueryExpander\CompletionQueryExpanderPlugin;
+use Spryker\Client\Search\Plugin\Elasticsearch\QueryExpander\SuggestionByTypeQueryExpanderPlugin;
 use Spryker\Client\Store\StoreClientInterface;
 
 class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapper implements FactFinderToElasticaMapperInterface
@@ -34,61 +37,40 @@ class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapp
     protected $productImageStorageClient;
 
     /**
-     * @var \Spryker\Client\Locale\LocaleClientInterface
-     */
-    protected $localeClient;
-
-    /**
-     * @var \Spryker\Client\Store\StoreClientInterface
-     */
-    protected $storeClient;
-
-    /**
-     * @var string
-     */
-    protected $currentLocale;
-
-    /**
-     * @var \Generated\Shared\Transfer\StoreTransfer
-     */
-    protected $currentStore;
-
-    /**
      * @param \Elastica\ResultSet\DefaultBuilder $elasticaDefaultBuilder
      * @param \Spryker\Client\ProductStorage\ProductStorageClientInterface $productStorageClient
      * @param \Spryker\Client\ProductImageStorage\ProductImageStorageClientInterface $productImageStorageClient
      * @param \Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface $priceProductStorageClient
-     * @param \Spryker\Client\Locale\LocaleClientInterface $localeClient
-     * @param \Spryker\Client\Store\StoreClientInterface $storeClient
      */
     public function __construct(
         DefaultBuilder $elasticaDefaultBuilder,
         ProductStorageClientInterface $productStorageClient,
         ProductImageStorageClientInterface $productImageStorageClient,
-        PriceProductStorageClientInterface $priceProductStorageClient,
-        LocaleClientInterface $localeClient,
-        StoreClientInterface $storeClient
+        PriceProductStorageClientInterface $priceProductStorageClient
     ) {
         parent::__construct($priceProductStorageClient);
 
         $this->elasticaDefaultBuilder = $elasticaDefaultBuilder;
         $this->productStorageClient = $productStorageClient;
         $this->productImageStorageClient = $productImageStorageClient;
-        $this->localeClient = $localeClient;
-        $this->storeClient = $storeClient;
-
-        $this->currentLocale = $this->localeClient->getCurrentLocale();
-        $this->currentStore = $this->storeClient->getCurrentStore();
     }
 
     /**
      * @param array $searchResult
      * @param \Elastica\Query $elasticaQuery
+     * @param string $currentLocale
+     * @param \Generated\Shared\Transfer\StoreTransfer $currentStore
      *
      * @return \Elastica\ResultSet
      */
-    public function map(array $searchResult, Query $elasticaQuery): ResultSet
-    {
+    public function map(
+        array $searchResult,
+        Query $elasticaQuery,
+        string $currentLocale,
+        StoreTransfer $currentStore
+    ): ResultSet {
+        $this->currentLocale = $currentLocale;
+        $this->currentStore = $currentStore;
         $elasticaResponseArray = $this->mapSearchResultToElasticaResponseArray($searchResult);
         $elasticaResponse = new \Elastica\Response($elasticaResponseArray,200);
 
@@ -102,18 +84,7 @@ class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapp
      */
     protected function mapSearchResultToElasticaResponseArray(array $searchResult): array
     {
-
-        $elasticaResponseArray = [
-            'took' => 1,
-            'timed_out' => false,
-            '_shards' =>
-                [
-                    'total' => 1,
-                    'successful' => 1,
-                    'skipped' => 0,
-                    'failed' => 0,
-                ],
-        ];
+        $elasticaResponseArray = [];
         $elasticaResponseArray['hits'] = [];
         $elasticaResponseArray['aggregations'] = $this->mapElasticaAggregations($searchResult);
 
@@ -128,8 +99,8 @@ class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapp
     protected function mapElasticaAggregations(array $searchResult): array
     {
         $aggregations = [];
-        $aggregations['completion'] = $this->mapElasticaCompletion($searchResult);
-        $aggregations['suggestion-by-type'] = $this->mapElasticaSuggestion($searchResult);
+        $aggregations[CompletionQueryExpanderPlugin::AGGREGATION_NAME] = $this->mapElasticaCompletion($searchResult);
+        $aggregations[SuggestionByTypeQueryExpanderPlugin::AGGREGATION_NAME] = $this->mapElasticaSuggestion($searchResult);
 
         return $aggregations;
     }
@@ -196,7 +167,7 @@ class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapp
         foreach ($ffSuggestItems as $ffSuggestItem) {
             $productConcrete = $this->productStorageClient
                 ->findProductConcreteStorageData(
-                    $ffSuggestItem['attributes']['id'],
+                    $ffSuggestItem['attributes']['id'], // I assume that this is Spryker concreteProductId
                     $this->currentLocale
                 );
             if ($productConcrete === null) {

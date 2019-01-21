@@ -13,7 +13,6 @@ use Pyz\Client\Search\Model\FactFinder\Handler\SuggestFactFinderHandler;
 use Pyz\Client\Search\Model\FactFinder\Mapper\FactFinderToElasticaMapperInterface;
 use Pyz\Client\Search\Model\FactFinder\Mapper\SuggestFactFinderToElasticaMapper;
 use Pyz\Client\Search\Model\Resolver\SearchResolver;
-use Pyz\Client\Search\Model\FactFinder\Handler\FactFinderHandler;
 use Pyz\Client\Search\Model\FactFinder\Mapper\SearchFactFinderToElasticaMapper;
 use Spryker\Client\Locale\LocaleClientInterface;
 use Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface;
@@ -41,7 +40,11 @@ class SearchFactory extends SprykerSearchFactory
      */
     public function createSearchFactFinderHandler(): SearchHandlerInterface
     {
-        return new SearchFactFinderHandler($this->createSearchFactFinderToElasticaMapper());
+        return new SearchFactFinderHandler(
+            $this->createSearchFactFinderToElasticaMapper(),
+            $this->getLocaleClient(),
+            $this->getStoreClient()
+        );
     }
 
     /**
@@ -49,7 +52,11 @@ class SearchFactory extends SprykerSearchFactory
      */
     public function createSuggestFactFinderHandler(): SearchHandlerInterface
     {
-        return new SuggestFactFinderHandler($this->createSuggestFactFinderToElasticaMapper());
+        return new SuggestFactFinderHandler(
+            $this->createSuggestFactFinderToElasticaMapper(),
+            $this->getLocaleClient(),
+            $this->getStoreClient()
+        );
     }
 
     /**
@@ -61,8 +68,7 @@ class SearchFactory extends SprykerSearchFactory
             $this->createElasticaDefaultBuilder(),
             $this->getProductStorageClient(),
             $this->getProductImageStorageClient(),
-            $this->getPriceProductStorageClient(),
-            $this->getLocaleClient()
+            $this->getPriceProductStorageClient()
         );
     }
 
@@ -75,9 +81,7 @@ class SearchFactory extends SprykerSearchFactory
             $this->createElasticaDefaultBuilder(),
             $this->getProductStorageClient(),
             $this->getProductImageStorageClient(),
-            $this->getPriceProductStorageClient(),
-            $this->getLocaleClient(),
-            $this->getStoreClient()
+            $this->getPriceProductStorageClient()
         );
     }
 

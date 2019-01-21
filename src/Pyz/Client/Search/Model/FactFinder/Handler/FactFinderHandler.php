@@ -9,8 +9,10 @@ namespace Pyz\Client\Search\Model\FactFinder\Handler;
 
 use Elastica\ResultSet;
 use Pyz\Client\Search\Model\FactFinder\Mapper\FactFinderToElasticaMapperInterface;
+use Spryker\Client\Locale\LocaleClientInterface;
 use Spryker\Client\Search\Dependency\Plugin\QueryInterface;
 use Spryker\Client\Search\Model\Handler\SearchHandlerInterface;
+use Spryker\Client\Store\StoreClientInterface;
 
 abstract class FactFinderHandler implements SearchHandlerInterface
 {
@@ -20,11 +22,28 @@ abstract class FactFinderHandler implements SearchHandlerInterface
     protected $factFinderToElasticaMapper;
 
     /**
-     * @param \Pyz\Client\Search\Model\FactFinder\Mapper\FactFinderToElasticaMapperInterface $factFinderToElasticaMapper
+     * @var \Spryker\Client\Locale\LocaleClientInterface
      */
-    public function __construct(FactFinderToElasticaMapperInterface $factFinderToElasticaMapper)
-    {
+    protected $localeClient;
+
+    /**
+     * @var \Spryker\Client\Store\StoreClientInterface
+     */
+    protected $storeClient;
+
+    /**
+     * @param \Pyz\Client\Search\Model\FactFinder\Mapper\FactFinderToElasticaMapperInterface $factFinderToElasticaMapper
+     * @param \Spryker\Client\Locale\LocaleClientInterface $localeClient
+     * @param \Spryker\Client\Store\StoreClientInterface $storeClient
+     */
+    public function __construct(
+        FactFinderToElasticaMapperInterface $factFinderToElasticaMapper,
+        LocaleClientInterface $localeClient,
+        StoreClientInterface $storeClient
+    ) {
         $this->factFinderToElasticaMapper = $factFinderToElasticaMapper;
+        $this->localeClient = $localeClient;
+        $this->storeClient = $storeClient;
     }
 
     /**
@@ -38,7 +57,12 @@ abstract class FactFinderHandler implements SearchHandlerInterface
     {
         $elasticaQuery = $searchQuery->getSearchQuery();
         $searchResult = $this->executeQuery($elasticaQuery, $requestParameters);
-        $elasticaSearchResult = $this->factFinderToElasticaMapper->map($searchResult, $elasticaQuery);
+        $elasticaSearchResult = $this->factFinderToElasticaMapper->map(
+            $searchResult,
+            $elasticaQuery,
+            $this->localeClient->getCurrentLocale(),
+            $this->storeClient->getCurrentStore()
+        );
 
         if (!$resultFormatters) {
             return $elasticaSearchResult;

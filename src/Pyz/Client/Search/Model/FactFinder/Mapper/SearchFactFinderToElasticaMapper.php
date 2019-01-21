@@ -10,6 +10,7 @@ namespace Pyz\Client\Search\Model\FactFinder\Mapper;
 use Elastica\Query;
 use Elastica\ResultSet;
 use Elastica\ResultSet\DefaultBuilder;
+use Generated\Shared\Transfer\StoreTransfer;
 use Spryker\Client\Locale\LocaleClientInterface;
 use Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface;
 use Spryker\Client\ProductImageStorage\ProductImageStorageClientInterface;
@@ -33,46 +34,40 @@ class SearchFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMappe
     protected $productImageStorageClient;
 
     /**
-     * @var \Spryker\Client\Locale\LocaleClientInterface
-     */
-    protected $localeClient;
-
-    /**
-     * @var string
-     */
-    protected $currentLocale;
-
-    /**
      * @param \Elastica\ResultSet\DefaultBuilder $elasticaDefaultBuilder
      * @param \Spryker\Client\ProductStorage\ProductStorageClientInterface $productStorageClient
      * @param \Spryker\Client\ProductImageStorage\ProductImageStorageClientInterface $productImageStorageClient
      * @param \Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface $priceProductStorageClient
-     * @param \Spryker\Client\Locale\LocaleClientInterface $localeClient
      */
     public function __construct(
         DefaultBuilder $elasticaDefaultBuilder,
         ProductStorageClientInterface $productStorageClient,
         ProductImageStorageClientInterface $productImageStorageClient,
-        PriceProductStorageClientInterface $priceProductStorageClient,
-        LocaleClientInterface $localeClient
+        PriceProductStorageClientInterface $priceProductStorageClient
     ) {
         parent::__construct($priceProductStorageClient);
 
         $this->elasticaDefaultBuilder = $elasticaDefaultBuilder;
         $this->productStorageClient = $productStorageClient;
         $this->productImageStorageClient = $productImageStorageClient;
-        $this->localeClient = $localeClient;
-        $this->currentLocale = $this->localeClient->getCurrentLocale();
     }
 
     /**
      * @param array $searchResult
      * @param \Elastica\Query $elasticaQuery
+     * @param string $currentLocale
+     * @param \Generated\Shared\Transfer\StoreTransfer $currentStore
      *
      * @return \Elastica\ResultSet
      */
-    public function map(array $searchResult, Query $elasticaQuery): ResultSet
-    {
+    public function map(
+        array $searchResult,
+        Query $elasticaQuery,
+        string $currentLocale,
+        StoreTransfer $currentStore
+    ): ResultSet {
+        $this->currentLocale = $currentLocale;
+        $this->currentStore = $currentStore;
         $elasticaResponseArray = $this->mapSearchResultToElasticaResponseArray($searchResult);
         $elasticaResponse = new \Elastica\Response($elasticaResponseArray,200);
 
@@ -86,18 +81,7 @@ class SearchFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMappe
      */
     protected function mapSearchResultToElasticaResponseArray(array $searchResult): array
     {
-
-        $elasticaResponseArray = [
-            'took' => 1,
-            'timed_out' => false,
-            '_shards' =>
-                [
-                    'total' => 1,
-                    'successful' => 1,
-                    'skipped' => 0,
-                    'failed' => 0,
-                ],
-        ];
+        $elasticaResponseArray = [];
         $elasticaResponseArray['hits'] = $this->mapElasticaHits($searchResult);
         $elasticaResponseArray['aggregations'] = [];
 

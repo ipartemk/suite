@@ -22,6 +22,16 @@ abstract class AbstractFactFinderToElasticaMapper
     protected $priceProductStorageClient;
 
     /**
+     * @var string
+     */
+    protected $currentLocale;
+
+    /**
+     * @var \Generated\Shared\Transfer\StoreTransfer
+     */
+    protected $currentStore;
+
+    /**
      * @param \Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface $priceProductStorageClient
      */
     public function __construct(
