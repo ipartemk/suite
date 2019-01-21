@@ -8,10 +8,10 @@
 namespace Pyz\Client\Search\Model\FactFinder\Mapper;
 
 use Elastica\Query;
+use Elastica\Response;
 use Elastica\ResultSet;
 use Elastica\ResultSet\DefaultBuilder;
 use Generated\Shared\Transfer\StoreTransfer;
-use Spryker\Client\Locale\LocaleClientInterface;
 use Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface;
 use Spryker\Client\ProductImageStorage\ProductImageStorageClientInterface;
 use Spryker\Client\ProductStorage\ProductStorageClientInterface;
@@ -69,7 +69,7 @@ class SearchFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMappe
         $this->currentLocale = $currentLocale;
         $this->currentStore = $currentStore;
         $elasticaResponseArray = $this->mapSearchResultToElasticaResponseArray($searchResult);
-        $elasticaResponse = new \Elastica\Response($elasticaResponseArray,200);
+        $elasticaResponse = new Response($elasticaResponseArray, 200);
 
         return $this->elasticaDefaultBuilder->buildResultSet($elasticaResponse, $elasticaQuery);
     }
@@ -147,11 +147,10 @@ class SearchFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMappe
             $elasticaHits[] = $elasticaHit;
         }
 
-
         return [
             'total' => $total,
             'max_score' => $maxScore,
-            'hits' => $elasticaHits
+            'hits' => $elasticaHits,
         ];
     }
 }

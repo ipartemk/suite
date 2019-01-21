@@ -27,7 +27,6 @@ class SearchFactFinderHandler extends FactFinderHandler implements SearchHandler
             // mocked part in data/FF/response.json
             $rawSearchResult = file_get_contents(APPLICATION_ROOT_DIR . '/data/FF/response_FF.json');
             $searchResult = json_decode($rawSearchResult, true);
-
         } catch (Exception $e) {
             $rawQuery = json_encode($query->toArray());
 

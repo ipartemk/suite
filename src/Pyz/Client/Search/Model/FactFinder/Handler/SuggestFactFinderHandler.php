@@ -26,7 +26,6 @@ class SuggestFactFinderHandler extends FactFinderHandler implements SearchHandle
         try {
             $rawSearchResult = file_get_contents(APPLICATION_ROOT_DIR . '/data/FF/response_FF_Suggest.json');
             $searchResult = json_decode($rawSearchResult, true);
-
         } catch (Exception $e) {
             $rawQuery = json_encode($query->toArray());
 
