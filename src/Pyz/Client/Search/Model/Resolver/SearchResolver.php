@@ -14,8 +14,14 @@ use Spryker\Client\Search\Model\Handler\SearchHandlerInterface;
 
 class SearchResolver
 {
+    /**
+     * @var \Pyz\Client\Search\SearchFactory
+     */
     protected $searchFactory;
 
+    /**
+     * @param \Pyz\Client\Search\SearchFactory $searchFactory
+     */
     public function __construct(SearchFactory $searchFactory)
     {
         $this->searchFactory = $searchFactory;
@@ -32,12 +38,11 @@ class SearchResolver
     public function resolve(QueryInterface $searchQuery, array $requestParameters = []): SearchHandlerInterface
     {
         if (isset($requestParameters[SearchConfig::PARAM_SUGGEST]) && $requestParameters[SearchConfig::PARAM_SUGGEST]) {
-            return  $this->searchFactory->createSuggestFactFinderHandler(); // FF
+            return $this->searchFactory->createSuggestFactFinderHandler(); // FF
         } else {
-            return  $this->searchFactory->createSearchFactFinderHandler(); // FF
+            return $this->searchFactory->createSearchFactFinderHandler(); // FF
         }
 
-        return  $this->searchFactory->createElasticsearchSearchHandler(); // ES
+        return $this->searchFactory->createElasticsearchSearchHandler(); // ES
     }
-
 }

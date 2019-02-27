@@ -467,3 +467,15 @@ $config[MonitoringConstants::IGNORABLE_TRANSACTIONS] = [
 
 // ---------- Guest cart
 $config[QuoteConstants::GUEST_QUOTE_LIFETIME] = 'P01M';
+
+// ---------- Fact Finder
+$config[\Pyz\Shared\Search\SearchConstants::FACT_FINDER_URL] = 'http://mytheresa-ng.fact-finder.de/FACT-Finder';
+
+$config[\Pyz\Shared\Search\SearchConstants::FACT_FINDER_USERNAME] = 'elisabeth.hehle';
+$config[\Pyz\Shared\Search\SearchConstants::FACT_FINDER_PASSWORD] = 'myt&sprykerFF';
+
+$config[\Pyz\Shared\Search\SearchConstants::FACT_FINDER_SEARCH] = '/rest/v2/search';
+$config[\Pyz\Shared\Search\SearchConstants::FACT_FINDER_SUGGEST] = '/rest/v2/suggest';
+
+
+

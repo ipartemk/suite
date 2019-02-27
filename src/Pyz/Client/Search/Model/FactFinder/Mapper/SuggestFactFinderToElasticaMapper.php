@@ -8,16 +8,15 @@
 namespace Pyz\Client\Search\Model\FactFinder\Mapper;
 
 use Elastica\Query;
+use Elastica\Response;
 use Elastica\ResultSet;
 use Elastica\ResultSet\DefaultBuilder;
 use Generated\Shared\Transfer\StoreTransfer;
-use Spryker\Client\Locale\LocaleClientInterface;
 use Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface;
 use Spryker\Client\ProductImageStorage\ProductImageStorageClientInterface;
 use Spryker\Client\ProductStorage\ProductStorageClientInterface;
 use Spryker\Client\Search\Plugin\Elasticsearch\QueryExpander\CompletionQueryExpanderPlugin;
 use Spryker\Client\Search\Plugin\Elasticsearch\QueryExpander\SuggestionByTypeQueryExpanderPlugin;
-use Spryker\Client\Store\StoreClientInterface;
 
 class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapper implements FactFinderToElasticaMapperInterface
 {
@@ -72,7 +71,7 @@ class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapp
         $this->currentLocale = $currentLocale;
         $this->currentStore = $currentStore;
         $elasticaResponseArray = $this->mapSearchResultToElasticaResponseArray($searchResult);
-        $elasticaResponse = new \Elastica\Response($elasticaResponseArray,200);
+        $elasticaResponse = new Response($elasticaResponseArray, 200);
 
         return $this->elasticaDefaultBuilder->buildResultSet($elasticaResponse, $elasticaQuery);
     }
@@ -237,7 +236,7 @@ class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapp
             'key' => 'product_abstract',
             'doc_count' => count($hits),
             'top-hits' => [
-                'hits' =>  [
+                'hits' => [
                     'total' => count($hits),
                     'max_score' => $maxScore,
                     'hits' => $hits,
@@ -250,7 +249,7 @@ class SuggestFactFinderToElasticaMapper extends AbstractFactFinderToElasticaMapp
 
     /**
      * @param array $searchResult
-     * @param $ffSuggestType
+     * @param string $ffSuggestType
      *
      * @return array
      */

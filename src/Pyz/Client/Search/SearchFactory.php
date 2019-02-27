@@ -8,12 +8,25 @@
 namespace Pyz\Client\Search;
 
 use Elastica\ResultSet\DefaultBuilder;
+use GuzzleHttp\Client;
+use Pyz\Client\Search\Api\Adapter\FactFinderSearchAdapter;
+use Pyz\Client\Search\Api\Adapter\FactFinderSearchAdapterInterface;
+use Pyz\Client\Search\Api\Adapter\FactFinderSuggestAdapter;
+use Pyz\Client\Search\Api\Adapter\FactFinderSuggestAdapterInterface;
+use Pyz\Client\Search\Api\Converter\FactFinderSearchRequestConverter;
+use Pyz\Client\Search\Api\Converter\FactFinderSearchRequestConverterInterface;
+use Pyz\Client\Search\Api\Converter\FactFinderSearchResponseConverter;
+use Pyz\Client\Search\Api\Converter\FactFinderSearchResponseConverterInterface;
+use Pyz\Client\Search\Api\Converter\FactFinderSuggestRequestConverter;
+use Pyz\Client\Search\Api\Converter\FactFinderSuggestRequestConverterInterface;
+use Pyz\Client\Search\Api\Converter\FactFinderSuggestResponseConverter;
+use Pyz\Client\Search\Api\Converter\FactFinderSuggestResponseConverterInterface;
 use Pyz\Client\Search\Model\FactFinder\Handler\SearchFactFinderHandler;
 use Pyz\Client\Search\Model\FactFinder\Handler\SuggestFactFinderHandler;
 use Pyz\Client\Search\Model\FactFinder\Mapper\FactFinderToElasticaMapperInterface;
+use Pyz\Client\Search\Model\FactFinder\Mapper\SearchFactFinderToElasticaMapper;
 use Pyz\Client\Search\Model\FactFinder\Mapper\SuggestFactFinderToElasticaMapper;
 use Pyz\Client\Search\Model\Resolver\SearchResolver;
-use Pyz\Client\Search\Model\FactFinder\Mapper\SearchFactFinderToElasticaMapper;
 use Spryker\Client\Locale\LocaleClientInterface;
 use Spryker\Client\PriceProductStorage\PriceProductStorageClientInterface;
 use Spryker\Client\ProductImageStorage\ProductImageStorageClientInterface;
@@ -23,10 +36,68 @@ use Spryker\Client\Search\SearchFactory as SprykerSearchFactory;
 use Spryker\Client\Store\StoreClientInterface;
 
 /**
- * @method \Spryker\Client\Search\SearchConfig getConfig()
+ * @method \Pyz\Client\Search\SearchConfig getConfig()
  */
 class SearchFactory extends SprykerSearchFactory
 {
+    /**
+     * @return \Pyz\Client\Search\Api\Adapter\FactFinderSearchAdapterInterface
+     */
+    public function createFactFinderSearchAdapter(): FactFinderSearchAdapterInterface
+    {
+        return new FactFinderSearchAdapter(
+            $this->createGuzzleHttpClient(),
+            $this->createFactFinderSearchRequestConverter(),
+            $this->createFactFinderSearchResponseConverter(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \Pyz\Client\Search\Api\Adapter\FactFinderSuggestAdapterInterface
+     */
+    public function createFactFinderSuggestAdapter(): FactFinderSuggestAdapterInterface
+    {
+        return new FactFinderSuggestAdapter(
+            $this->createGuzzleHttpClient(),
+            $this->createFactFinderSuggestRequestConverter(),
+            $this->createFactFinderSuggestResponseConverter(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \Pyz\Client\Search\Api\Converter\FactFinderSearchRequestConverterInterface
+     */
+    public function createFactFinderSearchRequestConverter(): FactFinderSearchRequestConverterInterface
+    {
+        return new FactFinderSearchRequestConverter();
+    }
+
+    /**
+     * @return \Pyz\Client\Search\Api\Converter\FactFinderSearchResponseConverterInterface
+     */
+    public function createFactFinderSearchResponseConverter(): FactFinderSearchResponseConverterInterface
+    {
+        return new FactFinderSearchResponseConverter();
+    }
+
+    /**
+     * @return \Pyz\Client\Search\Api\Converter\FactFinderSuggestRequestConverterInterface
+     */
+    public function createFactFinderSuggestRequestConverter(): FactFinderSuggestRequestConverterInterface
+    {
+        return new FactFinderSuggestRequestConverter();
+    }
+
+    /**
+     * @return \Pyz\Client\Search\Api\Converter\FactFinderSuggestResponseConverterInterface
+     */
+    public function createFactFinderSuggestResponseConverter(): FactFinderSuggestResponseConverterInterface
+    {
+        return new FactFinderSuggestResponseConverter();
+    }
+
     /**
      * @return \Pyz\Client\Search\Model\Resolver\SearchResolver
      */
@@ -43,7 +114,8 @@ class SearchFactory extends SprykerSearchFactory
         return new SearchFactFinderHandler(
             $this->createSearchFactFinderToElasticaMapper(),
             $this->getLocaleClient(),
-            $this->getStoreClient()
+            $this->getStoreClient(),
+            $this->createFactFinderSearchAdapter()
         );
     }
 
@@ -55,7 +127,8 @@ class SearchFactory extends SprykerSearchFactory
         return new SuggestFactFinderHandler(
             $this->createSuggestFactFinderToElasticaMapper(),
             $this->getLocaleClient(),
-            $this->getStoreClient()
+            $this->getStoreClient(),
+            $this->createFactFinderSuggestAdapter()
         );
     }
 
@@ -91,6 +164,14 @@ class SearchFactory extends SprykerSearchFactory
     public function createElasticaDefaultBuilder(): DefaultBuilder
     {
         return new DefaultBuilder();
+    }
+
+    /**
+     * @return \GuzzleHttp\Client
+     */
+    protected function createGuzzleHttpClient()
+    {
+        return new Client();
     }
 
     /**

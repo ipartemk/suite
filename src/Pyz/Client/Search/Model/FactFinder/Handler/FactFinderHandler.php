@@ -53,8 +53,11 @@ abstract class FactFinderHandler implements SearchHandlerInterface
      *
      * @return array|\Elastica\ResultSet
      */
-    public function search(QueryInterface $searchQuery, array $resultFormatters = [], array $requestParameters = [])
-    {
+    public function search(
+        QueryInterface $searchQuery,
+        array $resultFormatters = [],
+        array $requestParameters = []
+    ) {
         $elasticaQuery = $searchQuery->getSearchQuery();
         $searchResult = $this->executeQuery($elasticaQuery, $requestParameters);
         $elasticaSearchResult = $this->factFinderToElasticaMapper->map(
