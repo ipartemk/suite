@@ -5,16 +5,21 @@
  * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
-namespace Pyz\Client\Search\Api\Request;
+namespace Pyz\Client\Search\Api\Converter;
 
 use Generated\Shared\Transfer\FactFinderSearchRequestTransfer;
 
-interface FactFinderSearchRequestInterface
+class FactFinderSearchRequestConverter implements FactFinderSearchRequestConverterInterface
 {
     /**
      * @param \Generated\Shared\Transfer\FactFinderSearchRequestTransfer $factFinderSearchRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\FactFinderSearchResponseTransfer
+     * @return array
      */
-    public function request(FactFinderSearchRequestTransfer $factFinderSearchRequestTransfer);
+    public function convert(FactFinderSearchRequestTransfer $factFinderSearchRequestTransfer): array
+    {
+        $parameters = [];
+
+        return $parameters;
+    }
 }
