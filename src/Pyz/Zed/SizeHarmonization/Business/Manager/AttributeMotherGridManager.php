@@ -8,11 +8,25 @@
 namespace Pyz\Zed\SizeHarmonization\Business\Manager;
 
 use Generated\Shared\Transfer\AttributeMotherGridTransfer;
-use Generated\Shared\Transfer\ProductAbstractTransfer;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGrid;
+use Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer;
 
 class AttributeMotherGridManager implements AttributeMotherGridManagerInterface
 {
+    /**
+     * @var \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer
+     */
+    protected $sizeHarmonizationQueryContainer;
+
+    /**
+     * @param \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer $sizeHarmonizationQueryContainer
+     */
+    public function __construct(
+        SizeHarmonizationQueryContainer $sizeHarmonizationQueryContainer
+    ) {
+        $this->sizeHarmonizationQueryContainer = $sizeHarmonizationQueryContainer;
+    }
+
     /**
      * @param \Generated\Shared\Transfer\AttributeMotherGridTransfer $attributeMotherGridTransfer
      *
@@ -35,29 +49,18 @@ class AttributeMotherGridManager implements AttributeMotherGridManagerInterface
      */
     public function updateAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer):bool
     {
-        // @artem @todo
-        $this->productQueryContainer->getConnection()->beginTransaction();
+        $attributeMotherGridEntity = $this
+            ->sizeHarmonizationQueryContainer
+            ->queryAttributeMotherGridById($attributeMotherGridTransfer->getIdAttributeMotherGrid())
+            ->findOne();
 
-        $idProductAbstract = $this->productAbstractManager->saveProductAbstract($productAbstractTransfer);
-
-        foreach ($productConcreteCollection as $productConcrete) {
-            $productConcrete->setFkProductAbstract($idProductAbstract);
-
-            $productConcreteEntity = $this->productConcreteManager->findProductEntityByAbstractAndConcrete(
-                $productAbstractTransfer,
-                $productConcrete
-            );
-
-            if ($productConcreteEntity) {
-                $this->productConcreteManager->saveProductConcrete($productConcrete);
-            } else {
-                $idProductConcrete = $this->productConcreteManager->createProductConcrete($productConcrete);
-                $productConcrete->setIdProductConcrete($idProductConcrete);
-            }
+        if (!$attributeMotherGridEntity) {
+            return false;
         }
 
-        $this->productQueryContainer->getConnection()->commit();
+        $attributeMotherGridEntity->fromArray($attributeMotherGridTransfer->toArray());
+        $attributeMotherGridEntity->save();
 
-        return $idProductAbstract;
+        return true;
     }
 }

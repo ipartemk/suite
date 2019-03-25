@@ -111,32 +111,21 @@ class AttributeMotherGridController extends AbstractController
                 ->createAttributeMotherGridFormTransferMapper()
                 ->mapToAttributeMotherGridTransfer($form);
 
-            $idAttributeMotherGrid = $this->getFacade()
+            $isUpdated = $this->getFacade()
                 ->updateAttributeMotherGrid($attributeMotherGridTransfer);
 
-            $this->addSuccessMessage('The Attribute Mother Grid [%s] was updated successfully.', [
-                '%s' => $attributeMotherGridTransfer->getName(),
-            ]);
-
-            return $this->viewResponse([
-                'form' => $form->createView(),
-                'idAttributeMotherGrid' => $idAttributeMotherGrid,
-            ]);
-
-
-            $customerResponseTransfer = $this->getFacade()->updateCustomer($customerTransfer);
-            if (!$customerResponseTransfer->getIsSuccess()) {
+            if (!$isUpdated) {
                 $this->addErrorMessage('Attribute Mother Grid was not updated.');
 
                 return $this->viewResponse([
                     'form' => $form->createView(),
-                    'idCustomer' => $idCustomer,
+                    'idAttributeMotherGrid' => $idAttributeMotherGrid,
                 ]);
             }
 
-            $this->updateCustomerAddresses($customerTransfer);
-
-            $this->addSuccessMessage(static::MESSAGE_CUSTOMER_UPDATE_SUCCESS);
+            $this->addSuccessMessage('The Attribute Mother Grid [%s] was updated successfully.', [
+                '%s' => $attributeMotherGridTransfer->getName(),
+            ]);
 
             return $this->createRedirectResponseAfterAdd($idAttributeMotherGrid, $request);
         }
@@ -144,39 +133,6 @@ class AttributeMotherGridController extends AbstractController
         return $this->viewResponse([
             'form' => $form->createView(),
             'idAttributeMotherGrid' => $idAttributeMotherGrid,
-        ]);
-
-
-
-        $form = $this
-            ->getFactory()
-            ->createAttributeMotherGridFormAdd(
-                $dataProvider->getData(),
-                $dataProvider->getOptions()
-            )
-            ->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                $attributeMotherGridTransfer = $this->getFactory()
-                    ->createAttributeMotherGridFormTransferMapper()
-                    ->mapToAttributeMotherGridTransfer($form);
-
-                $idAttributeMotherGrid = $this->getFacade()
-                    ->addAttributeMotherGrid($attributeMotherGridTransfer);
-
-                $this->addSuccessMessage('The Attribute Mother Grid [%s] was added successfully.', [
-                    '%s' => $attributeMotherGridTransfer->getName(),
-                ]);
-
-                return $this->createRedirectResponseAfterAdd($idAttributeMotherGrid, $request);
-            } catch (Exception $exception) {
-                $this->addErrorMessage($exception->getMessage());
-            }
-        }
-
-        return $this->viewResponse([
-            'form' => $form->createView(),
         ]);
     }
 

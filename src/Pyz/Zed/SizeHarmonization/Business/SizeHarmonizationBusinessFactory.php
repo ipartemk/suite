@@ -21,6 +21,8 @@ class SizeHarmonizationBusinessFactory extends AbstractBusinessFactory
      */
     public function createAttributeMotherGridManager()
     {
-        return new AttributeMotherGridManager();
+        return new AttributeMotherGridManager(
+            $this->getQueryContainer()
+        );
     }
 }

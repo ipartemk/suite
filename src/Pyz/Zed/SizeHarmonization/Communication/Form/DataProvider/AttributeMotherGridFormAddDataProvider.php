@@ -38,12 +38,12 @@ class AttributeMotherGridFormAddDataProvider
             return $formData;
         }
 
-        $customerEntity = $this
+        $attributeMotherGridEntity = $this
             ->sizeHarmonizationQueryContainer
             ->queryAttributeMotherGridById($idAttributeMotherGrid)
             ->findOne();
 
-        $formData = $customerEntity->toArray();
+        $formData = $attributeMotherGridEntity->toArray();
 
         return $formData;
     }
