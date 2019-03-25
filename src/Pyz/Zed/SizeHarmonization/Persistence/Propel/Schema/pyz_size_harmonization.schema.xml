@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          name="zed"
+          xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd"
+          namespace="Orm\Zed\SizeHarmonization\Persistence"
+          package="src.Orm.Zed.SizeHarmonization.Persistence">
+
+    <table name="myt_attribute_mother_grid" idMethod="native" allowPkInsert="true" phpName="MytAttributeMotherGrid">
+        <column name="id_attribute_mother_grid" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="name" required="true" type="VARCHAR" size="255"/>
+        <behavior name="timestampable"/>
+        <id-method-parameter value="myt_attribute_mother_grid_pk_seq"/>
+    </table>
+
+    <table name="myt_attribute_mother_grid_key" idMethod="native" allowPkInsert="true" phpName="MytAttributeMotherGridKey">
+        <column name="id_attribute_mother_grid_key" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_attribute_mother_grid" required="true" type="INTEGER"/>
+        <column name="key" required="true" type="VARCHAR" size="255"/>
+        <foreign-key name="myt_attribute_mother_grid_key-myt_attribute_mother_grid" foreignTable="myt_attribute_mother_grid" onDelete="CASCADE" onUpdate="CASCADE">
+            <reference local="fk_attribute_mother_grid" foreign="id_attribute_mother_grid"/>
+        </foreign-key>
+        <behavior name="timestampable"/>
+        <id-method-parameter value="myt_attribute_mother_grid_key_pk_seq"/>
+    </table>
+
+    <table name="myt_attribute_mother_grid_value" idMethod="native" allowPkInsert="true" phpName="MytAttributeMotherGridValue">
+        <column name="id_attribute_mother_grid_value" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_attribute_mother_grid_key" required="true" type="INTEGER"/>
+        <column name="value" required="true" type="VARCHAR" size="255"/>
+        <foreign-key name="myt_attribute_mother_grid_value-myt_attribute_mother_grid_key" foreignTable="myt_attribute_mother_grid_key" onDelete="CASCADE" onUpdate="CASCADE">
+            <reference local="fk_attribute_mother_grid_key" foreign="id_attribute_mother_grid_key"/>
+        </foreign-key>
+        <behavior name="timestampable"/>
+        <id-method-parameter value="myt_attribute_mother_grid_value_pk_seq"/>
+    </table>
+
+    <table name="myt_attribute_grid_group" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridGroup">
+        <column name="id_attribute_grid_group" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="group" required="true" type="VARCHAR" size="255"/>
+        <behavior name="timestampable"/>
+        <id-method-parameter value="myt_attribute_grid_group_pk_seq"/>
+    </table>
+
+    <table name="myt_attribute_grid_value" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridValue">
+        <column name="id_attribute_grid_value" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_attribute_mother_grid_key" required="true" type="INTEGER"/>
+        <column name="fk_attribute_grid_group" required="true" type="INTEGER"/>
+        <column name="value" required="true" type="VARCHAR" size="255"/>
+        <foreign-key name="myt_attribute_grid_value-myt_attribute_mother_grid_key" foreignTable="myt_attribute_mother_grid_key" onDelete="CASCADE" onUpdate="CASCADE">
+            <reference local="fk_attribute_mother_grid_key" foreign="id_attribute_mother_grid_key"/>
+        </foreign-key>
+        <foreign-key name="myt_attribute_grid_value-myt_attribute_grid_group" foreignTable="myt_attribute_grid_group" onDelete="CASCADE" onUpdate="CASCADE">
+            <reference local="fk_attribute_grid_group" foreign="id_attribute_grid_group"/>
+        </foreign-key>
+        <behavior name="timestampable"/>
+        <id-method-parameter value="myt_attribute_grid_value_pk_seq"/>
+    </table>
+
+</database>

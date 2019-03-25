@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <size-harmonization>
+        <label>Size Harmonization</label>
+        <title>Size Harmonization</title>
+        <bundle>size-harmonization</bundle>
+        <controller>index</controller>
+        <action>index</action>
+        <pages>
+            <amg>
+                <label>Attribute mother grid</label>
+                <title>Attribute mother grid</title>
+                <bundle>size-harmonization</bundle>
+                <controller>attribute-mother-grid</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </amg>
+            <amg_key>
+                <label>Attribute mother grid Key</label>
+                <title>Attribute mother grid Key</title>
+                <bundle>size-harmonization</bundle>
+                <controller>index</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </amg_key>
+            <amg_value>
+                <label>Attribute mother grid Value</label>
+                <title>Attribute mother grid Value</title>
+                <bundle>size-harmonization</bundle>
+                <controller>index</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </amg_value>
+            <ag_group>
+                <label>Attribute grid Group</label>
+                <title>Attribute grid Group</title>
+                <bundle>size-harmonization</bundle>
+                <controller>index</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </ag_group>
+            <ag_value>
+                <label>Attribute grid Value</label>
+                <title>Attribute grid Value</title>
+                <bundle>size-harmonization</bundle>
+                <controller>index</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </ag_value>
+        </pages>
+    </size-harmonization>
+</config>

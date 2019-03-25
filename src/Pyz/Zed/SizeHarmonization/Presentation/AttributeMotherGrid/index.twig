@@ -1,0 +1,20 @@
+{% extends '@Application/Layout/layout.twig' %}
+
+{% set widget_title = 'Attribute mother grid' %}
+{% block section_title %}{{ widget_title }}{% endblock %}
+
+{% block action %}
+    {{ createActionButton('/size-harmonization/attribute-mother-grid/add', 'Create AMG' | trans) }}
+{% endblock %}
+
+{% block content %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'Products' } %}
+
+        {% block widget_content %}
+            {{ attributeMotherGridTable | raw }}
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}
