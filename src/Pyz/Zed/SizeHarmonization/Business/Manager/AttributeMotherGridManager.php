@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * This file is part of the Spryker Suite.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
 namespace Pyz\Zed\SizeHarmonization\Business\Manager;
@@ -11,7 +11,7 @@ use Generated\Shared\Transfer\AttributeMotherGridTransfer;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGrid;
 use Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer;
 
-class AttributeMotherGridManager implements AttributeMotherGridManagerInterface
+class AttributeMotherGridManager
 {
     /**
      * @var \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer
@@ -32,7 +32,7 @@ class AttributeMotherGridManager implements AttributeMotherGridManagerInterface
      *
      * @return int
      */
-    public function addAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer):int
+    public function addAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer): int
     {
         $attributeMotherGridEntity = new MytAttributeMotherGrid();
         $attributeMotherGridEntity->fromArray($attributeMotherGridTransfer->toArray());
@@ -47,7 +47,7 @@ class AttributeMotherGridManager implements AttributeMotherGridManagerInterface
      *
      * @return bool
      */
-    public function updateAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer):bool
+    public function updateAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer): bool
     {
         $attributeMotherGridEntity = $this
             ->sizeHarmonizationQueryContainer

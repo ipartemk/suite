@@ -18,19 +18,19 @@ use Symfony\Component\HttpFoundation\Request;
  * @method \Pyz\Zed\SizeHarmonization\Communication\SizeHarmonizationCommunicationFactory getFactory()
  * @method \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer getQueryContainer()
  */
-class AttributeMotherGridController extends AbstractController
+class AttributeGridGroupController extends AbstractController
 {
     /**
      * @return array
      */
     public function indexAction()
     {
-        $attributeMotherGridTable = $this
+        $attributeGridGroupTable = $this
             ->getFactory()
-            ->createAttributeMotherGridTable();
+            ->createAttributeGridGroupTable();
 
         return $this->viewResponse([
-            'table' => $attributeMotherGridTable->render(),
+            'table' => $attributeGridGroupTable->render(),
         ]);
     }
 
@@ -39,12 +39,12 @@ class AttributeMotherGridController extends AbstractController
      */
     public function tableAction()
     {
-        $attributeMotherGridTable = $this
+        $attributeGridGroupTable = $this
             ->getFactory()
-            ->createAttributeMotherGridTable();
+            ->createAttributeGridGroupTable();
 
         return $this->jsonResponse(
-            $attributeMotherGridTable->fetchData()
+            $attributeGridGroupTable->fetchData()
         );
     }
 
@@ -55,11 +55,11 @@ class AttributeMotherGridController extends AbstractController
      */
     public function addAction(Request $request)
     {
-        $dataProvider = $this->getFactory()->createAttributeMotherGridFormDataProvider();
+        $dataProvider = $this->getFactory()->createAttributeGridGroupFormDataProvider();
 
         $form = $this
             ->getFactory()
-            ->createAttributeMotherGridForm(
+            ->createAttributeGridGroupForm(
                 $dataProvider->getData(),
                 $dataProvider->getOptions()
             )
@@ -67,18 +67,18 @@ class AttributeMotherGridController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $attributeMotherGridTransfer = $this->getFactory()
-                    ->createAttributeMotherGridFormTransferMapper()
-                    ->mapToAttributeMotherGridTransfer($form);
+                $attributeGridGroupTransfer = $this->getFactory()
+                    ->createAttributeGridGroupFormTransferMapper()
+                    ->mapToAttributeGridGroupTransfer($form);
 
-                $idAttributeMotherGrid = $this->getFacade()
-                    ->addAttributeMotherGrid($attributeMotherGridTransfer);
+                $idAttributeGridGroup = $this->getFacade()
+                    ->addAttributeGridGroup($attributeGridGroupTransfer);
 
-                $this->addSuccessMessage('The Attribute Mother Grid [%s] was added successfully.', [
-                    '%s' => $attributeMotherGridTransfer->getName(),
+                $this->addSuccessMessage('The Attribute Grid Group [%s] was added successfully.', [
+                    '%s' => $attributeGridGroupTransfer->getGroup(),
                 ]);
 
-                return $this->createRedirectResponseAfterAdd($idAttributeMotherGrid, $request);
+                return $this->createRedirectResponseAfterAdd($idAttributeGridGroup, $request);
             } catch (Exception $exception) {
                 $this->addErrorMessage($exception->getMessage());
             }
@@ -96,59 +96,59 @@ class AttributeMotherGridController extends AbstractController
      */
     public function editAction(Request $request)
     {
-        $idAttributeMotherGrid = $this->castId($request->query->get(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID));
-        $dataProvider = $this->getFactory()->createAttributeMotherGridFormDataProvider();
+        $idAttributeGridGroup = $this->castId($request->query->get(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_GRID_GROUP));
+        $dataProvider = $this->getFactory()->createAttributeGridGroupFormDataProvider();
 
         $form = $this->getFactory()
-            ->createAttributeMotherGridForm(
-                $dataProvider->getData($idAttributeMotherGrid),
-                $dataProvider->getOptions($idAttributeMotherGrid)
+            ->createAttributeGridGroupForm(
+                $dataProvider->getData($idAttributeGridGroup),
+                $dataProvider->getOptions($idAttributeGridGroup)
             )
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $attributeMotherGridTransfer = $this->getFactory()
-                ->createAttributeMotherGridFormTransferMapper()
-                ->mapToAttributeMotherGridTransfer($form);
+            $attributeGridGroupTransfer = $this->getFactory()
+                ->createAttributeGridGroupFormTransferMapper()
+                ->mapToAttributeGridGroupTransfer($form);
 
             $isUpdated = $this->getFacade()
-                ->updateAttributeMotherGrid($attributeMotherGridTransfer);
+                ->updateAttributeGridGroup($attributeGridGroupTransfer);
 
             if (!$isUpdated) {
-                $this->addErrorMessage('Attribute Mother Grid was not updated.');
+                $this->addErrorMessage('Attribute Grid Group was not updated.');
 
                 return $this->viewResponse([
                     'form' => $form->createView(),
-                    'idAttributeMotherGrid' => $idAttributeMotherGrid,
+                    'idAttributeGridGroup' => $idAttributeGridGroup,
                 ]);
             }
 
-            $this->addSuccessMessage('The Attribute Mother Grid [%s] was updated successfully.', [
-                '%s' => $attributeMotherGridTransfer->getName(),
+            $this->addSuccessMessage('The Attribute Grid Group [%s] was updated successfully.', [
+                '%s' => $attributeGridGroupTransfer->getGroup(),
             ]);
 
-            return $this->createRedirectResponseAfterAdd($idAttributeMotherGrid, $request);
+            return $this->createRedirectResponseAfterAdd($idAttributeGridGroup, $request);
         }
 
         return $this->viewResponse([
             'form' => $form->createView(),
-            'idAttributeMotherGrid' => $idAttributeMotherGrid,
+            'idAttributeGridGroup' => $idAttributeGridGroup,
         ]);
     }
 
     /**
-     * @param int $idAttributeMotherGrid
+     * @param int $idAttributeGridGroup
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    protected function createRedirectResponseAfterAdd(int $idAttributeMotherGrid, Request $request)
+    protected function createRedirectResponseAfterAdd(int $idAttributeGridGroup, Request $request)
     {
         $params = $request->query->all();
-        $params[SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID] = $idAttributeMotherGrid;
+        $params[SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_GRID_GROUP] = $idAttributeGridGroup;
 
         return $this->redirectResponse(
-            urldecode(Url::generate('/size-harmonization/attribute-mother-grid/edit', $params)->build())
+            urldecode(Url::generate('/size-harmonization/attribute-grid-group/edit', $params)->build())
         );
     }
 }

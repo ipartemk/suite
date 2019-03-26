@@ -8,4 +8,15 @@
         <property name="name" type="string"/>
     </transfer>
 
+    <transfer name="AttributeMotherGridKey">
+        <property name="idAttributeMotherGridKey" type="int"/>
+        <property name="fkAttributeMotherGrid" type="int"/>
+        <property name="key" type="string"/>
+    </transfer>
+
+    <transfer name="AttributeGridGroup">
+        <property name="idAttributeGridGroup" type="int"/>
+        <property name="group" type="string"/>
+    </transfer>
+
 </transfers>

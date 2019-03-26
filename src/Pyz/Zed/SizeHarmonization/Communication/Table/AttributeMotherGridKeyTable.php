@@ -7,18 +7,19 @@
 
 namespace Pyz\Zed\SizeHarmonization\Communication\Table;
 
-use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridTableMap;
-use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGrid;
+use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridKeyTableMap;
+use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKey;
 use Pyz\Shared\SizeHarmonization\SizeHarmonizationConfig;
 use Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainerInterface;
 use Spryker\Service\UtilText\Model\Url\Url;
 use Spryker\Zed\Gui\Communication\Table\AbstractTable;
 use Spryker\Zed\Gui\Communication\Table\TableConfiguration;
 
-class AttributeMotherGridTable extends AbstractTable
+class AttributeMotherGridKeyTable extends AbstractTable
 {
-    public const COL_ID_ATTRIBUTE_MOTHER_GRID = 'id_attribute_mother_grid';
-    public const COL_NAME = 'name';
+    public const COL_ID_ATTRIBUTE_MOTHER_GRID_KEY = 'id_attribute_mother_grid_key';
+    public const COL_KEY = 'key';
+    public const COL_ATTRIBUTE_MOTHER_GRID = 'attribute_mother_grid';
     public const COL_ACTIONS = 'actions';
 
     /**
@@ -43,8 +44,9 @@ class AttributeMotherGridTable extends AbstractTable
     protected function configure(TableConfiguration $config)
     {
         $config->setHeader([
-            static::COL_ID_ATTRIBUTE_MOTHER_GRID => 'AMG ID',
-            static::COL_NAME => 'Name',
+            static::COL_ID_ATTRIBUTE_MOTHER_GRID_KEY => 'AMG ID',
+            static::COL_KEY => 'Name',
+            static::COL_ATTRIBUTE_MOTHER_GRID => 'AMG',
             static::COL_ACTIONS => 'Actions',
         ]);
 
@@ -53,12 +55,13 @@ class AttributeMotherGridTable extends AbstractTable
         ]);
 
         $config->setSearchable([
-            MytAttributeMotherGridTableMap::COL_NAME,
+            MytAttributeMotherGridKeyTableMap::COL_KEY,
         ]);
 
         $config->setSortable([
-            static::COL_ID_ATTRIBUTE_MOTHER_GRID,
-            static::COL_NAME,
+            static::COL_ID_ATTRIBUTE_MOTHER_GRID_KEY,
+            static::COL_KEY,
+            static::COL_ATTRIBUTE_MOTHER_GRID,
         ]);
 
         $config->setDefaultSortDirection(TableConfiguration::SORT_ASC);
@@ -75,44 +78,48 @@ class AttributeMotherGridTable extends AbstractTable
     {
         $query = $this
             ->sizeHarmonizationQueryContainer
-            ->queryAttributeMotherGrid();
+            ->queryAttributeMotherGridKey();
 
         $queryResults = $this->runQuery($query, $config, true);
 
         $productAbstractCollection = [];
-        foreach ($queryResults as $attributeMotherGridEntity) {
-            $productAbstractCollection[] = $this->generateItem($attributeMotherGridEntity);
+        foreach ($queryResults as $attributeMotherGridKeyEntity) {
+            $productAbstractCollection[] = $this->generateItem($attributeMotherGridKeyEntity);
         }
 
         return $productAbstractCollection;
     }
 
     /**
-     * @param \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGrid $attributeMotherGridEntity
+     * @param \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKey $attributeMotherGridKeyEntity
      *
      * @return array
      */
-    protected function generateItem(MytAttributeMotherGrid $attributeMotherGridEntity)
+    protected function generateItem(MytAttributeMotherGridKey $attributeMotherGridKeyEntity)
     {
         return [
-            static::COL_ID_ATTRIBUTE_MOTHER_GRID => $attributeMotherGridEntity->getIdAttributeMotherGrid(),
-            static::COL_NAME => $attributeMotherGridEntity->getName(),
-            static::COL_ACTIONS => implode(' ', $this->createActionColumn($attributeMotherGridEntity)),
+            static::COL_ID_ATTRIBUTE_MOTHER_GRID_KEY => $attributeMotherGridKeyEntity->getIdAttributeMotherGridKey(),
+            static::COL_KEY => $attributeMotherGridKeyEntity->getKey(),
+            //@ARTEM @todo
+            static::COL_ATTRIBUTE_MOTHER_GRID => $attributeMotherGridKeyEntity
+                ->getMytAttributeMotherGrid()
+                ->getName(),
+            static::COL_ACTIONS => implode(' ', $this->createActionColumn($attributeMotherGridKeyEntity)),
         ];
     }
 
     /**
-     * @param \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGrid $attributeMotherGridEntity
+     * @param \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKey $attributeMotherGridKeyEntity
      *
      * @return array
      */
-    protected function createActionColumn(MytAttributeMotherGrid $attributeMotherGridEntity)
+    protected function createActionColumn(MytAttributeMotherGridKey $attributeMotherGridKeyEntity)
     {
         $urls = [];
 
         $urls[] = $this->generateEditButton(
-            Url::generate('/size-harmonization/attribute-mother-grid/edit', [
-                SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID => $attributeMotherGridEntity->getIdAttributeMotherGrid(),
+            Url::generate('/size-harmonization/attribute-mother-grid-key/edit', [
+                SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_KEY => $attributeMotherGridKeyEntity->getIdAttributeMotherGridKey(),
             ]),
             'Edit'
         );

@@ -19,10 +19,18 @@
                 <label>Attribute mother grid Key</label>
                 <title>Attribute mother grid Key</title>
                 <bundle>size-harmonization</bundle>
-                <controller>index</controller>
+                <controller>attribute-mother-grid-key</controller>
                 <action>index</action>
                 <visible>1</visible>
             </amg_key>
+            <ag_group>
+                <label>Attribute grid Group</label>
+                <title>Attribute grid Group</title>
+                <bundle>size-harmonization</bundle>
+                <controller>attribute-grid-group</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </ag_group>
             <amg_value>
                 <label>Attribute mother grid Value</label>
                 <title>Attribute mother grid Value</title>
@@ -31,14 +39,6 @@
                 <action>index</action>
                 <visible>1</visible>
             </amg_value>
-            <ag_group>
-                <label>Attribute grid Group</label>
-                <title>Attribute grid Group</title>
-                <bundle>size-harmonization</bundle>
-                <controller>index</controller>
-                <action>index</action>
-                <visible>1</visible>
-            </ag_group>
             <ag_value>
                 <label>Attribute grid Value</label>
                 <title>Attribute grid Value</title>

@@ -7,6 +7,8 @@
 
 namespace Pyz\Zed\SizeHarmonization\Business;
 
+use Generated\Shared\Transfer\AttributeGridGroupTransfer;
+use Generated\Shared\Transfer\AttributeMotherGridKeyTransfer;
 use Generated\Shared\Transfer\AttributeMotherGridTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -22,7 +24,7 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
      *
      * @return int
      */
-    public function addAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer):int
+    public function addAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer): int
     {
         return $this->getFactory()
             ->createAttributeMotherGridManager()
@@ -36,10 +38,66 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
      *
      * @return bool
      */
-    public function updateAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer):bool
+    public function updateAttributeMotherGrid(AttributeMotherGridTransfer $attributeMotherGridTransfer): bool
     {
         return $this->getFactory()
             ->createAttributeMotherGridManager()
             ->updateAttributeMotherGrid($attributeMotherGridTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param \Generated\Shared\Transfer\AttributeMotherGridKeyTransfer $attributeMotherGridKeyTransfer
+     *
+     * @return int
+     */
+    public function addAttributeMotherGridKey(AttributeMotherGridKeyTransfer $attributeMotherGridKeyTransfer): int
+    {
+        return $this->getFactory()
+            ->createAttributeMotherGridKeyManager()
+            ->addAttributeMotherGridKey($attributeMotherGridKeyTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param \Generated\Shared\Transfer\AttributeMotherGridKeyTransfer $attributeMotherGridKeyTransfer
+     *
+     * @return bool
+     */
+    public function updateAttributeMotherGridKey(AttributeMotherGridKeyTransfer $attributeMotherGridKeyTransfer): bool
+    {
+        return $this->getFactory()
+            ->createAttributeMotherGridKeyManager()
+            ->updateAttributeMotherGridKey($attributeMotherGridKeyTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param \Generated\Shared\Transfer\AttributeGridGroupTransfer $attributeGridGroupTransfer
+     *
+     * @return int
+     */
+    public function addAttributeGridGroup(AttributeGridGroupTransfer $attributeGridGroupTransfer): int
+    {
+        return $this->getFactory()
+            ->createAttributeGridGroupManager()
+            ->addAttributeGridGroup($attributeGridGroupTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param \Generated\Shared\Transfer\AttributeGridGroupTransfer $attributeGridGroupTransfer
+     *
+     * @return bool
+     */
+    public function updateAttributeGridGroup(AttributeGridGroupTransfer $attributeGridGroupTransfer): bool
+    {
+        return $this->getFactory()
+            ->createAttributeGridGroupManager()
+            ->updateAttributeMotherGrid($attributeGridGroupTransfer);
     }
 }

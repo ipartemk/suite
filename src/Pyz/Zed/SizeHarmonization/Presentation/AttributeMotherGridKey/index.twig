@@ -1,15 +1,15 @@
 {% extends '@Application/Layout/layout.twig' %}
 
-{% set widget_title = 'Attribute mother grid' %}
+{% set widget_title = 'Attribute mother grid Key' %}
 {% block section_title %}{{ widget_title }}{% endblock %}
 
 {% block action %}
-    {{ createActionButton('/size-harmonization/attribute-mother-grid/add', 'Create AMG' | trans) }}
+    {{ createActionButton('/size-harmonization/attribute-mother-grid-key/add', 'Create AMG Key' | trans) }}
 {% endblock %}
 
 {% block content %}
 
-    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'AMG' } %}
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'AMG Key' } %}
 
         {% block widget_content %}
             {{ table | raw }}

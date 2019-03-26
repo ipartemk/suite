@@ -7,6 +7,8 @@
 
 namespace Pyz\Zed\SizeHarmonization\Business;
 
+use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeGridGroupManager;
+use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridKeyManager;
 use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridManager;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -17,11 +19,31 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 class SizeHarmonizationBusinessFactory extends AbstractBusinessFactory
 {
     /**
-     * @return \Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridManagerInterface
+     * @return \Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridManager
      */
     public function createAttributeMotherGridManager()
     {
         return new AttributeMotherGridManager(
+            $this->getQueryContainer()
+        );
+    }
+
+    /**
+     * @return \Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridKeyManager
+     */
+    public function createAttributeMotherGridKeyManager()
+    {
+        return new AttributeMotherGridKeyManager(
+            $this->getQueryContainer()
+        );
+    }
+
+    /**
+     * @return \Pyz\Zed\SizeHarmonization\Business\Manager\AttributeGridGroupManager
+     */
+    public function createAttributeGridGroupManager()
+    {
+        return new AttributeGridGroupManager(
             $this->getQueryContainer()
         );
     }

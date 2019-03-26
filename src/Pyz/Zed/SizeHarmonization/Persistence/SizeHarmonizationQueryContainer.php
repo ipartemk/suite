@@ -38,4 +38,54 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
 
         return $query;
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKeyQuery
+     */
+    public function queryAttributeMotherGridKey()
+    {
+        return $this->getFactory()->createAttributeMotherGridKeyQuery();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param int $id
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKeyQuery
+     */
+    public function queryAttributeMotherGridKeyById($id)
+    {
+        $query = $this->queryAttributeMotherGridKey();
+        $query->filterByIdAttributeMotherGridKey($id);
+
+        return $query;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery
+     */
+    public function queryAttributeGridGroup()
+    {
+        return $this->getFactory()->createAttributeGridGroupQuery();
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param int $id
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery
+     */
+    public function queryAttributeGridGroupById($id)
+    {
+        $query = $this->queryAttributeGridGroup();
+        $query->filterByIdAttributeGridGroup($id);
+
+        return $query;
+    }
 }

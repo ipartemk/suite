@@ -7,21 +7,21 @@
 
 namespace Pyz\Zed\SizeHarmonization\Communication\Mapper;
 
-use Generated\Shared\Transfer\AttributeMotherGridTransfer;
+use Generated\Shared\Transfer\AttributeGridGroupTransfer;
 use Symfony\Component\Form\FormInterface;
 
-class AttributeMotherGridFormTransferMapper
+class AttributeGridGroupFormTransferMapper
 {
     /**
      * @param \Symfony\Component\Form\FormInterface $form
      *
-     * @return \Generated\Shared\Transfer\AttributeMotherGridTransfer
+     * @return \Generated\Shared\Transfer\AttributeGridGroupTransfer
      */
-    public function mapToAttributeMotherGridTransfer(FormInterface $form)
+    public function mapToAttributeGridGroupTransfer(FormInterface $form)
     {
         $formData = $form->getData();
 
-        $attributeMotherGridTransfer = $this->createAttributeMotherGridTransfer($formData);
+        $attributeMotherGridTransfer = $this->createAttributeGridGroupTransfer($formData);
 
         return $attributeMotherGridTransfer;
     }
@@ -29,11 +29,11 @@ class AttributeMotherGridFormTransferMapper
     /**
      * @param array $data
      *
-     * @return \Generated\Shared\Transfer\AttributeMotherGridTransfer
+     * @return \Generated\Shared\Transfer\AttributeGridGroupTransfer
      */
-    protected function createAttributeMotherGridTransfer(array $data)
+    protected function createAttributeGridGroupTransfer(array $data)
     {
-        $productAbstractTransfer = (new AttributeMotherGridTransfer())
+        $productAbstractTransfer = (new AttributeGridGroupTransfer())
             ->fromArray($data, true);
 
         return $productAbstractTransfer;

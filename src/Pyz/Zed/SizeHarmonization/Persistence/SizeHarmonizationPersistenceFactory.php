@@ -7,6 +7,8 @@
 
 namespace Pyz\Zed\SizeHarmonization\Persistence;
 
+use Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery;
+use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKeyQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
 
@@ -22,5 +24,21 @@ class SizeHarmonizationPersistenceFactory extends AbstractPersistenceFactory
     public function createAttributeMotherGridQuery()
     {
         return MytAttributeMotherGridQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKeyQuery
+     */
+    public function createAttributeMotherGridKeyQuery()
+    {
+        return MytAttributeMotherGridKeyQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery
+     */
+    public function createAttributeGridGroupQuery()
+    {
+        return MytAttributeGridGroupQuery::create();
     }
 }

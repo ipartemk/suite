@@ -34,7 +34,7 @@
         <id-method-parameter value="myt_attribute_mother_grid_value_pk_seq"/>
     </table>
 
-    <table name="myt_attribute_grid_group" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridGroup">
+    <table name="myt_attribute_grid_group" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridGroup" identifierQuoting ="true">
         <column name="id_attribute_grid_group" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
         <column name="group" required="true" type="VARCHAR" size="255"/>
         <behavior name="timestampable"/>

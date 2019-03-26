@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * This file is part of the Spryker Suite.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
 namespace Pyz\Zed\SizeHarmonization\Communication\Form;
@@ -18,9 +18,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @method \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainerInterface getQueryContainer()
  * @method \Pyz\Zed\SizeHarmonization\SizeHarmonizationConfig getConfig()
  */
-class AttributeMotherGridFormAdd extends AbstractType
+class AttributeGridGroupForm extends AbstractType
 {
-    public const FIELD_NAME = 'name';
+    public const FIELD_GROUP = 'group';
 
     /**
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
@@ -30,7 +30,7 @@ class AttributeMotherGridFormAdd extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->addNameField($builder);
+        $this->addGroupField($builder);
     }
 
     /**
@@ -38,11 +38,11 @@ class AttributeMotherGridFormAdd extends AbstractType
      *
      * @return $this
      */
-    protected function addNameField(FormBuilderInterface $builder)
+    protected function addGroupField(FormBuilderInterface $builder)
     {
         $builder
-            ->add(self::FIELD_NAME, TextType::class, [
-                'label' => 'Name',
+            ->add(self::FIELD_GROUP, TextType::class, [
+                'label' => 'Group',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
