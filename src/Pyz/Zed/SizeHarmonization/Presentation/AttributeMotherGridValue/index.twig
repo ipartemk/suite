@@ -1,0 +1,20 @@
+{% extends '@Application/Layout/layout.twig' %}
+
+{% set widget_title = 'Attribute mother grid Value' %}
+{% block section_title %}{{ widget_title }}{% endblock %}
+
+{% block action %}
+    {{ createActionButton('/size-harmonization/attribute-mother-grid-value/add', 'Create AMG Value' | trans) }}
+{% endblock %}
+
+{% block content %}
+
+    {% embed '@Gui/Partials/widget.twig' with { widget_title: 'AMG Key' } %}
+
+        {% block widget_content %}
+            {{ table | raw }}
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}

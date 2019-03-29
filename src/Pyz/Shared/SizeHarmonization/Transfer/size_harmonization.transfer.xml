@@ -14,6 +14,12 @@
         <property name="key" type="string"/>
     </transfer>
 
+    <transfer name="AttributeMotherGridValue">
+        <property name="idAttributeMotherGridValue" type="int"/>
+        <property name="fkAttributeMotherGridKey" type="int"/>
+        <property name="value" type="string"/>
+    </transfer>
+
     <transfer name="AttributeGridGroup">
         <property name="idAttributeGridGroup" type="int"/>
         <property name="group" type="string"/>

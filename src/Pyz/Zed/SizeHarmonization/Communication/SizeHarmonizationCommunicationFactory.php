@@ -10,15 +10,19 @@ namespace Pyz\Zed\SizeHarmonization\Communication;
 use Pyz\Zed\SizeHarmonization\Communication\Form\AttributeGridGroupForm;
 use Pyz\Zed\SizeHarmonization\Communication\Form\AttributeMotherGridForm;
 use Pyz\Zed\SizeHarmonization\Communication\Form\AttributeMotherGridKeyForm;
+use Pyz\Zed\SizeHarmonization\Communication\Form\AttributeMotherGridValueForm;
 use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeGridGroupFormDataProvider;
 use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGridFormDataProvider;
 use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGridKeyFormDataProvider;
+use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGridValueFormDataProvider;
 use Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeGridGroupFormTransferMapper;
 use Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeMotherGridFormTransferMapper;
 use Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeMotherGridKeyFormTransferMapper;
+use Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeMotherGridValueFormTransferMapper;
 use Pyz\Zed\SizeHarmonization\Communication\Table\AttributeGridGroupTable;
 use Pyz\Zed\SizeHarmonization\Communication\Table\AttributeMotherGridKeyTable;
 use Pyz\Zed\SizeHarmonization\Communication\Table\AttributeMotherGridTable;
+use Pyz\Zed\SizeHarmonization\Communication\Table\AttributeMotherGridValueTable;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 /**
@@ -104,6 +108,45 @@ class SizeHarmonizationCommunicationFactory extends AbstractCommunicationFactory
     public function createAttributeMotherGridKeyFormTransferMapper()
     {
         return new AttributeMotherGridKeyFormTransferMapper();
+    }
+
+    /**
+     * @return \Spryker\Zed\Gui\Communication\Table\AbstractTable
+     */
+    public function createAttributeMotherGridValueTable()
+    {
+        return new AttributeMotherGridValueTable(
+            $this->getQueryContainer()
+        );
+    }
+
+    /**
+     * @param array $formData
+     * @param array $formOptions
+     *
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createAttributeMotherGridValueForm(array $formData, array $formOptions = [])
+    {
+        return $this->getFormFactory()->create(AttributeMotherGridValueForm::class, $formData, $formOptions);
+    }
+
+    /**
+     * @return \Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGridValueFormDataProvider
+     */
+    public function createAttributeMotherGridValueFormDataProvider()
+    {
+        return new AttributeMotherGridValueFormDataProvider(
+            $this->getQueryContainer()
+        );
+    }
+
+    /**
+     * @return \Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeMotherGridValueFormTransferMapper
+     */
+    public function createAttributeMotherGridValueFormTransferMapper()
+    {
+        return new AttributeMotherGridValueFormTransferMapper();
     }
 
     /**

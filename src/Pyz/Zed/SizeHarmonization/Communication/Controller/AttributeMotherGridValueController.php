@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @method \Pyz\Zed\SizeHarmonization\Communication\SizeHarmonizationCommunicationFactory getFactory()
  * @method \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer getQueryContainer()
  */
-class AttributeMotherGridKeyController extends AbstractController
+class AttributeMotherGridValueController extends AbstractController
 {
     /**
      * @return array
@@ -27,7 +27,7 @@ class AttributeMotherGridKeyController extends AbstractController
     {
         $table = $this
             ->getFactory()
-            ->createAttributeMotherGridKeyTable();
+            ->createAttributeMotherGridValueTable();
 
         return $this->viewResponse([
             'table' => $table->render(),
@@ -41,7 +41,7 @@ class AttributeMotherGridKeyController extends AbstractController
     {
         $table = $this
             ->getFactory()
-            ->createAttributeMotherGridKeyTable();
+            ->createAttributeMotherGridValueTable();
 
         return $this->jsonResponse(
             $table->fetchData()
@@ -55,11 +55,11 @@ class AttributeMotherGridKeyController extends AbstractController
      */
     public function addAction(Request $request)
     {
-        $dataProvider = $this->getFactory()->createAttributeMotherGridKeyFormDataProvider();
+        $dataProvider = $this->getFactory()->createAttributeMotherGridvalueFormDataProvider();
 
         $form = $this
             ->getFactory()
-            ->createAttributeMotherGridKeyForm(
+            ->createAttributeMotherGridvalueForm(
                 $dataProvider->getData(),
                 $dataProvider->getOptions()
             )
@@ -67,15 +67,15 @@ class AttributeMotherGridKeyController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $attributeMotherGridKeyTransfer = $this->getFactory()
-                    ->createAttributeMotherGridKeyFormTransferMapper()
-                    ->mapToAttributeMotherGridKeyTransfer($form);
+                $attributeMotherGridValueTransfer = $this->getFactory()
+                    ->createAttributeMotherGridValueFormTransferMapper()
+                    ->mapToAttributeMotherGridValueTransfer($form);
 
                 $idAttributeMotherGrid = $this->getFacade()
-                    ->addAttributeMotherGridKey($attributeMotherGridKeyTransfer);
+                    ->addAttributeMotherGridValue($attributeMotherGridValueTransfer);
 
-                $this->addSuccessMessage('The Attribute Mother Grid Key [%s] was added successfully.', [
-                    '%s' => $attributeMotherGridKeyTransfer->getKey(),
+                $this->addSuccessMessage('The Attribute Mother Grid Value [%s] was added successfully.', [
+                    '%s' => $attributeMotherGridValueTransfer->getValue(),
                 ]);
 
                 return $this->createRedirectResponseAfterAdd($idAttributeMotherGrid, $request);
@@ -96,59 +96,59 @@ class AttributeMotherGridKeyController extends AbstractController
      */
     public function editAction(Request $request)
     {
-        $idAttributeMotherGridKey = $this->castId($request->query->get(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_KEY));
-        $dataProvider = $this->getFactory()->createAttributeMotherGridKeyFormDataProvider();
+        $idAttributeMotherGridValue = $this->castId($request->query->get(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_VALUE));
+        $dataProvider = $this->getFactory()->createAttributeMotherGridValueFormDataProvider();
 
         $form = $this->getFactory()
-            ->createAttributeMotherGridKeyForm(
-                $dataProvider->getData($idAttributeMotherGridKey),
-                $dataProvider->getOptions($idAttributeMotherGridKey)
+            ->createAttributeMotherGridValueForm(
+                $dataProvider->getData($idAttributeMotherGridValue),
+                $dataProvider->getOptions($idAttributeMotherGridValue)
             )
             ->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $attributeMotherGridKeyTransfer = $this->getFactory()
-                ->createAttributeMotherGridKeyFormTransferMapper()
-                ->mapToAttributeMotherGridKeyTransfer($form);
+            $attributeMotherGridValueTransfer = $this->getFactory()
+                ->createAttributeMotherGridValueFormTransferMapper()
+                ->mapToAttributeMotherGridValueTransfer($form);
 
             $isUpdated = $this->getFacade()
-                ->updateAttributeMotherGridKey($attributeMotherGridKeyTransfer);
+                ->updateAttributeMotherGridValue($attributeMotherGridValueTransfer);
 
             if (!$isUpdated) {
-                $this->addErrorMessage('Attribute Mother Grid Key was not updated.');
+                $this->addErrorMessage('Attribute Mother Grid Value was not updated.');
 
                 return $this->viewResponse([
                     'form' => $form->createView(),
-                    'idAttributeMotherGridKey' => $idAttributeMotherGridKey,
+                    'idAttributeMotherGridValue' => $idAttributeMotherGridValue,
                 ]);
             }
 
-            $this->addSuccessMessage('The Attribute Mother Grid Key [%s] was updated successfully.', [
-                '%s' => $attributeMotherGridKeyTransfer->getKey(),
+            $this->addSuccessMessage('The Attribute Mother Grid Value [%s] was updated successfully.', [
+                '%s' => $attributeMotherGridValueTransfer->getValue(),
             ]);
 
-            return $this->createRedirectResponseAfterAdd($idAttributeMotherGridKey, $request);
+            return $this->createRedirectResponseAfterAdd($idAttributeMotherGridValue, $request);
         }
 
         return $this->viewResponse([
             'form' => $form->createView(),
-            'idAttributeMotherGridKey' => $idAttributeMotherGridKey,
+            'idAttributeMotherGridValue' => $idAttributeMotherGridValue,
         ]);
     }
 
     /**
-     * @param int $idAttributeMotherGridKey
+     * @param int $idAttributeMotherGridValue
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    protected function createRedirectResponseAfterAdd(int $idAttributeMotherGridKey, Request $request)
+    protected function createRedirectResponseAfterAdd(int $idAttributeMotherGridValue, Request $request)
     {
         $params = $request->query->all();
-        $params[SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_KEY] = $idAttributeMotherGridKey;
+        $params[SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_VALUE] = $idAttributeMotherGridValue;
 
         return $this->redirectResponse(
-            urldecode(Url::generate('/size-harmonization/attribute-mother-grid-key/edit', $params)->build())
+            urldecode(Url::generate('/size-harmonization/attribute-mother-grid-value/edit', $params)->build())
         );
     }
 }
