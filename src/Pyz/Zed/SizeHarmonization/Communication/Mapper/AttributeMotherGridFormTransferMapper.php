@@ -33,9 +33,9 @@ class AttributeMotherGridFormTransferMapper
      */
     protected function createAttributeMotherGridTransfer(array $data)
     {
-        $productAbstractTransfer = (new AttributeMotherGridTransfer())
+        $attributeMotherGridTransfer = (new AttributeMotherGridTransfer())
             ->fromArray($data, true);
 
-        return $productAbstractTransfer;
+        return $attributeMotherGridTransfer;
     }
 }

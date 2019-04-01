@@ -25,4 +25,11 @@
         <property name="group" type="string"/>
     </transfer>
 
+    <transfer name="AttributeGridValue">
+        <property name="idAttributeGridValue" type="int"/>
+        <property name="fkAttributeMotherGridKey" type="int"/>
+        <property name="fkAttributeGridGroup" type="int"/>
+        <property name="value" type="string"/>
+    </transfer>
+
 </transfers>

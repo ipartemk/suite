@@ -33,9 +33,9 @@ class AttributeGridGroupFormTransferMapper
      */
     protected function createAttributeGridGroupTransfer(array $data)
     {
-        $productAbstractTransfer = (new AttributeGridGroupTransfer())
+        $attributeGridGroupTransfer = (new AttributeGridGroupTransfer())
             ->fromArray($data, true);
 
-        return $productAbstractTransfer;
+        return $attributeGridGroupTransfer;
     }
 }

@@ -8,6 +8,7 @@
 namespace Pyz\Zed\SizeHarmonization\Business;
 
 use Generated\Shared\Transfer\AttributeGridGroupTransfer;
+use Generated\Shared\Transfer\AttributeGridValueTransfer;
 use Generated\Shared\Transfer\AttributeMotherGridKeyTransfer;
 use Generated\Shared\Transfer\AttributeMotherGridTransfer;
 use Generated\Shared\Transfer\AttributeMotherGridValueTransfer;
@@ -69,4 +70,18 @@ interface SizeHarmonizationFacadeInterface
      * @return bool
      */
     public function updateAttributeGridGroup(AttributeGridGroupTransfer $attributeGridGroupTransfer): bool;
+
+    /**
+     * @param \Generated\Shared\Transfer\AttributeGridValueTransfer $attributeGridValueTransfer
+     *
+     * @return int
+     */
+    public function addAttributeGridValue(AttributeGridValueTransfer $attributeGridValueTransfer): int;
+
+    /**
+     * @param \Generated\Shared\Transfer\AttributeGridValueTransfer $attributeGridValueTransfer
+     *
+     * @return bool
+     */
+    public function updateAttributeGridValue(AttributeGridValueTransfer $attributeGridValueTransfer): bool;
 }

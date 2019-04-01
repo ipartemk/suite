@@ -79,12 +79,12 @@ class AttributeMotherGridTable extends AbstractTable
 
         $queryResults = $this->runQuery($query, $config, true);
 
-        $productAbstractCollection = [];
+        $collection = [];
         foreach ($queryResults as $attributeMotherGridEntity) {
-            $productAbstractCollection[] = $this->generateItem($attributeMotherGridEntity);
+            $collection[] = $this->generateItem($attributeMotherGridEntity);
         }
 
-        return $productAbstractCollection;
+        return $collection;
     }
 
     /**

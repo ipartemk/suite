@@ -31,9 +31,9 @@ class AttributeMotherGridKeyFormTransferMapper
      */
     protected function createAttributeMotherGridKeyTransfer(array $data)
     {
-        $productAbstractTransfer = (new AttributeMotherGridKeyTransfer())
+        $attributeMotherGridKeyTransfer = (new AttributeMotherGridKeyTransfer())
             ->fromArray($data, true);
 
-        return $productAbstractTransfer;
+        return $attributeMotherGridKeyTransfer;
     }
 }
