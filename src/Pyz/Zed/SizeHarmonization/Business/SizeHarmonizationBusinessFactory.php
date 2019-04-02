@@ -9,6 +9,7 @@ namespace Pyz\Zed\SizeHarmonization\Business;
 
 use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeGridGroupManager;
 use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeGridValueManager;
+use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridColManager;
 use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridKeyManager;
 use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridManager;
 use Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridValueManager;
@@ -36,6 +37,16 @@ class SizeHarmonizationBusinessFactory extends AbstractBusinessFactory
     public function createAttributeMotherGridKeyManager()
     {
         return new AttributeMotherGridKeyManager(
+            $this->getQueryContainer()
+        );
+    }
+
+    /**
+     * @return \Pyz\Zed\SizeHarmonization\Business\Manager\AttributeMotherGridColManager
+     */
+    public function createAttributeMotherGridColManager()
+    {
+        return new AttributeMotherGridColManager(
             $this->getQueryContainer()
         );
     }

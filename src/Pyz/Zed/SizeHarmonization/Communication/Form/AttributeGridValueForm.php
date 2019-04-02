@@ -24,9 +24,11 @@ class AttributeGridValueForm extends AbstractType
 {
     public const FIELD_VALUE = 'value';
     public const FIELD_ATTRIBUTE_MOTHER_GRID_KEY = 'fk_attribute_mother_grid_key';
+    public const FIELD_ATTRIBUTE_MOTHER_GRID_COL = 'fk_attribute_mother_grid_col';
     public const FIELD_ATTRIBUTE_GRID_GROUP = 'fk_attribute_grid_group';
 
     public const OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES = 'attribute_mother_grid_key_choices';
+    public const OPTION_ATTRIBUTE_MOTHER_GRID_COL_CHOICES = 'attribute_mother_grid_col_choices';
     public const OPTION_ATTRIBUTE_GRID_GROUP_CHOICES = 'attribute_grid_group_choices';
 
     /**
@@ -37,6 +39,7 @@ class AttributeGridValueForm extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(static::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES);
+        $resolver->setRequired(static::OPTION_ATTRIBUTE_MOTHER_GRID_COL_CHOICES);
         $resolver->setRequired(static::OPTION_ATTRIBUTE_GRID_GROUP_CHOICES);
     }
 
@@ -50,6 +53,7 @@ class AttributeGridValueForm extends AbstractType
     {
         $this->addValueField($builder);
         $this->addAttributeMotherGridKeyField($builder, $options);
+        $this->addAttributeMotherGridColField($builder, $options);
         $this->addAttributeGridGroupField($builder, $options);
     }
 
@@ -83,6 +87,23 @@ class AttributeGridValueForm extends AbstractType
         $builder->add(static::FIELD_ATTRIBUTE_MOTHER_GRID_KEY, ChoiceType::class, [
             'label' => 'Attribute mother grid Key',
             'choices' => array_flip($options[static::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES]),
+            'choices_as_values' => true,
+        ]);
+
+        return $this;
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param array $options
+     *
+     * @return $this
+     */
+    protected function addAttributeMotherGridColField(FormBuilderInterface $builder, array $options)
+    {
+        $builder->add(static::FIELD_ATTRIBUTE_MOTHER_GRID_COL, ChoiceType::class, [
+            'label' => 'Attribute mother grid Col',
+            'choices' => array_flip($options[static::OPTION_ATTRIBUTE_MOTHER_GRID_COL_CHOICES]),
             'choices_as_values' => true,
         ]);
 

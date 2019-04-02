@@ -23,6 +23,14 @@
                 <action>index</action>
                 <visible>1</visible>
             </amg_key>
+            <amg_col>
+                <label>Attribute mother grid Col</label>
+                <title>Attribute mother grid Col</title>
+                <bundle>size-harmonization</bundle>
+                <controller>attribute-mother-grid-col</controller>
+                <action>index</action>
+                <visible>1</visible>
+            </amg_col>
             <amg_value>
                 <label>Attribute mother grid Value</label>
                 <title>Attribute mother grid Value</title>

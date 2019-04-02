@@ -20,6 +20,7 @@ class AttributeMotherGridValueTable extends AbstractTable
     public const COL_ID_ATTRIBUTE_MOTHER_GRID_VALUE = 'id_attribute_mother_grid_value';
     public const COL_VALUE = 'value';
     public const COL_ATTRIBUTE_MOTHER_GRID_KEY = 'attribute_mother_grid_key';
+    public const COL_ATTRIBUTE_MOTHER_GRID_COL = 'attribute_mother_grid_col';
     public const COL_ACTIONS = 'actions';
 
     /**
@@ -45,8 +46,9 @@ class AttributeMotherGridValueTable extends AbstractTable
     {
         $config->setHeader([
             static::COL_ID_ATTRIBUTE_MOTHER_GRID_VALUE => 'AMG Value ID',
-            static::COL_VALUE => 'Value',
             static::COL_ATTRIBUTE_MOTHER_GRID_KEY => 'AMG Key',
+            static::COL_ATTRIBUTE_MOTHER_GRID_COL => 'AMG Col',
+            static::COL_VALUE => 'Value',
             static::COL_ACTIONS => 'Actions',
         ]);
 
@@ -62,6 +64,7 @@ class AttributeMotherGridValueTable extends AbstractTable
             static::COL_ID_ATTRIBUTE_MOTHER_GRID_VALUE,
             static::COL_VALUE,
             static::COL_ATTRIBUTE_MOTHER_GRID_KEY,
+            static::COL_ATTRIBUTE_MOTHER_GRID_COL,
         ]);
 
         $config->setDefaultSortDirection(TableConfiguration::SORT_ASC);
@@ -102,10 +105,16 @@ class AttributeMotherGridValueTable extends AbstractTable
             . " - "
             . $attributeMotherGridKeyEntity->getKey();
 
+        $attributeMotherGridColEntity = $attributeMotherGridValueEntity->getMytAttributeMotherGridCol();
+        $col = $attributeMotherGridColEntity->getMytAttributeMotherGrid()->getName()
+            . " - "
+            . $attributeMotherGridColEntity->getCol();
+
         return [
             static::COL_ID_ATTRIBUTE_MOTHER_GRID_VALUE => $attributeMotherGridValueEntity->getIdAttributeMotherGridValue(),
-            static::COL_VALUE => $attributeMotherGridValueEntity->getValue(),
             static::COL_ATTRIBUTE_MOTHER_GRID_KEY => $key,
+            static::COL_ATTRIBUTE_MOTHER_GRID_COL => $col,
+            static::COL_VALUE => $attributeMotherGridValueEntity->getValue(),
             static::COL_ACTIONS => implode(' ', $this->createActionColumn($attributeMotherGridValueEntity)),
         ];
     }

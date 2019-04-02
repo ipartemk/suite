@@ -20,17 +20,50 @@
             <reference local="fk_attribute_mother_grid" foreign="id_attribute_mother_grid"/>
         </foreign-key>
         <behavior name="timestampable"/>
+
+        <unique name="myt_fk_attribute_mother_grid-unique-key">
+            <unique-column name="fk_attribute_mother_grid"/>
+            <unique-column name="key"/>
+        </unique>
+
         <id-method-parameter value="myt_attribute_mother_grid_key_pk_seq"/>
+    </table>
+
+    <table name="myt_attribute_mother_grid_col" idMethod="native" allowPkInsert="true" phpName="MytAttributeMotherGridCol">
+        <column name="id_attribute_mother_grid_col" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
+        <column name="fk_attribute_mother_grid" required="true" type="INTEGER"/>
+        <column name="col" required="true" type="VARCHAR" size="255"/>
+        <foreign-key name="myt_attribute_mother_grid_col-myt_attribute_mother_grid" foreignTable="myt_attribute_mother_grid" onDelete="CASCADE" onUpdate="CASCADE">
+            <reference local="fk_attribute_mother_grid" foreign="id_attribute_mother_grid"/>
+        </foreign-key>
+        <behavior name="timestampable"/>
+
+        <unique name="myt_fk_attribute_mother_grid-unique-col">
+            <unique-column name="fk_attribute_mother_grid"/>
+            <unique-column name="col"/>
+        </unique>
+
+        <id-method-parameter value="myt_attribute_mother_grid_col_pk_seq"/>
     </table>
 
     <table name="myt_attribute_mother_grid_value" idMethod="native" allowPkInsert="true" phpName="MytAttributeMotherGridValue">
         <column name="id_attribute_mother_grid_value" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
         <column name="fk_attribute_mother_grid_key" required="true" type="INTEGER"/>
+        <column name="fk_attribute_mother_grid_col" required="true" type="INTEGER"/>
         <column name="value" required="true" type="VARCHAR" size="255"/>
         <foreign-key name="myt_attribute_mother_grid_value-myt_attribute_mother_grid_key" foreignTable="myt_attribute_mother_grid_key" onDelete="CASCADE" onUpdate="CASCADE">
             <reference local="fk_attribute_mother_grid_key" foreign="id_attribute_mother_grid_key"/>
         </foreign-key>
+        <foreign-key name="myt_attribute_mother_grid_value-myt_attribute_mother_grid_col" foreignTable="myt_attribute_mother_grid_col" onDelete="CASCADE" onUpdate="CASCADE">
+            <reference local="fk_attribute_mother_grid_col" foreign="id_attribute_mother_grid_col"/>
+        </foreign-key>
         <behavior name="timestampable"/>
+
+        <unique name="myt_attribute_mother_grid_value_unique-key-col">
+            <unique-column name="fk_attribute_mother_grid_key"/>
+            <unique-column name="fk_attribute_mother_grid_col"/>
+        </unique>
+
         <id-method-parameter value="myt_attribute_mother_grid_value_pk_seq"/>
     </table>
 
@@ -44,15 +77,26 @@
     <table name="myt_attribute_grid_value" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridValue">
         <column name="id_attribute_grid_value" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
         <column name="fk_attribute_mother_grid_key" required="true" type="INTEGER"/>
+        <column name="fk_attribute_mother_grid_col" required="true" type="INTEGER"/>
         <column name="fk_attribute_grid_group" required="true" type="INTEGER"/>
         <column name="value" required="true" type="VARCHAR" size="255"/>
         <foreign-key name="myt_attribute_grid_value-myt_attribute_mother_grid_key" foreignTable="myt_attribute_mother_grid_key" onDelete="CASCADE" onUpdate="CASCADE">
             <reference local="fk_attribute_mother_grid_key" foreign="id_attribute_mother_grid_key"/>
         </foreign-key>
+        <foreign-key name="myt_attribute_grid_value-myt_attribute_mother_grid_col" foreignTable="myt_attribute_mother_grid_col" onDelete="CASCADE" onUpdate="CASCADE">
+            <reference local="fk_attribute_mother_grid_col" foreign="id_attribute_mother_grid_col"/>
+        </foreign-key>
         <foreign-key name="myt_attribute_grid_value-myt_attribute_grid_group" foreignTable="myt_attribute_grid_group" onDelete="CASCADE" onUpdate="CASCADE">
             <reference local="fk_attribute_grid_group" foreign="id_attribute_grid_group"/>
         </foreign-key>
         <behavior name="timestampable"/>
+
+        <unique name="myt_attribute_grid_value_unique-key-col">
+            <unique-column name="fk_attribute_mother_grid_key"/>
+            <unique-column name="fk_attribute_mother_grid_col"/>
+            <unique-column name="fk_attribute_grid_group"/>
+        </unique>
+
         <id-method-parameter value="myt_attribute_grid_value_pk_seq"/>
     </table>
 

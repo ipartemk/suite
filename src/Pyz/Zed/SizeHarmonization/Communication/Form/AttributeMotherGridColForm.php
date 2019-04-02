@@ -20,14 +20,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @method \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainerInterface getQueryContainer()
  * @method \Pyz\Zed\SizeHarmonization\SizeHarmonizationConfig getConfig()
  */
-class AttributeMotherGridValueForm extends AbstractType
+class AttributeMotherGridColForm extends AbstractType
 {
-    public const FIELD_VALUE = 'value';
-    public const FIELD_ATTRIBUTE_MOTHER_GRID_KEY = 'fk_attribute_mother_grid_key';
-    public const FIELD_ATTRIBUTE_MOTHER_GRID_COL = 'fk_attribute_mother_grid_col';
+    public const FIELD_COL = 'col';
+    public const FIELD_ATTRIBUTE_MOTHER_GRID = 'fk_attribute_mother_grid';
 
-    public const OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES = 'attribute_mother_grid_key_choices';
-    public const OPTION_ATTRIBUTE_MOTHER_GRID_COL_CHOICES = 'attribute_mother_grid_col_choices';
+    public const OPTION_ATTRIBUTE_MOTHER_GRID_CHOICES = 'attribute_mother_grid_choices';
 
     /**
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
@@ -36,8 +34,7 @@ class AttributeMotherGridValueForm extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(static::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES);
-        $resolver->setRequired(static::OPTION_ATTRIBUTE_MOTHER_GRID_COL_CHOICES);
+        $resolver->setRequired(static::OPTION_ATTRIBUTE_MOTHER_GRID_CHOICES);
     }
 
     /**
@@ -48,9 +45,8 @@ class AttributeMotherGridValueForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->addValueField($builder);
-        $this->addAttributeMotherGridKeyField($builder, $options);
-        $this->addAttributeMotherGridColField($builder, $options);
+        $this->addColField($builder);
+        $this->addAttributeMotherGridField($builder, $options);
     }
 
     /**
@@ -58,11 +54,11 @@ class AttributeMotherGridValueForm extends AbstractType
      *
      * @return $this
      */
-    protected function addValueField(FormBuilderInterface $builder)
+    protected function addColField(FormBuilderInterface $builder)
     {
         $builder
-            ->add(self::FIELD_VALUE, TextType::class, [
-                'label' => 'Value',
+            ->add(self::FIELD_COL, TextType::class, [
+                'label' => 'Col',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
@@ -78,28 +74,11 @@ class AttributeMotherGridValueForm extends AbstractType
      *
      * @return $this
      */
-    protected function addAttributeMotherGridKeyField(FormBuilderInterface $builder, array $options)
+    protected function addAttributeMotherGridField(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(static::FIELD_ATTRIBUTE_MOTHER_GRID_KEY, ChoiceType::class, [
-            'label' => 'Attribute mother grid Key',
-            'choices' => array_flip($options[static::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES]),
-            'choices_as_values' => true,
-        ]);
-
-        return $this;
-    }
-
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     *
-     * @return $this
-     */
-    protected function addAttributeMotherGridColField(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add(static::FIELD_ATTRIBUTE_MOTHER_GRID_COL, ChoiceType::class, [
-            'label' => 'Attribute mother grid Col',
-            'choices' => array_flip($options[static::OPTION_ATTRIBUTE_MOTHER_GRID_COL_CHOICES]),
+        $builder->add(static::FIELD_ATTRIBUTE_MOTHER_GRID, ChoiceType::class, [
+            'label' => 'Attribute mother grid',
+            'choices' => array_flip($options[static::OPTION_ATTRIBUTE_MOTHER_GRID_CHOICES]),
             'choices_as_values' => true,
         ]);
 

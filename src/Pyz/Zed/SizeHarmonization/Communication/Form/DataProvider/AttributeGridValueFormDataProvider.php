@@ -58,6 +58,7 @@ class AttributeGridValueFormDataProvider
     {
         return [
             AttributeGridValueForm::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES => $this->getAttributeMotherGridKeyList(),
+            AttributeGridValueForm::OPTION_ATTRIBUTE_MOTHER_GRID_COL_CHOICES => $this->getAttributeMotherGridColList(),
             AttributeGridValueForm::OPTION_ATTRIBUTE_GRID_GROUP_CHOICES => $this->getAttributeGridGroupList(),
         ];
     }
@@ -83,6 +84,29 @@ class AttributeGridValueFormDataProvider
         }
 
         return $attributeMotherGridKeyList;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getAttributeMotherGridColList()
+    {
+        $collection = $this->sizeHarmonizationQueryContainer
+            ->queryAttributeMotherGridCol()
+            ->orderByFkAttributeMotherGrid()
+            ->find();
+
+        $attributeMotherGridColList = [];
+
+        /** @var \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridCol $attributeMotherGridColEntity */
+        foreach ($collection->getData() as $attributeMotherGridColEntity) {
+            $attributeMotherGridColList[$attributeMotherGridColEntity->getIdAttributeMotherGridCol()] =
+                $attributeMotherGridColEntity->getMytAttributeMotherGrid()->getName()
+                . " - "
+                . $attributeMotherGridColEntity->getCol();
+        }
+
+        return $attributeMotherGridColList;
     }
 
     /**
