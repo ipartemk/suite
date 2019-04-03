@@ -19,6 +19,7 @@ use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGri
 use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGridFormDataProvider;
 use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGridKeyFormDataProvider;
 use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\AttributeMotherGridValueFormDataProvider;
+use Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\ProductAbstractSizeHarmonizationFormDataProvider;
 use Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeGridGroupFormTransferMapper;
 use Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeGridValueFormTransferMapper;
 use Pyz\Zed\SizeHarmonization\Communication\Mapper\AttributeMotherGridColFormTransferMapper;
@@ -272,5 +273,15 @@ class SizeHarmonizationCommunicationFactory extends AbstractCommunicationFactory
     public function createAttributeGridValueFormTransferMapper()
     {
         return new AttributeGridValueFormTransferMapper();
+    }
+
+    /**
+     * @return \Pyz\Zed\SizeHarmonization\Communication\Form\DataProvider\ProductAbstractSizeHarmonizationFormDataProvider
+     */
+    public function createProductAbstractSizeHarmonizationFormDataProvider()
+    {
+        return new ProductAbstractSizeHarmonizationFormDataProvider(
+            $this->getQueryContainer()
+        );
     }
 }

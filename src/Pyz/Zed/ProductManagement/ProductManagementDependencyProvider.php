@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\ProductManagement;
 
+use Pyz\Zed\SizeHarmonization\Communication\Plugin\ProductManagement\SizeHarmonizationProductAbstractFormExpanderPlugin;
 use Spryker\Zed\CmsBlockProductConnector\Communication\Plugin\CmsBlockProductAbstractBlockListViewPlugin;
 use Spryker\Zed\Kernel\Container;
 use Spryker\Zed\Money\Communication\Plugin\Form\MoneyFormTypePlugin;
@@ -104,6 +105,7 @@ class ProductManagementDependencyProvider extends SprykerProductManagementDepend
     {
         return [
             new MerchantRelationshipProductAbstractFormExpanderPlugin(),
+            new SizeHarmonizationProductAbstractFormExpanderPlugin(),
         ];
     }
 
