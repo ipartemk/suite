@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <size-harmonization-storage>
+        <label>Size Harmonization Storage</label>
+        <title>Size Harmonization Storage</title>
+        <bundle>size-harmonization-storage</bundle>
+        <controller>index</controller>
+        <action>index</action>
+    </size-harmonization-storage>
+</config>
