@@ -60,6 +60,13 @@ interface SizeHarmonizationQueryContainerInterface extends QueryContainerInterfa
     public function queryAttributeMotherGridValueById($id);
 
     /**
+     * @param int $idAttributeMotherGrid
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValueQuery
+     */
+    public function queryAttributeMotherGridValuesByAttributeMotherGrid($idAttributeMotherGrid);
+
+    /**
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery
      */
     public function queryAttributeGridGroup();

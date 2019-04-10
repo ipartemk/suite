@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\SizeHarmonizationStorage\Communication;
 
+use Pyz\Zed\SizeHarmonizationStorage\SizeHarmonizationStorageDependencyProvider;
 use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 
 /**
@@ -16,4 +17,11 @@ use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
  */
 class SizeHarmonizationStorageCommunicationFactory extends AbstractCommunicationFactory
 {
+    /**
+     * @return \Pyz\Zed\SizeHarmonizationStorage\Dependency\Facade\SizeHarmonizationStorageToEventBehaviorFacadeBridge
+     */
+    public function getEventBehaviorFacade()
+    {
+        return $this->getProvidedDependency(SizeHarmonizationStorageDependencyProvider::FACADE_EVENT_BEHAVIOR);
+    }
 }

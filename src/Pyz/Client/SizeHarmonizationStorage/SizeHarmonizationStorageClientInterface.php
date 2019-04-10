@@ -7,6 +7,14 @@
 
 namespace Pyz\Client\SizeHarmonizationStorage;
 
+use Generated\Shared\Transfer\AttributeMotherGridStorageTransfer;
+
 interface SizeHarmonizationStorageClientInterface
 {
+    /**
+     * @param int $idProductAbstract
+     *
+     * @return \Generated\Shared\Transfer\AttributeMotherGridStorageTransfer|null
+     */
+    public function findProductAbstractCategory($idProductAbstract): ?AttributeMotherGridStorageTransfer;
 }

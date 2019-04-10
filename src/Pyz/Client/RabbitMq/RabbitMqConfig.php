@@ -9,6 +9,7 @@ namespace Pyz\Client\RabbitMq;
 
 use ArrayObject;
 use Generated\Shared\Transfer\RabbitMqOptionTransfer;
+use Pyz\Shared\SizeHarmonizationStorage\SizeHarmonizationStorageConfig;
 use Spryker\Client\RabbitMq\Model\Connection\Connection;
 use Spryker\Client\RabbitMq\RabbitMqConfig as SprykerRabbitMqConfig;
 use Spryker\Shared\AvailabilityStorage\AvailabilityStorageConstants;
@@ -61,6 +62,8 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
                 $this->get(LogConstants::LOG_ERROR_QUEUE_NAME)
             )
         );
+        // MyT Size Harmonization
+        $queueOptionCollection->append($this->createQueueOption(SizeHarmonizationStorageConfig::ATTRIBUTE_MOTHER_GRID_SYNC_STORAGE_QUEUE, SizeHarmonizationStorageConfig::ATTRIBUTE_MOTHER_GRID_SYNC_STORAGE_ERROR_QUEUE));
 
         return $queueOptionCollection;
     }

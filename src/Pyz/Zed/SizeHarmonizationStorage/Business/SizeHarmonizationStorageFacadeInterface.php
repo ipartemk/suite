@@ -9,4 +9,17 @@ namespace Pyz\Zed\SizeHarmonizationStorage\Business;
 
 interface SizeHarmonizationStorageFacadeInterface
 {
+    /**
+     * @param array $attributeMotherGridIds
+     *
+     * @return void
+     */
+    public function publish(array $attributeMotherGridIds): void;
+
+    /**
+     * @param array $attributeMotherGridIds
+     *
+     * @return void
+     */
+    public function unpublish(array $attributeMotherGridIds): void;
 }

@@ -14,4 +14,27 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class SizeHarmonizationStorageFacade extends AbstractFacade implements SizeHarmonizationStorageFacadeInterface
 {
+    /**
+     * @param array $attributeMotherGridIds
+     *
+     * @return void
+     */
+    public function publish(array $attributeMotherGridIds): void
+    {
+        $this->getFactory()
+            ->createAttributeMotherGridStorageWriter()
+            ->publish($attributeMotherGridIds);
+    }
+
+    /**
+     * @param array $attributeMotherGridIds
+     *
+     * @return void
+     */
+    public function unpublish(array $attributeMotherGridIds): void
+    {
+        $this->getFactory()
+            ->createAttributeMotherGridStorageWriter()
+            ->unpublish($attributeMotherGridIds);
+    }
 }

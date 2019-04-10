@@ -9,6 +9,9 @@
         <column name="id_attribute_mother_grid" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
         <column name="name" required="true" type="VARCHAR" size="255"/>
         <behavior name="timestampable"/>
+        <behavior name="event">
+            <parameter name="myt_attribute_mother_grid_all" column="*"/>
+        </behavior>
         <id-method-parameter value="myt_attribute_mother_grid_pk_seq"/>
     </table>
 
@@ -67,7 +70,7 @@
         <id-method-parameter value="myt_attribute_mother_grid_value_pk_seq"/>
     </table>
 
-    <table name="myt_attribute_grid_group" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridGroup" identifierQuoting ="true">
+    <table name="myt_attribute_grid_group" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridGroup" identifierQuoting="true">
         <column name="id_attribute_grid_group" required="true" type="INTEGER" primaryKey="true" autoIncrement="true"/>
         <column name="group" required="true" type="VARCHAR" size="255"/>
         <behavior name="timestampable"/>

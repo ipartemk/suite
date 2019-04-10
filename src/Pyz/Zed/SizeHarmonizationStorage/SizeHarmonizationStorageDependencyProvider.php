@@ -7,11 +7,16 @@
 
 namespace Pyz\Zed\SizeHarmonizationStorage;
 
+use Pyz\Zed\SizeHarmonizationStorage\Dependency\Facade\SizeHarmonizationStorageToEventBehaviorFacadeBridge;
+use Pyz\Zed\SizeHarmonizationStorage\Dependency\QueryContainer\SizeHarmonizationStorageToSizeHarmonizationQueryContainerBridge;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
 
 class SizeHarmonizationStorageDependencyProvider extends AbstractBundleDependencyProvider
 {
+    public const QUERY_CONTAINER_ATTRIBUTE_MOTHER_GRID = 'QUERY_CONTAINER_ATTRIBUTE_MOTHER_GRID';
+    public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
+
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
@@ -19,7 +24,11 @@ class SizeHarmonizationStorageDependencyProvider extends AbstractBundleDependenc
      */
     public function provideCommunicationLayerDependencies(Container $container)
     {
-        //TODO Provide dependencies
+        $container[static::FACADE_EVENT_BEHAVIOR] = function (Container $container) {
+            return new SizeHarmonizationStorageToEventBehaviorFacadeBridge(
+                $container->getLocator()->eventBehavior()->facade()
+            );
+        };
 
         return $container;
     }
@@ -31,8 +40,6 @@ class SizeHarmonizationStorageDependencyProvider extends AbstractBundleDependenc
      */
     public function provideBusinessLayerDependencies(Container $container)
     {
-        //TODO Provide dependencies
-
         return $container;
     }
 
@@ -43,7 +50,11 @@ class SizeHarmonizationStorageDependencyProvider extends AbstractBundleDependenc
      */
     public function providePersistenceLayerDependencies(Container $container)
     {
-        //TODO Provide dependencies
+        $container[static::QUERY_CONTAINER_ATTRIBUTE_MOTHER_GRID] = function (Container $container) {
+            return new SizeHarmonizationStorageToSizeHarmonizationQueryContainerBridge(
+                $container->getLocator()->sizeHarmonization()->queryContainer()
+            );
+        };
 
         return $container;
     }

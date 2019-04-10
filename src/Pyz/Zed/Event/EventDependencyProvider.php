@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\Event;
 
+use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Subscriber\SizeHarmonizationStorageEventSubscriber;
 use Spryker\Zed\AvailabilityNotification\Communication\Plugin\Event\Subscriber\AvailabilityNotificationSubscriber;
 use Spryker\Zed\AvailabilityStorage\Communication\Plugin\Event\Subscriber\AvailabilityStorageEventSubscriber;
 use Spryker\Zed\CategoryImageStorage\Communication\Plugin\Event\Subscriber\CategoryImageStorageEventSubscriber;
@@ -108,6 +109,10 @@ class EventDependencyProvider extends SprykerEventDependencyProvider
         $eventSubscriberCollection->add(new ContentStorageEventSubscriber());
 
         $eventSubscriberCollection->add(new AvailabilityNotificationSubscriber());
+        /**
+         * MyT Size Harmonization
+         */
+        $eventSubscriberCollection->add(new SizeHarmonizationStorageEventSubscriber());
         /**
          * Search Events
          */

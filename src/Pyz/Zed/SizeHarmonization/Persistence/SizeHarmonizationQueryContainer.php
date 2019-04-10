@@ -115,6 +115,24 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
     }
 
     /**
+     * @inheritdoc
+     *
+     * @param int $idAttributeMotherGrid
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValueQuery
+     */
+    public function queryAttributeMotherGridValuesByAttributeMotherGrid($idAttributeMotherGrid)
+    {
+        $query = $this->queryAttributeMotherGridValue()
+            ->useMytAttributeMotherGridKeyQuery()
+                ->filterByFkAttributeMotherGrid($idAttributeMotherGrid)
+            ->endUse()
+            ->joinWithMytAttributeMotherGridCol();
+
+        return $query;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery

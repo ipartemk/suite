@@ -5,4 +5,21 @@
           namespace="Orm\Zed\SizeHarmonizationStorage\Persistence"
           package="src.Orm.Zed.SizeHarmonizationStorage.Persistence">
 
+    <table name="myt_attribute_mother_grid_storage" identifierQuoting="true" idMethod="native" allowPkInsert="true" phpName="MytAttributeMotherGridStorage">
+        <column name="id_attribute_mother_grid_storage" type="BIGINT" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_attribute_mother_grid" required="true" type="INTEGER"/>
+        <index name="myt_attribute_mother_grid_storage-myt_attribute_mother_grid">
+            <index-column name="fk_attribute_mother_grid" />
+        </index>
+        <id-method-parameter value="myt_attribute_mother_grid_storage_pk_seq"/>
+        <behavior name="synchronization">
+            <parameter name="resource" value="attribute_mother_grid"/>
+            <parameter name="locale" required="false"/>
+            <parameter name="store" required="false" />
+            <parameter name="key_suffix_column" value="fk_attribute_mother_grid"/>
+            <parameter name="queue_group" value="sync.storage.attribute_mother_grid"/>
+        </behavior>
+        <behavior name="timestampable"/>
+    </table>
+
 </database>
