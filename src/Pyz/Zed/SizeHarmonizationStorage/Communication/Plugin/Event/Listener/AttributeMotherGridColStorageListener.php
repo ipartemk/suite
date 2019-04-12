@@ -17,7 +17,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \Pyz\Zed\SizeHarmonizationStorage\SizeHarmonizationStorageConfig getConfig()
  * @method \Pyz\Zed\SizeHarmonizationStorage\Persistence\SizeHarmonizationStorageQueryContainerInterface getQueryContainer()
  */
-class SizeHarmonizationStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
+class AttributeMotherGridColStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
     public function handleBulk(array $eventTransfers, $eventName)
     {
@@ -25,13 +25,18 @@ class SizeHarmonizationStorageListener extends AbstractPlugin implements EventBu
             ->getEventBehaviorFacade()
             ->getEventTransferIds($eventTransfers);
 
-        if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_DELETE) {
-            $this->getFacade()->unpublish($messageIds);
+        $attributeMotherGridIds = $this->getQueryContainer()
+            ->queryAttributeMotherGridIdsByColIds($messageIds)
+            ->find()
+            ->getData();
+
+        if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_COL_DELETE) {
+            $this->getFacade()->unpublish($attributeMotherGridIds);
         } elseif (
-            $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_CREATE
-            || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_UPDATE
+            $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_COL_CREATE
+            || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_COL_UPDATE
         ) {
-            $this->getFacade()->publish($messageIds);
+            $this->getFacade()->publish($attributeMotherGridIds);
         }
     }
 }

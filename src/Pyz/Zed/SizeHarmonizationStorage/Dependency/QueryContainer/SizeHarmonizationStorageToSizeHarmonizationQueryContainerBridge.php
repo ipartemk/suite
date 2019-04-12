@@ -31,6 +31,14 @@ class SizeHarmonizationStorageToSizeHarmonizationQueryContainerBridge
     }
 
     /**
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValueQuery
+     */
+    public function queryAttributeMotherGridValue()
+    {
+        return $this->queryContainer->queryAttributeMotherGridValue();
+    }
+
+    /**
      * @param int $idAttributeMotherGrid
      *
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValueQuery

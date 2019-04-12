@@ -51,7 +51,7 @@ class AttributeMotherGridColManager
     {
         $attributeMotherGridColEntity = $this
             ->sizeHarmonizationQueryContainer
-            ->queryAttributeMotherGridKeyById($attributeMotherGridColTransfer->getIdAttributeMotherGridCol())
+            ->queryAttributeMotherGridColById($attributeMotherGridColTransfer->getIdAttributeMotherGridCol())
             ->findOne();
 
         if (!$attributeMotherGridColEntity) {
