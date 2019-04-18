@@ -20,10 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class ProductAbstractSizeHarmonizationForm extends AbstractType
 {
-    public const FIELD_ATTRIBUTE_MOTHER_GRID_KEY = 'fk_attribute_mother_grid_key';
     public const FIELD_ATTRIBUTE_GRID_GROUP = 'fk_attribute_grid_group';
 
-    public const OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES = 'attribute_mother_grid_key_choices';
     public const OPTION_ATTRIBUTE_GRID_GROUP_CHOICES = 'attribute_grid_group_choices';
 
     /**
@@ -33,7 +31,6 @@ class ProductAbstractSizeHarmonizationForm extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired(static::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES);
         $resolver->setRequired(static::OPTION_ATTRIBUTE_GRID_GROUP_CHOICES);
     }
 
@@ -45,26 +42,7 @@ class ProductAbstractSizeHarmonizationForm extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->addAttributeMotherGridKeyField($builder, $options);
         $this->addAttributeGridGroupField($builder, $options);
-    }
-
-    /**
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     *
-     * @return $this
-     */
-    protected function addAttributeMotherGridKeyField(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add(static::FIELD_ATTRIBUTE_MOTHER_GRID_KEY, ChoiceType::class, [
-            'label' => 'Attribute mother grid Key',
-            'choices' => array_flip($options[static::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES]),
-            'choices_as_values' => true,
-            'required' => false,
-        ]);
-
-        return $this;
     }
 
     /**

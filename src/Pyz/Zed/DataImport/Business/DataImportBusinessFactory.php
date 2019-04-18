@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\DataImport\Business;
 
+use Pyz\Zed\DataImport\Business\Model\AttributeMotherGridProduct\AttributeMotherGridProductWriterStep;
 use Pyz\Zed\DataImport\Business\Model\CategoryTemplate\CategoryTemplateWriterStep;
 use Pyz\Zed\DataImport\Business\Model\CmsBlock\Category\Repository\CategoryRepository;
 use Pyz\Zed\DataImport\Business\Model\CmsBlock\CmsBlockWriterStep;
@@ -168,7 +169,8 @@ class DataImportBusinessFactory extends SprykerDataImportBusinessFactory
             ->addDataImporter($this->createCmsBlockStoreImporter())
             ->addDataImporter($this->createCmsBlockCategoryPositionImporter())
             ->addDataImporter($this->createCmsBlockCategoryImporter())
-            ->addDataImporter($this->createDiscountAmountImporter());
+            ->addDataImporter($this->createDiscountAmountImporter())
+            ->addDataImporter($this->createAttributeMotherGridProductImporter());
 
         $dataImporterCollection->addDataImporterPlugins($this->getDataImporterPlugins());
 
@@ -1478,5 +1480,21 @@ class DataImportBusinessFactory extends SprykerDataImportBusinessFactory
     protected function createAddLocalesStep(): DataImportStepInterface
     {
         return new AddLocalesStep($this->getStore());
+    }
+
+    /**
+     * @return \Spryker\Zed\DataImport\Business\Model\DataImporterInterface|\Spryker\Zed\DataImport\Business\Model\DataSet\DataSetStepBrokerAwareInterface
+     */
+    protected function createAttributeMotherGridProductImporter()
+    {
+        $dataImporter = $this->getCsvDataImporterFromConfig($this->getConfig()->getAttributeMotherGridProductImporterConfiguration());
+
+        $dataSetStepBroker = $this->createTransactionAwareDataSetStepBroker();
+        $dataSetStepBroker
+            ->addStep(new AttributeMotherGridProductWriterStep());
+
+        $dataImporter->addDataSetStepBroker($dataSetStepBroker);
+
+        return $dataImporter;
     }
 }

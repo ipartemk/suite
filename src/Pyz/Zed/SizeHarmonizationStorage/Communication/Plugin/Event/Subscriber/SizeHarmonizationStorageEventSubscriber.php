@@ -49,6 +49,10 @@ class SizeHarmonizationStorageEventSubscriber extends AbstractPlugin implements 
             ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_CREATE, new AttributeMotherGridValueStorageListener())
             ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_UPDATE, new AttributeMotherGridValueStorageListener())
             ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_DELETE, new AttributeMotherGridValueStorageListener())
+
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_CREATE, new AttributeMotherGridValueStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_UPDATE, new AttributeMotherGridValueStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_DELETE, new AttributeMotherGridValueStorageListener())
         ;
 
         return $eventCollection;

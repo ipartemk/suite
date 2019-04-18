@@ -52,6 +52,7 @@ class DataImportConfig extends SprykerDataImportConfig
     public const IMPORT_TYPE_CURRENCY = 'currency';
     public const IMPORT_TYPE_STORE = 'store';
     public const IMPORT_TYPE_ORDER_SOURCE = 'order-source';
+    public const IMPORT_TYPE_ATTRIBUTE_MOTHER_GRID_PRODUCT = 'amg-product';
 
     /**
      * @return \Generated\Shared\Transfer\DataImporterConfigurationTransfer
@@ -355,5 +356,13 @@ class DataImportConfig extends SprykerDataImportConfig
     public function getDiscountVoucherDataImporterConfiguration()
     {
         return $this->buildImporterConfiguration('discount_voucher.csv', static::IMPORT_TYPE_DISCOUNT_VOUCHER);
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\DataImporterConfigurationTransfer
+     */
+    public function getAttributeMotherGridProductImporterConfiguration()
+    {
+        return $this->buildImporterConfiguration('attribute_mother_grid_product.csv', static::IMPORT_TYPE_ATTRIBUTE_MOTHER_GRID_PRODUCT);
     }
 }

@@ -4,11 +4,7 @@
           package="src.Orm.Zed.Product.Persistence">
 
     <table name="spy_product_abstract">
-        <column name="fk_attribute_mother_grid_key" required="false" type="INTEGER"/>
         <column name="fk_attribute_grid_group" required="false" type="INTEGER"/>
-        <foreign-key name="spy_product-myt_attribute_mother_grid_key" foreignTable="myt_attribute_mother_grid_key" onDelete="CASCADE" onUpdate="CASCADE">
-            <reference local="fk_attribute_mother_grid_key" foreign="id_attribute_mother_grid_key"/>
-        </foreign-key>
         <foreign-key name="spy_product-myt_attribute_grid_group" foreignTable="myt_attribute_grid_group" onDelete="CASCADE" onUpdate="CASCADE">
             <reference local="fk_attribute_grid_group" foreign="id_attribute_grid_group"/>
         </foreign-key>

@@ -32,4 +32,8 @@ interface SizeHarmonizationEvents
     public const ENTITY_MYT_ATTRIBUTE_GRID_GROUP_CREATE = 'Entity.myt_attribute_grid_group.create';
     public const ENTITY_MYT_ATTRIBUTE_GRID_GROUP_UPDATE = 'Entity.myt_attribute_grid_group.update';
     public const ENTITY_MYT_ATTRIBUTE_GRID_GROUP_DELETE = 'Entity.myt_attribute_grid_group.delete';
+
+    public const ENTITY_MYT_ATTRIBUTE_GRID_PRODUCT_ABSTRACT_CREATE = 'Entity.myt_attribute_grid_product_abstract.create';
+    public const ENTITY_MYT_ATTRIBUTE_GRID_PRODUCT_ABSTRACT_UPDATE = 'Entity.myt_attribute_grid_product_abstract.update';
+    public const ENTITY_MYT_ATTRIBUTE_GRID_PRODUCT_ABSTRACT_DELETE = 'Entity.myt_attribute_grid_product_abstract.delete';
 }

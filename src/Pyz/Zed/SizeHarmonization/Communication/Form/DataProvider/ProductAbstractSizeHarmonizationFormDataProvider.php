@@ -34,32 +34,8 @@ class ProductAbstractSizeHarmonizationFormDataProvider
     public function getOptions($idProductAbstract = null)
     {
         return [
-            ProductAbstractSizeHarmonizationForm::OPTION_ATTRIBUTE_MOTHER_GRID_KEY_CHOICES => $this->getAttributeMotherGridKeyList(),
             ProductAbstractSizeHarmonizationForm::OPTION_ATTRIBUTE_GRID_GROUP_CHOICES => $this->getAttributeGridGroupList(),
         ];
-    }
-
-    /**
-     * @return array
-     */
-    protected function getAttributeMotherGridKeyList()
-    {
-        $collection = $this->sizeHarmonizationQueryContainer
-            ->queryAttributeMotherGridKey()
-            ->orderByFkAttributeMotherGrid()
-            ->find();
-
-        $attributeMotherGridKeyList = [];
-
-        /** @var \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKey $attributeMotherGridKeyEntity */
-        foreach ($collection->getData() as $attributeMotherGridKeyEntity) {
-            $attributeMotherGridKeyList[$attributeMotherGridKeyEntity->getIdAttributeMotherGridKey()] =
-                $attributeMotherGridKeyEntity->getMytAttributeMotherGrid()->getName()
-                . " - "
-                . $attributeMotherGridKeyEntity->getKey();
-        }
-
-        return $attributeMotherGridKeyList;
     }
 
     /**

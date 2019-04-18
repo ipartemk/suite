@@ -9,6 +9,9 @@ namespace Pyz\Shared\SizeHarmonization;
 
 class SizeHarmonizationConfig
 {
+    public const COUNTRIES = 'MY_THERESA_COUNTRIES';
+    public const CURRENT_COUNTRY = 'MY_THERESA_CURRENT_COUNTRY';
+
     public const PARAM_ID_ATTRIBUTE_MOTHER_GRID = 'id-amg';
     public const PARAM_ID_ATTRIBUTE_MOTHER_GRID_KEY = 'id-amg-key';
     public const PARAM_ID_ATTRIBUTE_MOTHER_GRID_COL = 'id-amg-col';

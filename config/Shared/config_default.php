@@ -449,3 +449,13 @@ $config[TranslatorConstants::TRANSLATION_ZED_CACHE_DIRECTORY] = sprintf(
 $config[TranslatorConstants::TRANSLATION_ZED_FILE_PATH_PATTERNS] = [
     APPLICATION_ROOT_DIR . '/data/translation/Zed/*/[a-z][a-z]_[A-Z][A-Z].csv',
 ];
+
+/**
+ * My Theresa. Countries
+ *
+ * if you have some other way of country determination, you have to rewrite this part and connected.
+ */
+$config[\Pyz\Shared\SizeHarmonization\SizeHarmonizationConfig::COUNTRIES] = [
+    'DE', 'AT', 'PL'
+];
+$config[\Pyz\Shared\SizeHarmonization\SizeHarmonizationConfig::CURRENT_COUNTRY] = 'DE';

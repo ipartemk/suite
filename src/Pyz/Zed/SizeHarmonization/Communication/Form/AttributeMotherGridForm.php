@@ -21,6 +21,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class AttributeMotherGridForm extends AbstractType
 {
     public const FIELD_NAME = 'name';
+    public const FIELD_AMG_KEY = 'amg_key';
 
     /**
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
@@ -31,6 +32,7 @@ class AttributeMotherGridForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->addNameField($builder);
+        $this->addAmgKeyField($builder);
     }
 
     /**
@@ -43,6 +45,25 @@ class AttributeMotherGridForm extends AbstractType
         $builder
             ->add(self::FIELD_NAME, TextType::class, [
                 'label' => 'Name',
+                'required' => true,
+                'constraints' => [
+                    new NotBlank(),
+                ],
+            ]);
+
+        return $this;
+    }
+
+    /**
+     * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     *
+     * @return $this
+     */
+    protected function addAmgKeyField(FormBuilderInterface $builder)
+    {
+        $builder
+            ->add(self::FIELD_AMG_KEY, TextType::class, [
+                'label' => 'Unique Key',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),
