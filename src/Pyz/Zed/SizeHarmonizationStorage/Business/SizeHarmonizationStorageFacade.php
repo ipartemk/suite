@@ -19,7 +19,7 @@ class SizeHarmonizationStorageFacade extends AbstractFacade implements SizeHarmo
      *
      * @return void
      */
-    public function publish(array $attributeMotherGridIds): void
+    public function publishAttributeMotherGrid(array $attributeMotherGridIds): void
     {
         $this->getFactory()
             ->createAttributeMotherGridStorageWriter()
@@ -31,10 +31,34 @@ class SizeHarmonizationStorageFacade extends AbstractFacade implements SizeHarmo
      *
      * @return void
      */
-    public function unpublish(array $attributeMotherGridIds): void
+    public function unpublishAttributeMotherGrid(array $attributeMotherGridIds): void
     {
         $this->getFactory()
             ->createAttributeMotherGridStorageWriter()
             ->unpublish($attributeMotherGridIds);
+    }
+
+    /**
+     * @param array $productAbstractIds
+     *
+     * @return void
+     */
+    public function publishAttributeGrid(array $productAbstractIds): void
+    {
+        $this->getFactory()
+            ->createAttributeGridStorageWriter()
+            ->publish($productAbstractIds);
+    }
+
+    /**
+     * @param array $productAbstractIds
+     *
+     * @return void
+     */
+    public function unpublishAttributeGrid(array $productAbstractIds): void
+    {
+        $this->getFactory()
+            ->createAttributeGridStorageWriter()
+            ->unpublish($productAbstractIds);
     }
 }

@@ -1,13 +1,14 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * This file is part of the Spryker Suite.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
 namespace Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Subscriber;
 
 use Pyz\Zed\SizeHarmonization\Dependency\SizeHarmonizationEvents;
+use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeGridValueStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridColStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridKeyStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridStorageListener;
@@ -50,10 +51,9 @@ class SizeHarmonizationStorageEventSubscriber extends AbstractPlugin implements 
             ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_UPDATE, new AttributeMotherGridValueStorageListener())
             ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_DELETE, new AttributeMotherGridValueStorageListener())
 
-            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_CREATE, new AttributeMotherGridValueStorageListener())
-            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_UPDATE, new AttributeMotherGridValueStorageListener())
-            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_DELETE, new AttributeMotherGridValueStorageListener())
-        ;
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_CREATE, new AttributeGridValueStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_UPDATE, new AttributeGridValueStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_DELETE, new AttributeGridValueStorageListener());
 
         return $eventCollection;
     }

@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * This file is part of the Spryker Suite.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
 namespace Pyz\Zed\SizeHarmonization\Communication\Plugin\ProductManagement;
@@ -15,6 +15,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * @method \Pyz\Zed\SizeHarmonization\Communication\SizeHarmonizationCommunicationFactory getFactory()
  * @method \Pyz\Zed\SizeHarmonization\SizeHarmonizationConfig getConfig()
+ * @method \Pyz\Zed\SizeHarmonization\Business\SizeHarmonizationFacadeInterface getFacade()
+ * @method \Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainerInterface getQueryContainer()
  */
 class SizeHarmonizationProductAbstractFormExpanderPlugin extends AbstractPlugin implements ProductAbstractFormExpanderPluginInterface
 {

@@ -181,4 +181,43 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
 
         return $query;
     }
+
+    /**
+     * @inheritdoc
+     *
+     * @param int $idAmgKey
+     * @param int $idAmgCol
+     * @param int $idAgGroup
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValueQuery
+     */
+    public function queryAttributeGridValueByKeyAndColAndGroup($idAmgKey, $idAmgCol, $idAgGroup)
+    {
+        $query = $this->queryAttributeGridValue();
+        $query->filterByFkAttributeMotherGridKey($idAmgKey)
+            ->filterByFkAttributeMotherGridCol($idAmgCol)
+            ->filterByFkAttributeGridGroup($idAgGroup);
+
+        return $query;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @param array $productAbstractIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryAttributeMotherGridProductAbstractByProductIds(array $productAbstractIds)
+    {
+        $query = $this->getFactory()
+            ->createAttributeMotherGridProductAbstractQuery()
+//            ->useSpyProductAbstractQuery()
+//                ->leftJoinWithMytAttributeGridGroup()
+//            ->enduse()
+//            ->joinWithMytAttributeMotherGrid()
+            ->filterByFkProductAbstract_In($productAbstractIds);
+
+        return $query;
+    }
 }

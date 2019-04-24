@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ * This file is part of the Spryker Suite.
+ * For full license information, please view the LICENSE file that was distributed with this source code.
  */
 
 namespace Pyz\Zed\SizeHarmonizationStorage\Business\Storage;
@@ -41,15 +41,19 @@ class AttributeMotherGridStorageWriter
             $attributeMotherGridStorageTransfer = new AttributeMotherGridStorageTransfer();
             $attributeMotherGridStorageTransfer->fromArray($attributeMotherGridEntity->toArray(), true);
 
-            $attributeMotherGridValueEntities = $this->queryContainer->queryAttributeMotherGridValuesByAttributeMotherGrid($attributeMotherGridEntity->getIdAttributeMotherGrid());
-            foreach($attributeMotherGridValueEntities as $attributeMotherGridValueEntity) {
+            $attributeMotherGridValueEntities = $this->queryContainer
+                ->queryAttributeMotherGridValuesByAttributeMotherGrid($attributeMotherGridEntity->getIdAttributeMotherGrid())
+                ->find();
+            foreach ($attributeMotherGridValueEntities as $attributeMotherGridValueEntity) {
                 $attributeMotherGridValueStorageTransfer = new AttributeMotherGridValueStorageTransfer();
                 $attributeMotherGridValueStorageTransfer->fromArray($attributeMotherGridValueEntity->toArray(), true);
                 $attributeMotherGridValueStorageTransfer->fromArray(
-                    $attributeMotherGridValueEntity->getMytAttributeMotherGridKey()->toArray(), true
+                    $attributeMotherGridValueEntity->getMytAttributeMotherGridKey()->toArray(),
+                    true
                 );
                 $attributeMotherGridValueStorageTransfer->fromArray(
-                    $attributeMotherGridValueEntity->getMytAttributeMotherGridCol()->toArray(), true
+                    $attributeMotherGridValueEntity->getMytAttributeMotherGridCol()->toArray(),
+                    true
                 );
 
                 $attributeMotherGridStorageTransfer->addValue($attributeMotherGridValueStorageTransfer);
@@ -76,8 +80,10 @@ class AttributeMotherGridStorageWriter
     }
 
     /**
-     * @param $idMessage
+     * @param int $idMessage
      * @param \Generated\Shared\Transfer\AttributeMotherGridStorageTransfer $attributeMotherGridStorageTransfer
+     *
+     * @return void
      */
     protected function store($idMessage, AttributeMotherGridStorageTransfer $attributeMotherGridStorageTransfer)
     {

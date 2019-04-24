@@ -8,7 +8,6 @@
 namespace Pyz\Zed\SizeHarmonization\Communication\Table;
 
 use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridColTableMap;
-use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridKeyTableMap;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridCol;
 use Pyz\Shared\SizeHarmonization\SizeHarmonizationConfig;
 use Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainerInterface;

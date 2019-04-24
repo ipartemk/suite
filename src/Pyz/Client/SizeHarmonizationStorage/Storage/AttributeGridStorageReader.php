@@ -7,13 +7,14 @@
 
 namespace Pyz\Client\SizeHarmonizationStorage\Storage;
 
+use Generated\Shared\Transfer\AttributeGridProductAbstractStorageTransfer;
 use Generated\Shared\Transfer\AttributeMotherGridStorageTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Pyz\Client\SizeHarmonizationStorage\Dependency\Client\SizeHarmonizationStorageToStorageClientBridge;
 use Pyz\Client\SizeHarmonizationStorage\Dependency\Service\SizeHarmonizationStorageToSynchronizationServiceBridge;
 use Pyz\Shared\SizeHarmonizationStorage\SizeHarmonizationStorageConfig;
 
-class AttributeMotherGridStorageReader
+class AttributeGridStorageReader
 {
     /**
      * @var \Pyz\Client\SizeHarmonizationStorage\Dependency\Client\SizeHarmonizationStorageToStorageClientBridge
@@ -38,25 +39,25 @@ class AttributeMotherGridStorageReader
     }
 
     /**
-     * @param int $idAttributeMotherGrid
+     * @param int $idProductAbstract
      *
-     * @return \Generated\Shared\Transfer\AttributeMotherGridStorageTransfer|null
+     * @return \Generated\Shared\Transfer\AttributeGridProductAbstractStorageTransfer|null
      */
-    public function findAttributeMotherGrid($idAttributeMotherGrid)
+    public function findAttributeGridProductAbstract($idProductAbstract)
     {
         $synchronizationDataTransfer = new SynchronizationDataTransfer();
         $synchronizationDataTransfer
-            ->setReference($idAttributeMotherGrid);
+            ->setReference($idProductAbstract);
 
         $key = $this->synchronizationService
-            ->getStorageKeyBuilder(SizeHarmonizationStorageConfig::ATTRIBUTE_MOTHER_GRID_RESOURCE_NAME)
+            ->getStorageKeyBuilder(SizeHarmonizationStorageConfig::ATTRIBUTE_GRID_RESOURCE_NAME)
             ->generateKey($synchronizationDataTransfer);
 
         $data = $this->storageClient->get($key);
 
-        $attributeMotherGridStorageTransfer = new AttributeMotherGridStorageTransfer();
-        $attributeMotherGridStorageTransfer->fromArray($data, true);
+        $attributeGridProductAbstractStorageTransfer = new AttributeGridProductAbstractStorageTransfer();
+        $attributeGridProductAbstractStorageTransfer->fromArray($data, true);
 
-        return $attributeMotherGridStorageTransfer;
+        return $attributeGridProductAbstractStorageTransfer;
     }
 }

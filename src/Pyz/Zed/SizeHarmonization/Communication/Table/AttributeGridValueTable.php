@@ -9,7 +9,6 @@ namespace Pyz\Zed\SizeHarmonization\Communication\Table;
 
 use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridValueTableMap;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValue;
-use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValue;
 use Pyz\Shared\SizeHarmonization\SizeHarmonizationConfig;
 use Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainerInterface;
 use Spryker\Service\UtilText\Model\Url\Url;

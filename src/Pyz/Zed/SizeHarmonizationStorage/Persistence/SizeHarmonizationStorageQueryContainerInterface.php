@@ -12,7 +12,7 @@ use Spryker\Zed\Kernel\Persistence\QueryContainer\QueryContainerInterface;
 interface SizeHarmonizationStorageQueryContainerInterface extends QueryContainerInterface
 {
     /**
-     * @param array $attributeMotherGridId
+     * @param int $attributeMotherGridId
      *
      * @return \Orm\Zed\SizeHarmonizationStorage\Persistence\MytAttributeMotherGridStorageQuery
      */
@@ -26,11 +26,25 @@ interface SizeHarmonizationStorageQueryContainerInterface extends QueryContainer
     public function queryAttributeMotherGridStorageByAttributeMotherGridIds(array $attributeMotherGridIds);
 
     /**
-     * @param array $attriuteMotherGridIds
+     * @param int $productAbstractId
+     *
+     * @return \Orm\Zed\SizeHarmonizationStorage\Persistence\MytAttributeGridStorageQuery
+     */
+    public function queryAttributeGridStorageByProductAbstractId($productAbstractId);
+
+    /**
+     * @param array $productAbstractIds
+     *
+     * @return \Orm\Zed\SizeHarmonizationStorage\Persistence\MytAttributeGridStorageQuery
+     */
+    public function queryAttributeGridStorageByProductAbstractIds(array $productAbstractIds);
+
+    /**
+     * @param array $attributeMotherGridIds
      *
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridQuery
      */
-    public function queryAttributeMotherGridByIds(array $attriuteMotherGridIds);
+    public function queryAttributeMotherGridByIds(array $attributeMotherGridIds);
 
     /**
      * @param array $attriuteMotherGridKeyIds
@@ -40,18 +54,34 @@ interface SizeHarmonizationStorageQueryContainerInterface extends QueryContainer
     public function queryAttributeMotherGridIdsByKeyIds(array $attriuteMotherGridKeyIds);
 
     /**
-     * @param array $attriuteMotherGridColIds
+     * @param array $attributeMotherGridColIds
      *
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridQuery
      */
-    public function queryAttributeMotherGridIdsByColIds(array $attriuteMotherGridColIds);
+    public function queryAttributeMotherGridIdsByColIds(array $attributeMotherGridColIds);
 
     /**
-     * @param array $attriuteMotherGridValueIds
+     * @param array $attributeMotherGridValueIds
      *
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValueQuery
      */
-    public function queryAttributeMotherGridIdsByValueIds(array $attriuteMotherGridValueIds);
+    public function queryAttributeMotherGridIdsByAMGValueIds(array $attributeMotherGridValueIds);
+
+    /**
+     * @param array $attributeGridValueIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValueQuery
+     */
+    public function queryProductAbstractIdsByAGValueIds(array $attributeGridValueIds);
+
+    /**
+     * @param int $idAmgKey
+     * @param int $idAmgCol
+     * @param int $idAgGroup
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValueQuery
+     */
+    public function queryAttributeGridValueByKeyAndColAndGroup($idAmgKey, $idAmgCol, $idAgGroup);
 
     /**
      * @param int $idAttributeMotherGrid
@@ -59,4 +89,11 @@ interface SizeHarmonizationStorageQueryContainerInterface extends QueryContainer
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValueQuery
      */
     public function queryAttributeMotherGridValuesByAttributeMotherGrid($idAttributeMotherGrid);
+
+    /**
+     * @param array $productAbstractIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryAttributeMotherGridProductAbstractByProductIds(array $productAbstractIds);
 }

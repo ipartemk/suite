@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\SizeHarmonizationStorage\Persistence;
 
+use Orm\Zed\SizeHarmonizationStorage\Persistence\MytAttributeGridStorageQuery;
 use Orm\Zed\SizeHarmonizationStorage\Persistence\MytAttributeMotherGridStorageQuery;
 use Pyz\Zed\SizeHarmonizationStorage\SizeHarmonizationStorageDependencyProvider;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -20,9 +21,9 @@ class SizeHarmonizationStoragePersistenceFactory extends AbstractPersistenceFact
     /**
      * @return \Pyz\Zed\SizeHarmonizationStorage\Dependency\QueryContainer\SizeHarmonizationStorageToSizeHarmonizationQueryContainerBridge
      */
-    public function getAttributeMotherGridQueryContainer()
+    public function getSizeHarmonizationQueryContainer()
     {
-        return $this->getProvidedDependency(SizeHarmonizationStorageDependencyProvider::QUERY_CONTAINER_ATTRIBUTE_MOTHER_GRID);
+        return $this->getProvidedDependency(SizeHarmonizationStorageDependencyProvider::QUERY_CONTAINER_SIZE_HARMONIZATION);
     }
 
     /**
@@ -31,5 +32,13 @@ class SizeHarmonizationStoragePersistenceFactory extends AbstractPersistenceFact
     public function createAttributeMotherGridStorageQuery()
     {
         return MytAttributeMotherGridStorageQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\SizeHarmonizationStorage\Persistence\MytAttributeGridStorageQuery
+     */
+    public function createAttributeGridStorageQuery()
+    {
+        return MytAttributeGridStorageQuery::create();
     }
 }

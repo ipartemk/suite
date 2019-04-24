@@ -7,6 +7,7 @@
 
 namespace Pyz\Client\SizeHarmonizationStorage;
 
+use Generated\Shared\Transfer\AttributeGridProductAbstractStorageTransfer;
 use Generated\Shared\Transfer\AttributeMotherGridStorageTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
@@ -16,15 +17,27 @@ use Spryker\Client\Kernel\AbstractClient;
 class SizeHarmonizationStorageClient extends AbstractClient implements SizeHarmonizationStorageClientInterface
 {
     /**
-     * @param int $idProductAbstract
+     * @param int $idAttributeMotherGrid
      *
      * @return \Generated\Shared\Transfer\AttributeMotherGridStorageTransfer|null
      */
-    public function findProductAbstractCategory($idProductAbstract): ?AttributeMotherGridStorageTransfer
+    public function findAttributeMotherGrid($idAttributeMotherGrid): ?AttributeMotherGridStorageTransfer
     {
         return $this->getFactory()
             ->createAttributeMotherGridStorageReader()
-            ->findAttributeMotherGrid($idProductAbstract);
+            ->findAttributeMotherGrid($idAttributeMotherGrid);
+    }
+
+    /**
+     * @param int $idProductAbstract
+     *
+     * @return \Generated\Shared\Transfer\AttributeGridProductAbstractStorageTransfer|null
+     */
+    public function findAttributeGridProductAbstract($idProductAbstract): ?AttributeGridProductAbstractStorageTransfer
+    {
+        return $this->getFactory()
+            ->createAttributeGridStorageReader()
+            ->findAttributeGridProductAbstract($idProductAbstract);
     }
 
     /**

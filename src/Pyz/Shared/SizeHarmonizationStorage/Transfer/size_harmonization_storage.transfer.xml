@@ -6,11 +6,37 @@
     <transfer name="AttributeMotherGridStorage">
         <property name="idAttributeMotherGrid" type="int"/>
         <property name="name" type="string"/>
+        <property name="amgKey" type="string"/>
         <property name="values" singular="value" type="AttributeMotherGridValueStorage[]"/>
     </transfer>
 
     <transfer name="AttributeMotherGridValueStorage">
         <property name="idAttributeMotherGridValue" type="int"/>
+        <property name="idAttributeMotherGridKey" type="int"/>
+        <property name="key" type="string"/>
+        <property name="idAttributeMotherGridCol" type="int"/>
+        <property name="col" type="int"/>
+        <property name="value" type="string"/>
+    </transfer>
+
+    <transfer name="AttributeGridProductAbstractStorage">
+        <property name="idProductAbstract" type="int"/>
+        <property name="idAttributeGridGroup" type="int"/>
+        <property name="attributeGridGroup" type="string"/>
+        <property name="countryValues" singular="countryValue" type="AttributeGridCountryStorage[]"/>
+    </transfer>
+
+    <transfer name="AttributeGridCountryStorage">
+        <property name="country" type="string"/>
+        <property name="idAttributeMotherGrid" type="int"/>
+        <property name="name" type="string"/>
+        <property name="amgKey" type="string"/>
+        <property name="values" singular="value" type="AttributeGridValueStorage[]"/>
+    </transfer>
+
+    <transfer name="AttributeGridValueStorage">
+        <property name="idAttributeMotherGridValue" type="int"/>
+        <property name="idAttributeGridValue" type="int"/>
         <property name="idAttributeMotherGridKey" type="int"/>
         <property name="key" type="string"/>
         <property name="idAttributeMotherGridCol" type="int"/>

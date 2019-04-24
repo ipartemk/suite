@@ -7,6 +7,7 @@
 
 namespace Pyz\Client\SizeHarmonizationStorage;
 
+use Pyz\Client\SizeHarmonizationStorage\Storage\AttributeGridStorageReader;
 use Pyz\Client\SizeHarmonizationStorage\Storage\AttributeMotherGridStorageReader;
 use Pyz\Client\SizeHarmonizationStorage\Zed\SizeHarmonizationStorageStub;
 use Spryker\Client\Kernel\AbstractFactory;
@@ -38,7 +39,15 @@ class SizeHarmonizationStorageFactory extends AbstractFactory
     }
 
     /**
-     * @return \Spryker\Client\ProductCategoryStorage\Dependency\Client\ProductCategoryStorageToStorageClientInterface
+     * @return \Pyz\Client\SizeHarmonizationStorage\Storage\AttributeGridStorageReader
+     */
+    public function createAttributeGridStorageReader()
+    {
+        return new AttributeGridStorageReader($this->getStorage(), $this->getSynchronizationService());
+    }
+
+    /**
+     * @return \Pyz\Client\SizeHarmonizationStorage\Dependency\Client\SizeHarmonizationStorageToStorageClientBridge
      */
     protected function getStorage()
     {
@@ -46,7 +55,7 @@ class SizeHarmonizationStorageFactory extends AbstractFactory
     }
 
     /**
-     * @return \Spryker\Client\ProductCategoryStorage\Dependency\Service\ProductCategoryStorageToSynchronizationServiceBridge
+     * @return \Pyz\Client\SizeHarmonizationStorage\Dependency\Service\SizeHarmonizationStorageToSynchronizationServiceBridge
      */
     protected function getSynchronizationService()
     {

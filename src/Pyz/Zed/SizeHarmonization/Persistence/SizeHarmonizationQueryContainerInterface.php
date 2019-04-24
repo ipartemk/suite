@@ -89,4 +89,22 @@ interface SizeHarmonizationQueryContainerInterface extends QueryContainerInterfa
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValueQuery
      */
     public function queryAttributeGridValueById($id);
+
+    /**
+     * @param int $idAmgKey
+     * @param int $idAmgCol
+     * @param int $idAgGroup
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValueQuery
+     */
+    public function queryAttributeGridValueByKeyAndColAndGroup($idAmgKey, $idAmgCol, $idAgGroup);
+
+    /**
+     * @inheritdoc
+     *
+     * @param array $productAbstractIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryAttributeMotherGridProductAbstractByProductIds(array $productAbstractIds);
 }

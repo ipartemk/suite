@@ -19,24 +19,30 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  */
 class AttributeGridValueStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
+    /**
+     * @param array $eventTransfers
+     * @param string $eventName
+     *
+     * @return void
+     */
     public function handleBulk(array $eventTransfers, $eventName)
     {
         $messageIds = $this->getFactory()
             ->getEventBehaviorFacade()
             ->getEventTransferIds($eventTransfers);
 
-        $attributeMotherGridIds = $this->getQueryContainer()
-            ->queryAttributeMotherGridIdsByValueIds($messageIds)
+        $productAbstractIds = $this->getQueryContainer()
+            ->queryProductAbstractIdsByAGValueIds($messageIds)
+            ->distinct()
             ->find()
             ->getData();
 
-        if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_DELETE) {
-            $this->getFacade()->unpublish($attributeMotherGridIds);
-        } elseif (
-            $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_CREATE
-            || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_VALUE_UPDATE
+        if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_DELETE) {
+            $this->getFacade()->unpublishAttributeGrid($productAbstractIds);
+        } elseif ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_CREATE
+            || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_UPDATE
         ) {
-            $this->getFacade()->publish($attributeMotherGridIds);
+            $this->getFacade()->publishAttributeGrid($productAbstractIds);
         }
     }
 }

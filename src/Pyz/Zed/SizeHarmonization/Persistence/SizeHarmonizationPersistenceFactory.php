@@ -11,6 +11,7 @@ use Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValueQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridColQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridKeyQuery;
+use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValueQuery;
 use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
@@ -67,5 +68,13 @@ class SizeHarmonizationPersistenceFactory extends AbstractPersistenceFactory
     public function createAttributeGridValueQuery()
     {
         return MytAttributeGridValueQuery::create();
+    }
+
+    /**
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function createAttributeMotherGridProductAbstractQuery()
+    {
+        return MytAttributeMotherGridProductAbstractQuery::create();
     }
 }

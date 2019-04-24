@@ -22,4 +22,23 @@
         <behavior name="timestampable"/>
     </table>
 
+    <table name="myt_attribute_grid_storage" identifierQuoting="true" idMethod="native" allowPkInsert="true" phpName="MytAttributeGridStorage">
+        <column name="id_attribute_grid_storage" type="BIGINT" autoIncrement="true" primaryKey="true"/>
+        <column name="fk_product_abstract" required="true" type="INTEGER"/>
+        <column name="fk_attribute_grid_group" required="false" type="INTEGER"/>
+        <column name="attribute_grid_group" required="false" type="VARCHAR" size="255"/>
+        <index name="myt_attribute_grid_storage-spy_product_abstract">
+            <index-column name="fk_product_abstract" />
+        </index>
+        <id-method-parameter value="myt_attribute_grid_storage_pk_seq"/>
+        <behavior name="synchronization">
+            <parameter name="resource" value="attribute_grid"/>
+            <parameter name="locale" required="false"/>
+            <parameter name="store" required="false" />
+            <parameter name="key_suffix_column" value="fk_product_abstract"/>
+            <parameter name="queue_group" value="sync.storage.attribute_grid"/>
+        </behavior>
+        <behavior name="timestampable"/>
+    </table>
+
 </database>

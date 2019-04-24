@@ -19,6 +19,12 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  */
 class AttributeMotherGridStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
+    /**
+     * @param array $eventTransfers
+     * @param string $eventName
+     *
+     * @return void
+     */
     public function handleBulk(array $eventTransfers, $eventName)
     {
         $messageIds = $this->getFactory()
@@ -26,12 +32,11 @@ class AttributeMotherGridStorageListener extends AbstractPlugin implements Event
             ->getEventTransferIds($eventTransfers);
 
         if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_DELETE) {
-            $this->getFacade()->unpublish($messageIds);
-        } elseif (
-            $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_CREATE
+            $this->getFacade()->unpublishAttributeMotherGrid($messageIds);
+        } elseif ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_CREATE
             || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_UPDATE
         ) {
-            $this->getFacade()->publish($messageIds);
+            $this->getFacade()->publishAttributeMotherGrid($messageIds);
         }
     }
 }

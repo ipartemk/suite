@@ -14,7 +14,7 @@ use Spryker\Zed\Kernel\Container;
 
 class SizeHarmonizationStorageDependencyProvider extends AbstractBundleDependencyProvider
 {
-    public const QUERY_CONTAINER_ATTRIBUTE_MOTHER_GRID = 'QUERY_CONTAINER_ATTRIBUTE_MOTHER_GRID';
+    public const QUERY_CONTAINER_SIZE_HARMONIZATION = 'QUERY_CONTAINER_SIZE_HARMONIZATION';
     public const FACADE_EVENT_BEHAVIOR = 'FACADE_EVENT_BEHAVIOR';
 
     /**
@@ -50,7 +50,7 @@ class SizeHarmonizationStorageDependencyProvider extends AbstractBundleDependenc
      */
     public function providePersistenceLayerDependencies(Container $container)
     {
-        $container[static::QUERY_CONTAINER_ATTRIBUTE_MOTHER_GRID] = function (Container $container) {
+        $container[static::QUERY_CONTAINER_SIZE_HARMONIZATION] = function (Container $container) {
             return new SizeHarmonizationStorageToSizeHarmonizationQueryContainerBridge(
                 $container->getLocator()->sizeHarmonization()->queryContainer()
             );

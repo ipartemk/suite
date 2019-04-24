@@ -14,12 +14,26 @@ interface SizeHarmonizationStorageFacadeInterface
      *
      * @return void
      */
-    public function publish(array $attributeMotherGridIds): void;
+    public function publishAttributeMotherGrid(array $attributeMotherGridIds): void;
 
     /**
      * @param array $attributeMotherGridIds
      *
      * @return void
      */
-    public function unpublish(array $attributeMotherGridIds): void;
+    public function unpublishAttributeMotherGrid(array $attributeMotherGridIds): void;
+
+    /**
+     * @param array $productAbstractIds
+     *
+     * @return void
+     */
+    public function publishAttributeGrid(array $productAbstractIds): void;
+
+    /**
+     * @param array $productAbstractIds
+     *
+     * @return void
+     */
+    public function unpublishAttributeGrid(array $productAbstractIds): void;
 }

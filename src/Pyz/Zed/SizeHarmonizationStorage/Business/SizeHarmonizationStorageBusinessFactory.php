@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\SizeHarmonizationStorage\Business;
 
+use Pyz\Zed\SizeHarmonizationStorage\Business\Storage\AttributeGridStorageWriter;
 use Pyz\Zed\SizeHarmonizationStorage\Business\Storage\AttributeMotherGridStorageWriter;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 
@@ -22,6 +23,16 @@ class SizeHarmonizationStorageBusinessFactory extends AbstractBusinessFactory
     public function createAttributeMotherGridStorageWriter()
     {
         return new AttributeMotherGridStorageWriter(
+            $this->getQueryContainer()
+        );
+    }
+
+    /**
+     * @return \Pyz\Zed\SizeHarmonizationStorage\Business\Storage\AttributeGridStorageWriter
+     */
+    public function createAttributeGridStorageWriter()
+    {
+        return new AttributeGridStorageWriter(
             $this->getQueryContainer()
         );
     }
