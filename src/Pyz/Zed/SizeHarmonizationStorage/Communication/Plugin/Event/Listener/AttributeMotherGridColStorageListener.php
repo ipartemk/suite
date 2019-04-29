@@ -36,12 +36,20 @@ class AttributeMotherGridColStorageListener extends AbstractPlugin implements Ev
             ->find()
             ->getData();
 
+        $productAbstractIds = $this->getQueryContainer()
+            ->queryProductAbstractIdsByAttributeMotherGridIds($attributeMotherGridIds)
+            ->distinct()
+            ->find()
+            ->getData();
+
         if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_COL_DELETE) {
             $this->getFacade()->unpublishAttributeMotherGrid($attributeMotherGridIds);
+            $this->getFacade()->unpublishAttributeGrid($productAbstractIds);
         } elseif ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_COL_CREATE
             || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_COL_UPDATE
         ) {
             $this->getFacade()->publishAttributeMotherGrid($attributeMotherGridIds);
+            $this->getFacade()->publishAttributeGrid($productAbstractIds);
         }
     }
 }

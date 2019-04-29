@@ -47,6 +47,14 @@ class SizeHarmonizationStorageToSizeHarmonizationQueryContainerBridge
     }
 
     /**
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery
+     */
+    public function queryAttributeGridGroup()
+    {
+        return $this->queryContainer->queryAttributeGridGroup();
+    }
+
+    /**
      * @param int $idAmgKey
      * @param int $idAmgCol
      * @param int $idAgGroup
@@ -66,6 +74,14 @@ class SizeHarmonizationStorageToSizeHarmonizationQueryContainerBridge
     public function queryAttributeMotherGridValuesByAttributeMotherGrid($idAttributeMotherGrid)
     {
         return $this->queryContainer->queryAttributeMotherGridValuesByAttributeMotherGrid($idAttributeMotherGrid);
+    }
+
+    /**
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryAttributeMotherGridProductAbstract()
+    {
+        return $this->queryContainer->queryAttributeMotherGridProductAbstract();
     }
 
     /**

@@ -75,6 +75,27 @@ interface SizeHarmonizationStorageQueryContainerInterface extends QueryContainer
     public function queryProductAbstractIdsByAGValueIds(array $attributeGridValueIds);
 
     /**
+     * @param array $attributeGridGroupIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridValueQuery
+     */
+    public function queryProductAbstractIdsByAGGroupIds(array $attributeGridGroupIds);
+
+    /**
+     * @param array $attributeMotherGridProductAbstractIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryProductAbstractIdsByAMGProductAbstractIds(array $attributeMotherGridProductAbstractIds);
+
+    /**
+     * @param array $attributeMotherGridIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryProductAbstractIdsByAttributeMotherGridIds(array $attributeMotherGridIds);
+
+    /**
      * @param int $idAmgKey
      * @param int $idAmgCol
      * @param int $idAgGroup

@@ -33,8 +33,8 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
      */
     public function queryAttributeMotherGridById($id)
     {
-        $query = $this->queryAttributeMotherGrid();
-        $query->filterByIdAttributeMotherGrid($id);
+        $query = $this->queryAttributeMotherGrid()
+            ->filterByIdAttributeMotherGrid($id);
 
         return $query;
     }
@@ -58,8 +58,8 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
      */
     public function queryAttributeMotherGridKeyById($id)
     {
-        $query = $this->queryAttributeMotherGridKey();
-        $query->filterByIdAttributeMotherGridKey($id);
+        $query = $this->queryAttributeMotherGridKey()
+            ->filterByIdAttributeMotherGridKey($id);
 
         return $query;
     }
@@ -83,8 +83,8 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
      */
     public function queryAttributeMotherGridColById($id)
     {
-        $query = $this->queryAttributeMotherGridCol();
-        $query->filterByIdAttributeMotherGridCol($id);
+        $query = $this->queryAttributeMotherGridCol()
+            ->filterByIdAttributeMotherGridCol($id);
 
         return $query;
     }
@@ -108,8 +108,8 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
      */
     public function queryAttributeMotherGridValueById($id)
     {
-        $query = $this->queryAttributeMotherGridValue();
-        $query->filterByIdAttributeMotherGridValue($id);
+        $query = $this->queryAttributeMotherGridValue()
+            ->filterByIdAttributeMotherGridValue($id);
 
         return $query;
     }
@@ -151,8 +151,8 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
      */
     public function queryAttributeGridGroupById($id)
     {
-        $query = $this->queryAttributeGridGroup();
-        $query->filterByIdAttributeGridGroup($id);
+        $query = $this->queryAttributeGridGroup()
+            ->filterByIdAttributeGridGroup($id);
 
         return $query;
     }
@@ -176,8 +176,8 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
      */
     public function queryAttributeGridValueById($id)
     {
-        $query = $this->queryAttributeGridValue();
-        $query->filterByIdAttributeGridValue($id);
+        $query = $this->queryAttributeGridValue()
+            ->filterByIdAttributeGridValue($id);
 
         return $query;
     }
@@ -193,12 +193,23 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
      */
     public function queryAttributeGridValueByKeyAndColAndGroup($idAmgKey, $idAmgCol, $idAgGroup)
     {
-        $query = $this->queryAttributeGridValue();
-        $query->filterByFkAttributeMotherGridKey($idAmgKey)
+        $query = $this->queryAttributeGridValue()
+            ->filterByFkAttributeMotherGridKey($idAmgKey)
             ->filterByFkAttributeMotherGridCol($idAmgCol)
             ->filterByFkAttributeGridGroup($idAgGroup);
 
         return $query;
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryAttributeMotherGridProductAbstract()
+    {
+        return $this->getFactory()
+            ->createAttributeMotherGridProductAbstractQuery();
     }
 
     /**
@@ -212,10 +223,6 @@ class SizeHarmonizationQueryContainer extends AbstractQueryContainer implements 
     {
         $query = $this->getFactory()
             ->createAttributeMotherGridProductAbstractQuery()
-//            ->useSpyProductAbstractQuery()
-//                ->leftJoinWithMytAttributeGridGroup()
-//            ->enduse()
-//            ->joinWithMytAttributeMotherGrid()
             ->filterByFkProductAbstract_In($productAbstractIds);
 
         return $query;

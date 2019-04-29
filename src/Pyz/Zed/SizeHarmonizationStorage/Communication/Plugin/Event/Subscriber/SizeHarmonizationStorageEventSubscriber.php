@@ -8,11 +8,14 @@
 namespace Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Subscriber;
 
 use Pyz\Zed\SizeHarmonization\Dependency\SizeHarmonizationEvents;
+use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeGridGroupStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeGridValueStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridColStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridKeyStorageListener;
+use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridProductAbstractStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridStorageListener;
 use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\AttributeMotherGridValueStorageListener;
+use Pyz\Zed\SizeHarmonizationStorage\Communication\Plugin\Event\Listener\ProductAbstractStorageListener;
 use Spryker\Zed\Event\Dependency\EventCollectionInterface;
 use Spryker\Zed\Event\Dependency\Plugin\EventSubscriberInterface;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -53,7 +56,19 @@ class SizeHarmonizationStorageEventSubscriber extends AbstractPlugin implements 
 
             ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_CREATE, new AttributeGridValueStorageListener())
             ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_UPDATE, new AttributeGridValueStorageListener())
-            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_DELETE, new AttributeGridValueStorageListener());
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_VALUE_DELETE, new AttributeGridValueStorageListener())
+
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_GROUP_CREATE, new AttributeGridGroupStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_GROUP_UPDATE, new AttributeGridGroupStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_GRID_GROUP_DELETE, new AttributeGridGroupStorageListener())
+
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_PRODUCT_ABSTRACT_CREATE, new AttributeMotherGridProductAbstractStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_PRODUCT_ABSTRACT_UPDATE, new AttributeMotherGridProductAbstractStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_PRODUCT_ABSTRACT_DELETE, new AttributeMotherGridProductAbstractStorageListener())
+
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_SPY_PRODUCT_ABSTRACT_CREATE, new ProductAbstractStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_SPY_PRODUCT_ABSTRACT_UPDATE, new ProductAbstractStorageListener())
+            ->addListenerQueued(SizeHarmonizationEvents::ENTITY_SPY_PRODUCT_ABSTRACT_DELETE, new ProductAbstractStorageListener());
 
         return $eventCollection;
     }

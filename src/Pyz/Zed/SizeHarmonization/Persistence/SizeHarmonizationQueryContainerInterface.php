@@ -102,6 +102,13 @@ interface SizeHarmonizationQueryContainerInterface extends QueryContainerInterfa
     /**
      * @inheritdoc
      *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryAttributeMotherGridProductAbstract();
+
+    /**
+     * @inheritdoc
+     *
      * @param array $productAbstractIds
      *
      * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery

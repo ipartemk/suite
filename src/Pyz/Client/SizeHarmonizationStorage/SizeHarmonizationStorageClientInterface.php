@@ -25,5 +25,4 @@ interface SizeHarmonizationStorageClientInterface
      * @return \Generated\Shared\Transfer\AttributeGridProductAbstractStorageTransfer|null
      */
     public function findAttributeGridProductAbstract($idProductAbstract): ?AttributeGridProductAbstractStorageTransfer;
-
 }

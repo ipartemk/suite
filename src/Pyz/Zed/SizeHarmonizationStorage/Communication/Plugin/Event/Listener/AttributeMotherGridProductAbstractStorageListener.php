@@ -17,7 +17,7 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
  * @method \Pyz\Zed\SizeHarmonizationStorage\SizeHarmonizationStorageConfig getConfig()
  * @method \Pyz\Zed\SizeHarmonizationStorage\Persistence\SizeHarmonizationStorageQueryContainerInterface getQueryContainer()
  */
-class AttributeMotherGridKeyStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
+class AttributeMotherGridProductAbstractStorageListener extends AbstractPlugin implements EventBulkHandlerInterface
 {
     /**
      * @param array $eventTransfers
@@ -31,24 +31,17 @@ class AttributeMotherGridKeyStorageListener extends AbstractPlugin implements Ev
             ->getEventBehaviorFacade()
             ->getEventTransferIds($eventTransfers);
 
-        $attributeMotherGridIds = $this->getQueryContainer()
-            ->queryAttributeMotherGridIdsByKeyIds($messageIds)
-            ->find()
-            ->getData();
-
         $productAbstractIds = $this->getQueryContainer()
-            ->queryProductAbstractIdsByAttributeMotherGridIds($attributeMotherGridIds)
+            ->queryProductAbstractIdsByAMGProductAbstractIds($messageIds)
             ->distinct()
             ->find()
             ->getData();
 
-        if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_KEY_DELETE) {
-            $this->getFacade()->unpublishAttributeMotherGrid($attributeMotherGridIds);
+        if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_PRODUCT_ABSTRACT_DELETE) {
             $this->getFacade()->unpublishAttributeGrid($productAbstractIds);
-        } elseif ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_KEY_CREATE
-            || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_KEY_UPDATE
+        } elseif ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_PRODUCT_ABSTRACT_CREATE
+            || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_PRODUCT_ABSTRACT_UPDATE
         ) {
-            $this->getFacade()->publishAttributeMotherGrid($attributeMotherGridIds);
             $this->getFacade()->publishAttributeGrid($productAbstractIds);
         }
     }

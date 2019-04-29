@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\SizeHarmonizationStorage\Business\Storage;
 
+use Exception;
 use Generated\Shared\Transfer\AttributeGridCountryStorageTransfer;
 use Generated\Shared\Transfer\AttributeGridProductAbstractStorageTransfer;
 use Generated\Shared\Transfer\AttributeGridValueStorageTransfer;
@@ -39,6 +40,7 @@ class AttributeGridStorageWriter
         $amgProductAbstractEntities = $this->findAmgProductAbstractEntities($productAbstractIds);
         $countries = [];
 
+        /** @var \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstract $amgProductAbstractEntity */
         foreach ($amgProductAbstractEntities as $amgProductAbstractEntity) {
             $attributeGridProductAbstractStorageTransfer = new AttributeGridProductAbstractStorageTransfer();
             $attributeGridProductAbstractStorageTransfer->fromArray($amgProductAbstractEntity->toArray(), true);
@@ -63,7 +65,6 @@ class AttributeGridStorageWriter
             $attributeGridCountryStorageTransfer->setCountry($country);
             $attributeMotherGridEntity = $amgProductAbstractEntity->getMytAttributeMotherGrid();
             $attributeGridCountryStorageTransfer->fromArray($attributeMotherGridEntity->toArray(), true);
-
 
             $attributeMotherGridValueEntities = $this->queryContainer
                 ->queryAttributeMotherGridValuesByAttributeMotherGrid($attributeMotherGridEntity->getIdAttributeMotherGrid())
@@ -133,6 +134,9 @@ class AttributeGridStorageWriter
         }
 
         $storageEntity->setFkProductAbstract($idMessage);
+        $storageEntity->setFkAttributeGridGroup($attributeGridProductAbstractStorageTransfer->getIdAttributeGridGroup());
+        $storageEntity->setAttributeGridGroup($attributeGridProductAbstractStorageTransfer->getAttributeGridGroup());
+        $storageEntity->setFkProductAbstract($idMessage);
         $storageEntity->setData($attributeGridProductAbstractStorageTransfer->modifiedToArray());
         $storageEntity->save();
     }
@@ -141,18 +145,15 @@ class AttributeGridStorageWriter
      * @param array $productAbstractIds
      *
      * return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstract[]
+     *
      * @return array
      */
     protected function findAmgProductAbstractEntities(array $productAbstractIds)
     {
-        $str = $this->queryContainer
-            ->queryAttributeMotherGridProductAbstractByProductIds($productAbstractIds)
-            ->toString();
         return $this->queryContainer
             ->queryAttributeMotherGridProductAbstractByProductIds($productAbstractIds)
             ->distinct()
             ->find();
-//            ->getData();
     }
 
     /**
@@ -185,6 +186,6 @@ class AttributeGridStorageWriter
             }
         }
 
-        throw new \Exception(sprintf("Country %s was'n found", $country));
+        throw new Exception(sprintf("Country %s was'n found", $country));
     }
 }

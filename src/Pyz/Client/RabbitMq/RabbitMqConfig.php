@@ -64,6 +64,7 @@ class RabbitMqConfig extends SprykerRabbitMqConfig
         );
         // MyT Size Harmonization
         $queueOptionCollection->append($this->createQueueOption(SizeHarmonizationStorageConfig::ATTRIBUTE_MOTHER_GRID_SYNC_STORAGE_QUEUE, SizeHarmonizationStorageConfig::ATTRIBUTE_MOTHER_GRID_SYNC_STORAGE_ERROR_QUEUE));
+        $queueOptionCollection->append($this->createQueueOption(SizeHarmonizationStorageConfig::ATTRIBUTE_GRID_SYNC_STORAGE_QUEUE, SizeHarmonizationStorageConfig::ATTRIBUTE_GRID_SYNC_STORAGE_ERROR_QUEUE));
 
         return $queueOptionCollection;
     }

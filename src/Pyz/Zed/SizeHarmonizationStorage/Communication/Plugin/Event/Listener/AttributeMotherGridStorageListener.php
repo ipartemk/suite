@@ -27,16 +27,24 @@ class AttributeMotherGridStorageListener extends AbstractPlugin implements Event
      */
     public function handleBulk(array $eventTransfers, $eventName)
     {
-        $messageIds = $this->getFactory()
+        $attributeMotherGridIds = $this->getFactory()
             ->getEventBehaviorFacade()
             ->getEventTransferIds($eventTransfers);
 
+        $productAbstractIds = $this->getQueryContainer()
+            ->queryProductAbstractIdsByAttributeMotherGridIds($attributeMotherGridIds)
+            ->distinct()
+            ->find()
+            ->getData();
+
         if ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_DELETE) {
-            $this->getFacade()->unpublishAttributeMotherGrid($messageIds);
+            $this->getFacade()->unpublishAttributeMotherGrid($attributeMotherGridIds);
+            $this->getFacade()->unpublishAttributeGrid($productAbstractIds);
         } elseif ($eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_CREATE
             || $eventName === SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_UPDATE
         ) {
-            $this->getFacade()->publishAttributeMotherGrid($messageIds);
+            $this->getFacade()->publishAttributeMotherGrid($attributeMotherGridIds);
+            $this->getFacade()->publishAttributeGrid($productAbstractIds);
         }
     }
 }

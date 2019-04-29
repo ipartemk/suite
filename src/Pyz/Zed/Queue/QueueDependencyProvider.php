@@ -62,6 +62,7 @@ class QueueDependencyProvider extends SprykerDependencyProvider
             ContentStorageConfig::CONTENT_SYNC_STORAGE_QUEUE => new SynchronizationStorageQueueMessageProcessorPlugin(),
             // MyT Size Harmonization
             SizeHarmonizationStorageConfig::ATTRIBUTE_MOTHER_GRID_SYNC_STORAGE_QUEUE => new SynchronizationStorageQueueMessageProcessorPlugin(),
+            SizeHarmonizationStorageConfig::ATTRIBUTE_GRID_SYNC_STORAGE_QUEUE => new SynchronizationStorageQueueMessageProcessorPlugin(),
         ];
     }
 }

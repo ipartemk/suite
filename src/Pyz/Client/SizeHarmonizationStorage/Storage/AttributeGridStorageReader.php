@@ -8,7 +8,6 @@
 namespace Pyz\Client\SizeHarmonizationStorage\Storage;
 
 use Generated\Shared\Transfer\AttributeGridProductAbstractStorageTransfer;
-use Generated\Shared\Transfer\AttributeMotherGridStorageTransfer;
 use Generated\Shared\Transfer\SynchronizationDataTransfer;
 use Pyz\Client\SizeHarmonizationStorage\Dependency\Client\SizeHarmonizationStorageToStorageClientBridge;
 use Pyz\Client\SizeHarmonizationStorage\Dependency\Service\SizeHarmonizationStorageToSynchronizationServiceBridge;

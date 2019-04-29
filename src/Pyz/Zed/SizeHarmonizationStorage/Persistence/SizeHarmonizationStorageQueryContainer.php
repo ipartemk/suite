@@ -7,6 +7,7 @@
 
 namespace Pyz\Zed\SizeHarmonizationStorage\Persistence;
 
+use Orm\Zed\Product\Persistence\Map\SpyProductAbstractTableMap;
 use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridKeyTableMap;
 use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridProductAbstractTableMap;
 use Orm\Zed\SizeHarmonization\Persistence\Map\MytAttributeMotherGridTableMap;
@@ -144,6 +145,49 @@ class SizeHarmonizationStorageQueryContainer extends AbstractQueryContainer impl
                 ->enduse()
             ->enduse()
             ->filterByIdAttributeGridValue_In($attributeGridValueIds)
+            ->select(MytAttributeMotherGridProductAbstractTableMap::COL_FK_PRODUCT_ABSTRACT);
+    }
+
+    /**
+     * @param array $attributeGridGroupIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeGridGroupQuery
+     */
+    public function queryProductAbstractIdsByAGGroupIds(array $attributeGridGroupIds)
+    {
+        return $this->getFactory()
+            ->getSizeHarmonizationQueryContainer()
+            ->queryAttributeGridGroup()
+            ->joinWithSpyProductAbstract()
+            ->filterByIdAttributeGridGroup_In($attributeGridGroupIds)
+            ->select(SpyProductAbstractTableMap::COL_ID_PRODUCT_ABSTRACT);
+    }
+
+    /**
+     * @param array $attributeMotherGridProductAbstractIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryProductAbstractIdsByAMGProductAbstractIds(array $attributeMotherGridProductAbstractIds)
+    {
+        return $this->getFactory()
+            ->getSizeHarmonizationQueryContainer()
+            ->queryAttributeMotherGridProductAbstract()
+            ->filterByIdAttributeMotherGridProductAbstract_In($attributeMotherGridProductAbstractIds)
+            ->select(MytAttributeMotherGridProductAbstractTableMap::COL_FK_PRODUCT_ABSTRACT);
+    }
+
+    /**
+     * @param array $attributeMotherGridIds
+     *
+     * @return \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery
+     */
+    public function queryProductAbstractIdsByAttributeMotherGridIds(array $attributeMotherGridIds)
+    {
+        return $this->getFactory()
+            ->getSizeHarmonizationQueryContainer()
+            ->queryAttributeMotherGridProductAbstract()
+            ->filterByFkAttributeMotherGrid_In($attributeMotherGridIds)
             ->select(MytAttributeMotherGridProductAbstractTableMap::COL_FK_PRODUCT_ABSTRACT);
     }
 
