@@ -7,6 +7,8 @@
 
 namespace Pyz\Glue\GlueApplication;
 
+use Pyz\Glue\SizeHarmonizationRestApi\Plugin\AttributeGridResourceRoutePlugin;
+use Pyz\Glue\SizeHarmonizationRestApi\Plugin\AttributeMotherGridResourceRoutePlugin;
 use Spryker\Glue\AlternativeProductsRestApi\Plugin\GlueApplication\AbstractAlternativeProductsResourceRoutePlugin;
 use Spryker\Glue\AlternativeProductsRestApi\Plugin\GlueApplication\ConcreteAlternativeProductsResourceRoutePlugin;
 use Spryker\Glue\AuthRestApi\Plugin\AccessTokensResourceRoutePlugin;
@@ -138,6 +140,10 @@ class GlueApplicationDependencyProvider extends SprykerGlueApplicationDependency
             new CartUpSellingProductsResourceRoutePlugin(),
             new GuestCartUpSellingProductsResourceRoutePlugin(),
             new ContentBannerResourceRoutePlugin(),
+
+            // MyTheresa. Size Harmonisation
+            new AttributeMotherGridResourceRoutePlugin(),
+            new AttributeGridResourceRoutePlugin(),
         ];
     }
 

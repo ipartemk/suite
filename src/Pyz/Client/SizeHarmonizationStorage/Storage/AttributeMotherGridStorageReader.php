@@ -55,7 +55,9 @@ class AttributeMotherGridStorageReader
         $data = $this->storageClient->get($key);
 
         $attributeMotherGridStorageTransfer = new AttributeMotherGridStorageTransfer();
-        $attributeMotherGridStorageTransfer->fromArray($data, true);
+        if (is_array($data)) {
+            $attributeMotherGridStorageTransfer->fromArray($data, true);
+        }
 
         return $attributeMotherGridStorageTransfer;
     }

@@ -55,7 +55,9 @@ class AttributeGridStorageReader
         $data = $this->storageClient->get($key);
 
         $attributeGridProductAbstractStorageTransfer = new AttributeGridProductAbstractStorageTransfer();
-        $attributeGridProductAbstractStorageTransfer->fromArray($data, true);
+        if (is_array($data)) {
+            $attributeGridProductAbstractStorageTransfer->fromArray($data, true);
+        }
 
         return $attributeGridProductAbstractStorageTransfer;
     }
