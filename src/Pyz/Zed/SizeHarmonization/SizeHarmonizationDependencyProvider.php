@@ -19,8 +19,6 @@ class SizeHarmonizationDependencyProvider extends AbstractBundleDependencyProvid
      */
     public function provideCommunicationLayerDependencies(Container $container)
     {
-        //TODO Provide dependencies
-
         return $container;
     }
 
@@ -31,8 +29,6 @@ class SizeHarmonizationDependencyProvider extends AbstractBundleDependencyProvid
      */
     public function provideBusinessLayerDependencies(Container $container)
     {
-        //TODO Provide dependencies
-
         return $container;
     }
 
@@ -43,8 +39,6 @@ class SizeHarmonizationDependencyProvider extends AbstractBundleDependencyProvid
      */
     public function providePersistenceLayerDependencies(Container $container)
     {
-        //TODO Provide dependencies
-
         return $container;
     }
 }

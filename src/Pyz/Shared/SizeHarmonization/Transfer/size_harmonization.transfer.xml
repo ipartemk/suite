@@ -6,6 +6,7 @@
     <transfer name="AttributeMotherGrid">
         <property name="idAttributeMotherGrid" type="int"/>
         <property name="name" type="string"/>
+        <property name="amgKey" type="string"/>
     </transfer>
 
     <transfer name="AttributeMotherGridKey">
@@ -38,6 +39,14 @@
         <property name="fkAttributeMotherGridCol" type="int"/>
         <property name="fkAttributeGridGroup" type="int"/>
         <property name="value" type="string"/>
+    </transfer>
+
+    <transfer name="ProductAbstract">
+        <property name="sizeHarmonization" type="ProductAbstractSizeHarmonization" />
+    </transfer>
+
+    <transfer name="ProductAbstractSizeHarmonization">
+        <property name="fkAttributeGridGroup" type="int" />
     </transfer>
 
 </transfers>

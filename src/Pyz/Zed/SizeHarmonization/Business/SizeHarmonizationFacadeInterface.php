@@ -31,6 +31,13 @@ interface SizeHarmonizationFacadeInterface
     public function updateAttributeMotherGrid(AttributeMotherGridTransfer $attributeGridGroupTransfer): bool;
 
     /**
+     * @param int $idAttributeMotherGrid
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGrid($idAttributeMotherGrid): void;
+
+    /**
      * @param \Generated\Shared\Transfer\AttributeMotherGridKeyTransfer $attributeMotherGridKeyTransfer
      *
      * @return int
@@ -43,6 +50,13 @@ interface SizeHarmonizationFacadeInterface
      * @return bool
      */
     public function updateAttributeMotherGridKey(AttributeMotherGridKeyTransfer $attributeMotherGridKeyTransfer): bool;
+
+    /**
+     * @param int $idAttributeMotherGridKey
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGridKey($idAttributeMotherGridKey): void;
 
     /**
      * @param \Generated\Shared\Transfer\AttributeMotherGridColTransfer $attributeMotherGridColTransfer
@@ -59,6 +73,13 @@ interface SizeHarmonizationFacadeInterface
     public function updateAttributeMotherGridCol(AttributeMotherGridColTransfer $attributeMotherGridColTransfer): bool;
 
     /**
+     * @param int $idAttributeMotherGridCol
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGridCol($idAttributeMotherGridCol): void;
+
+    /**
      * @param \Generated\Shared\Transfer\AttributeMotherGridValueTransfer $attributeMotherGridValueTransfer
      *
      * @return int
@@ -71,6 +92,13 @@ interface SizeHarmonizationFacadeInterface
      * @return bool
      */
     public function updateAttributeMotherGridValue(AttributeMotherGridValueTransfer $attributeMotherGridValueTransfer): bool;
+
+    /**
+     * @param int $idAttributeMotherGridValue
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGridValue($idAttributeMotherGridValue): void;
 
     /**
      * @param \Generated\Shared\Transfer\AttributeGridGroupTransfer $attributeGridGroupTransfer
@@ -87,6 +115,13 @@ interface SizeHarmonizationFacadeInterface
     public function updateAttributeGridGroup(AttributeGridGroupTransfer $attributeGridGroupTransfer): bool;
 
     /**
+     * @param int $idAttributeGridGroup
+     *
+     * @return void
+     */
+    public function deleteAttributeGridGroup($idAttributeGridGroup): void;
+
+    /**
      * @param \Generated\Shared\Transfer\AttributeGridValueTransfer $attributeGridValueTransfer
      *
      * @return int
@@ -99,4 +134,11 @@ interface SizeHarmonizationFacadeInterface
      * @return bool
      */
     public function updateAttributeGridValue(AttributeGridValueTransfer $attributeGridValueTransfer): bool;
+
+    /**
+     * @param int $idAttributeGridValue
+     *
+     * @return void
+     */
+    public function deleteAttributeGridValue($idAttributeGridValue): void;
 }

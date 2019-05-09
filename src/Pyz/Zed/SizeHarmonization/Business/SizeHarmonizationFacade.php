@@ -51,6 +51,20 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
     /**
      * {@inheritdoc}
      *
+     * @param int $idAttributeMotherGrid
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGrid($idAttributeMotherGrid): void
+    {
+        $this->getFactory()
+            ->createAttributeMotherGridManager()
+            ->deleteAttributeMotherGrid($idAttributeMotherGrid);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @param \Generated\Shared\Transfer\AttributeMotherGridKeyTransfer $attributeMotherGridKeyTransfer
      *
      * @return int
@@ -74,6 +88,20 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
         return $this->getFactory()
             ->createAttributeMotherGridKeyManager()
             ->updateAttributeMotherGridKey($attributeMotherGridKeyTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param int $idAttributeMotherGridKey
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGridKey($idAttributeMotherGridKey): void
+    {
+        $this->getFactory()
+            ->createAttributeMotherGridKeyManager()
+            ->deleteAttributeMotherGridKey($idAttributeMotherGridKey);
     }
 
     /**
@@ -107,6 +135,20 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
     /**
      * {@inheritdoc}
      *
+     * @param int $idAttributeMotherGridCol
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGridCol($idAttributeMotherGridCol): void
+    {
+        $this->getFactory()
+            ->createAttributeMotherGridColManager()
+            ->deleteAttributeMotherGridCol($idAttributeMotherGridCol);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @param \Generated\Shared\Transfer\AttributeMotherGridValueTransfer $attributeMotherGridValueTransfer
      *
      * @return int
@@ -135,6 +177,20 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
     /**
      * {@inheritdoc}
      *
+     * @param int $idAttributeMotherGridValue
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGridValue($idAttributeMotherGridValue): void
+    {
+        $this->getFactory()
+            ->createAttributeMotherGridValueManager()
+            ->deleteAttributeMotherGridValue($idAttributeMotherGridValue);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * @param \Generated\Shared\Transfer\AttributeGridGroupTransfer $attributeGridGroupTransfer
      *
      * @return int
@@ -157,7 +213,21 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
     {
         return $this->getFactory()
             ->createAttributeGridGroupManager()
-            ->updateAttributeMotherGrid($attributeGridGroupTransfer);
+            ->updateAttributeGridGroup($attributeGridGroupTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param int $idAttributeGridGroup
+     *
+     * @return void
+     */
+    public function deleteAttributeGridGroup($idAttributeGridGroup): void
+    {
+        $this->getFactory()
+            ->createAttributeGridGroupManager()
+            ->deleteAttributeGridGroup($idAttributeGridGroup);
     }
 
     /**
@@ -186,5 +256,19 @@ class SizeHarmonizationFacade extends AbstractFacade implements SizeHarmonizatio
         return $this->getFactory()
             ->createAttributeGridValueManager()
             ->updateAttributeGridValue($attributeGridValueTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @param int $idAttributeGridValue
+     *
+     * @return void
+     */
+    public function deleteAttributeGridValue($idAttributeGridValue): void
+    {
+        $this->getFactory()
+            ->createAttributeGridValueManager()
+            ->deleteAttributeGridValue($idAttributeGridValue);
     }
 }

@@ -137,6 +137,23 @@ class AttributeMotherGridKeyController extends AbstractController
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $idAttributeMotherGridKey = $this->castId($request->query->getInt(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_KEY));
+
+        $this->getFacade()->deleteAttributeMotherGridKey($idAttributeMotherGridKey);
+        $this->addSuccessMessage(sprintf('AttributeMotherGrid key %d was deleted successfully.', $idAttributeMotherGridKey));
+
+        return $this->redirectResponse(
+            Url::generate('/size-harmonization/attribute-mother-grid-key')->build()
+        );
+    }
+
+    /**
      * @param int $idAttributeMotherGridKey
      * @param \Symfony\Component\HttpFoundation\Request $request
      *

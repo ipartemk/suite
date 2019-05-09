@@ -63,4 +63,21 @@ class AttributeMotherGridManager
 
         return true;
     }
+
+    /**
+     * @param int $idAttributeMotherGrid
+     *
+     * @return void
+     */
+    public function deleteAttributeMotherGrid($idAttributeMotherGrid): void
+    {
+        $attributeMotherGridEntity = $this
+            ->sizeHarmonizationQueryContainer
+            ->queryAttributeMotherGridById($idAttributeMotherGrid)
+            ->findOne();
+
+        if ($attributeMotherGridEntity) {
+            $attributeMotherGridEntity->delete();
+        }
+    }
 }

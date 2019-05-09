@@ -135,6 +135,13 @@ class AttributeMotherGridValueTable extends AbstractTable
             'Edit'
         );
 
+        $urls[] = $this->generateRemoveButton(
+            Url::generate('/size-harmonization/attribute-mother-grid-value/delete', [
+                SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_VALUE => $attributeMotherGridValueEntity->getIdAttributeMotherGridValue(),
+            ]),
+            'Delete'
+        );
+
         return $urls;
     }
 }

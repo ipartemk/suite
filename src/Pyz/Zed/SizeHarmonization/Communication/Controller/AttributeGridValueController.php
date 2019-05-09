@@ -137,6 +137,23 @@ class AttributeGridValueController extends AbstractController
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $idAttributeGridValue = $this->castId($request->query->getInt(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_GRID_VALUE));
+
+        $this->getFacade()->deleteAttributeGridValue($idAttributeGridValue);
+        $this->addSuccessMessage(sprintf('AttributeGrid Value %d was deleted successfully.', $idAttributeGridValue));
+
+        return $this->redirectResponse(
+            Url::generate('/size-harmonization/attribute-grid-value')->build()
+        );
+    }
+
+    /**
      * @param int $idAttributeGridValue
      * @param \Symfony\Component\HttpFoundation\Request $request
      *

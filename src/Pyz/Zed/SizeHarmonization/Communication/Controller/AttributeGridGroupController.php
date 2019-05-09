@@ -137,6 +137,23 @@ class AttributeGridGroupController extends AbstractController
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $idAttributeGridGroup = $this->castId($request->query->getInt(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_GRID_GROUP));
+
+        $this->getFacade()->deleteAttributeGridGroup($idAttributeGridGroup);
+        $this->addSuccessMessage(sprintf('AttributeGrid group %d was deleted successfully.', $idAttributeGridGroup));
+
+        return $this->redirectResponse(
+            Url::generate('/size-harmonization/attribute-grid-group')->build()
+        );
+    }
+
+    /**
      * @param int $idAttributeGridGroup
      * @param \Symfony\Component\HttpFoundation\Request $request
      *

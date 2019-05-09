@@ -117,6 +117,13 @@ class AttributeGridGroupTable extends AbstractTable
             'Edit'
         );
 
+        $urls[] = $this->generateRemoveButton(
+            Url::generate('/size-harmonization/attribute-grid-group/delete', [
+                SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_GRID_GROUP => $attributeGridGroupEntity->getIdAttributeGridGroup(),
+            ]),
+            'Delete'
+        );
+
         return $urls;
     }
 }

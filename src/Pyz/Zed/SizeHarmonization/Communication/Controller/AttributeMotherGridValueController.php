@@ -137,6 +137,23 @@ class AttributeMotherGridValueController extends AbstractController
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $idAttributeMotherGridValue = $this->castId($request->query->getInt(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_VALUE));
+
+        $this->getFacade()->deleteAttributeMotherGridValue($idAttributeMotherGridValue);
+        $this->addSuccessMessage(sprintf('AttributeMotherGrid value %d was deleted successfully.', $idAttributeMotherGridValue));
+
+        return $this->redirectResponse(
+            Url::generate('/size-harmonization/attribute-mother-grid-value')->build()
+        );
+    }
+
+    /**
      * @param int $idAttributeMotherGridValue
      * @param \Symfony\Component\HttpFoundation\Request $request
      *

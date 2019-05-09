@@ -137,6 +137,23 @@ class AttributeMotherGridColController extends AbstractController
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction(Request $request)
+    {
+        $idAttributeMotherGridCol = $this->castId($request->query->getInt(SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_COL));
+
+        $this->getFacade()->deleteAttributeMotherGridCol($idAttributeMotherGridCol);
+        $this->addSuccessMessage(sprintf('AttributeMotherGrid col %d was deleted successfully.', $idAttributeMotherGridCol));
+
+        return $this->redirectResponse(
+            Url::generate('/size-harmonization/attribute-mother-grid-col')->build()
+        );
+    }
+
+    /**
      * @param int $idAttributeMotherGridCol
      * @param \Symfony\Component\HttpFoundation\Request $request
      *

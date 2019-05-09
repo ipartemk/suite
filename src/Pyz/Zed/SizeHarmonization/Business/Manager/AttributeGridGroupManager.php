@@ -47,7 +47,7 @@ class AttributeGridGroupManager
      *
      * @return bool
      */
-    public function updateAttributeMotherGrid(AttributeGridGroupTransfer $attributeGridGroupTransfer): bool
+    public function updateAttributeGridGroup(AttributeGridGroupTransfer $attributeGridGroupTransfer): bool
     {
         $attributeGridGroupEntity = $this
             ->sizeHarmonizationQueryContainer
@@ -62,5 +62,22 @@ class AttributeGridGroupManager
         $attributeGridGroupEntity->save();
 
         return true;
+    }
+
+    /**
+     * @param int $idAttributeGridGroup
+     *
+     * @return void
+     */
+    public function deleteAttributeGridGroup($idAttributeGridGroup): void
+    {
+        $attributeGridGroupEntity = $this
+            ->sizeHarmonizationQueryContainer
+            ->queryAttributeGridGroupById($idAttributeGridGroup)
+            ->findOne();
+
+        if ($attributeGridGroupEntity) {
+            $attributeGridGroupEntity->delete();
+        }
     }
 }

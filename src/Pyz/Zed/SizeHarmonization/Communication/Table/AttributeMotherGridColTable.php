@@ -123,6 +123,13 @@ class AttributeMotherGridColTable extends AbstractTable
             'Edit'
         );
 
+        $urls[] = $this->generateRemoveButton(
+            Url::generate('/size-harmonization/attribute-mother-grid-col/delete', [
+                SizeHarmonizationConfig::PARAM_ID_ATTRIBUTE_MOTHER_GRID_COL => $attributeMotherGridColEntity->getIdAttributeMotherGridCol(),
+            ]),
+            'Delete'
+        );
+
         return $urls;
     }
 }
