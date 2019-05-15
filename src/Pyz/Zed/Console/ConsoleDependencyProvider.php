@@ -202,7 +202,6 @@ class ConsoleDependencyProvider extends SprykerConsoleDependencyProvider
             new DataImportConsole(DataImportConsole::DEFAULT_NAME . ':' . DataImportConfig::IMPORT_TYPE_TAX),
             new DataImportConsole(DataImportConsole::DEFAULT_NAME . ':' . DataImportConfig::IMPORT_TYPE_DISCOUNT_AMOUNT),
             new DataImportConsole(DataImportConsole::DEFAULT_NAME . ':' . DataImportConfig::IMPORT_TYPE_ORDER_SOURCE),
-            new DataImportConsole(DataImportConsole::DEFAULT_NAME . ':' . DataImportConfig::IMPORT_TYPE_ATTRIBUTE_MOTHER_GRID_PRODUCT),
 
             //core data importers
             new DataImportConsole(DataImportConsole::DEFAULT_NAME . ':' . PriceProductDataImportConfig::IMPORT_TYPE_PRODUCT_PRICE),
@@ -284,6 +283,7 @@ class ConsoleDependencyProvider extends SprykerConsoleDependencyProvider
 
             new CleanTranslationCacheConsole(),
             new GenerateTranslationCacheConsole(),
+            new DataImportConsole(DataImportConsole::DEFAULT_NAME . ':' . DataImportConfig::IMPORT_TYPE_ATTRIBUTE_MOTHER_GRID_PRODUCT),
         ];
 
         $propelCommands = $container->getLocator()->propel()->facade()->getConsoleCommands();

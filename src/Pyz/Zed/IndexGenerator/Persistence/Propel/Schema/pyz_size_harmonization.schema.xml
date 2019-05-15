@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="zed" xsi:noNamespaceSchemaLocation="http://static.spryker.com/schema-01.xsd" namespace="Orm\Zed\SizeHarmonization\Persistence" package="src.Orm.Zed.SizeHarmonization.Persistence">
+  <table name="myt_attribute_mother_grid_product_abstract">
+    <index name="index-myt_attribute_mother_grid_product_abstract-f-40ed1a13646e">
+      <index-column name="fk_attribute_mother_grid"/>
+    </index>
+    <index name="index-myt_attribute_mother_grid_product_abstract-f-3c06f8d240c6">
+      <index-column name="fk_product_abstract"/>
+    </index>
+  </table>
+  <table name="myt_attribute_mother_grid_key">
+    <index name="index-myt_attribute_mother_grid_key-fk_attribute_mother_grid">
+      <index-column name="fk_attribute_mother_grid"/>
+    </index>
+  </table>
+  <table name="myt_attribute_mother_grid_col">
+    <index name="index-myt_attribute_mother_grid_col-fk_attribute_mother_grid">
+      <index-column name="fk_attribute_mother_grid"/>
+    </index>
+  </table>
+  <table name="myt_attribute_mother_grid_value">
+    <index name="index-myt_attribute_mother_grid_value-fk_attribute-adce30bd6c4b">
+      <index-column name="fk_attribute_mother_grid_key"/>
+    </index>
+    <index name="index-myt_attribute_mother_grid_value-fk_attribute-d261ddc67f69">
+      <index-column name="fk_attribute_mother_grid_col"/>
+    </index>
+  </table>
+  <table name="myt_attribute_grid_value">
+    <index name="index-myt_attribute_grid_value-fk_attribute_mother_grid_key">
+      <index-column name="fk_attribute_mother_grid_key"/>
+    </index>
+    <index name="index-myt_attribute_grid_value-fk_attribute_mother_grid_col">
+      <index-column name="fk_attribute_mother_grid_col"/>
+    </index>
+    <index name="index-myt_attribute_grid_value-fk_attribute_grid_group">
+      <index-column name="fk_attribute_grid_group"/>
+    </index>
+  </table>
+</database>

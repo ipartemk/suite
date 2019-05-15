@@ -9,6 +9,9 @@
     <index name="index-spy_product_abstract-fk_tax_set">
       <index-column name="fk_tax_set"/>
     </index>
+    <index name="index-spy_product_abstract-fk_attribute_grid_group">
+      <index-column name="fk_attribute_grid_group"/>
+    </index>
   </table>
   <table name="spy_product_abstract_localized_attributes">
     <index name="index-spy_product_abstract_localized_attributes-fk-a7603b3c2144">

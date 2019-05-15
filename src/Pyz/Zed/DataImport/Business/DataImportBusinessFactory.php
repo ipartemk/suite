@@ -170,7 +170,8 @@ class DataImportBusinessFactory extends SprykerDataImportBusinessFactory
             ->addDataImporter($this->createCmsBlockCategoryPositionImporter())
             ->addDataImporter($this->createCmsBlockCategoryImporter())
             ->addDataImporter($this->createDiscountAmountImporter())
-            ->addDataImporter($this->createAttributeMotherGridProductImporter());
+            ->addDataImporter($this->createAttributeMotherGridProductImporter())
+        ;
 
         $dataImporterCollection->addDataImporterPlugins($this->getDataImporterPlugins());
 

@@ -51,7 +51,6 @@ class AttributeMotherGridProductWriterStep extends PublishAwareStep implements D
         MytAttributeMotherGridProductAbstractQuery::create()
             ->filterByFkProductAbstract($productAbstractEntity->getIdProductAbstract())
             ->filterByFkAttributeMotherGrid($attributeMotherGridEntity->getIdAttributeMotherGrid())
-            ->filterByCountry($dataSet[static::KEY_COUNTRY])
             ->findOneOrCreate()
             ->save();
     }

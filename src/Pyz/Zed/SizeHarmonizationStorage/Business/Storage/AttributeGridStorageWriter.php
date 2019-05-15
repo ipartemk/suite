@@ -39,11 +39,16 @@ class AttributeGridStorageWriter
     {
         $amgProductAbstractEntities = $this->findAmgProductAbstractEntities($productAbstractIds);
         $countries = [];
+        $attributeGridProductAbstractStorageTransfers = [];
 
         /** @var \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstract $amgProductAbstractEntity */
         foreach ($amgProductAbstractEntities as $amgProductAbstractEntity) {
-            $attributeGridProductAbstractStorageTransfer = new AttributeGridProductAbstractStorageTransfer();
-            $attributeGridProductAbstractStorageTransfer->fromArray($amgProductAbstractEntity->toArray(), true);
+            if (!isset($attributeGridProductAbstractStorageTransfers[$amgProductAbstractEntity->getFkProductAbstract()])) {
+                $attributeGridProductAbstractStorageTransfer = new AttributeGridProductAbstractStorageTransfer();
+                $attributeGridProductAbstractStorageTransfers[$amgProductAbstractEntity->getFkProductAbstract()] = $attributeGridProductAbstractStorageTransfer;
+            } else {
+                $attributeGridProductAbstractStorageTransfer = $attributeGridProductAbstractStorageTransfers[$amgProductAbstractEntity->getFkProductAbstract()];
+            }
 
             $attributeGridProductAbstractStorageTransfer->setIdProductAbstract($amgProductAbstractEntity->getFkProductAbstract());
             $productAbstractEntity = $amgProductAbstractEntity->getSpyProductAbstract();
@@ -54,14 +59,18 @@ class AttributeGridStorageWriter
                 );
             }
 
+            $countryProduct = $amgProductAbstractEntity->getFkProductAbstract() . "_" . $amgProductAbstractEntity->getCountry();
             $country = $amgProductAbstractEntity->getCountry();
-            if (!isset($countries[$country])) {
-                $countries[$amgProductAbstractEntity->getCountry()] = 1;
+            if (!isset($countries[$countryProduct])) {
+                $countries[$countryProduct] = 1;
+
                 $attributeGridCountryStorageTransfer = new AttributeGridCountryStorageTransfer();
+                $attributeGridCountryStorageTransfer->setCountry($country);
                 $attributeGridProductAbstractStorageTransfer->addCountryValue($attributeGridCountryStorageTransfer);
             } else {
                 $attributeGridCountryStorageTransfer = $this->findCountryStorageTransfer($attributeGridProductAbstractStorageTransfer, $country);
             }
+
             $attributeGridCountryStorageTransfer->setCountry($country);
             $attributeMotherGridEntity = $amgProductAbstractEntity->getMytAttributeMotherGrid();
             $attributeGridCountryStorageTransfer->fromArray($attributeMotherGridEntity->toArray(), true);
@@ -97,8 +106,10 @@ class AttributeGridStorageWriter
 
                 $attributeGridCountryStorageTransfer->addValue($attributeGridValueStorageTransfer);
             }
+        }
 
-            $this->store($amgProductAbstractEntity->getFkProductAbstract(), $attributeGridProductAbstractStorageTransfer);
+        foreach ($attributeGridProductAbstractStorageTransfers as $productAbstractId => $attributeGridProductAbstractStorageTransfer) {
+            $this->store($productAbstractId, $attributeGridProductAbstractStorageTransfer);
         }
     }
 
