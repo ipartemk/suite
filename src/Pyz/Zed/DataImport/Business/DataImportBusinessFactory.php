@@ -1492,7 +1492,7 @@ class DataImportBusinessFactory extends SprykerDataImportBusinessFactory
 
         $dataSetStepBroker = $this->createTransactionAwareDataSetStepBroker();
         $dataSetStepBroker
-            ->addStep(new AttributeMotherGridProductWriterStep());
+            ->addStep(new AttributeMotherGridProductWriterStep($this->getEventFacade()));
 
         $dataImporter->addDataSetStepBroker($dataSetStepBroker);
 

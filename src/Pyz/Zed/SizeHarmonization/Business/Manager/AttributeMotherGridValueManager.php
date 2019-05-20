@@ -9,6 +9,7 @@ namespace Pyz\Zed\SizeHarmonization\Business\Manager;
 
 use Generated\Shared\Transfer\AttributeMotherGridValueTransfer;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridValue;
+use Pyz\Zed\SizeHarmonization\Business\Exception\AttributeMotherGridCollisionException;
 use Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer;
 
 class AttributeMotherGridValueManager
@@ -34,6 +35,8 @@ class AttributeMotherGridValueManager
      */
     public function addAttributeMotherGridValue(AttributeMotherGridValueTransfer $attributeMotherGridValueTransfer): int
     {
+        $this->checkAttributeMotherGridConsistency($attributeMotherGridValueTransfer);
+
         $attributeMotherGridValueEntity = new MytAttributeMotherGridValue();
         $attributeMotherGridValueEntity->fromArray($attributeMotherGridValueTransfer->toArray());
 
@@ -49,6 +52,8 @@ class AttributeMotherGridValueManager
      */
     public function updateAttributeMotherGridValue(AttributeMotherGridValueTransfer $attributeMotherGridValueTransfer): bool
     {
+        $this->checkAttributeMotherGridConsistency($attributeMotherGridValueTransfer);
+
         $attributeMotherGridValueEntity = $this
             ->sizeHarmonizationQueryContainer
             ->queryAttributeMotherGridValueById($attributeMotherGridValueTransfer->getIdAttributeMotherGridValue())
@@ -62,6 +67,28 @@ class AttributeMotherGridValueManager
         $attributeMotherGridValueEntity->save();
 
         return true;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AttributeMotherGridValueTransfer $attributeMotherGridValueTransfer
+     *
+     * @throws \Pyz\Zed\SizeHarmonization\Business\Exception\AttributeMotherGridCollisionException
+     */
+    protected function checkAttributeMotherGridConsistency(AttributeMotherGridValueTransfer $attributeMotherGridValueTransfer)
+    {
+        $attributeMotherGridKeyEntity = $this
+            ->sizeHarmonizationQueryContainer
+            ->queryAttributeMotherGridKey()
+            ->findOneByIdAttributeMotherGridKey($attributeMotherGridValueTransfer->getFkAttributeMotherGridKey());
+
+        $attributeMotherGridColEntity = $this
+            ->sizeHarmonizationQueryContainer
+            ->queryAttributeMotherGridCol()
+            ->findOneByIdAttributeMotherGridCol($attributeMotherGridValueTransfer->getFkAttributeMotherGridCol());
+
+        if ($attributeMotherGridKeyEntity->getFkAttributeMotherGrid() !== $attributeMotherGridColEntity->getFkAttributeMotherGrid()) {
+            throw new AttributeMotherGridCollisionException("Key and Col should be from the same Attribute Mother Grid");
+        }
     }
 
     /**

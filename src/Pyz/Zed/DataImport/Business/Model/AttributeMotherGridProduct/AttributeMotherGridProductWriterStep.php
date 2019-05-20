@@ -7,10 +7,12 @@
 
 namespace Pyz\Zed\DataImport\Business\Model\AttributeMotherGridProduct;
 
+use Generated\Shared\Transfer\EventEntityTransfer;
 use Orm\Zed\Product\Persistence\SpyProductAbstractQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridProductAbstractQuery;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridQuery;
 use Pyz\Zed\DataImport\Business\Exception\InvalidDataException;
+use Pyz\Zed\SizeHarmonization\Dependency\SizeHarmonizationEvents;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\DataImportStepInterface;
 use Spryker\Zed\DataImport\Business\Model\DataImportStep\PublishAwareStep;
 use Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface;
@@ -22,6 +24,19 @@ class AttributeMotherGridProductWriterStep extends PublishAwareStep implements D
     public const KEY_PRODUCT_ABSTRACT_SKU = 'product_abstract_sku';
     public const KEY_COUNTRY = 'country';
     public const KEY_AMG_KEY = 'attribute_mother_grid_key';
+
+    /**
+     * @var \Spryker\Zed\DataImport\Dependency\Facade\DataImportToEventFacadeInterface
+     */
+    protected $eventFacade;
+
+    /**
+     * @param \Spryker\Zed\DataImport\Dependency\Facade\DataImportToEventFacadeInterface $eventFacade
+     */
+    public function __construct($eventFacade)
+    {
+        $this->eventFacade = $eventFacade;
+    }
 
     /**
      * @param \Spryker\Zed\DataImport\Business\Model\DataSet\DataSetInterface $dataSet
@@ -48,10 +63,16 @@ class AttributeMotherGridProductWriterStep extends PublishAwareStep implements D
             );
         }
 
-        MytAttributeMotherGridProductAbstractQuery::create()
+        $entity = MytAttributeMotherGridProductAbstractQuery::create()
             ->filterByFkProductAbstract($productAbstractEntity->getIdProductAbstract())
             ->filterByFkAttributeMotherGrid($attributeMotherGridEntity->getIdAttributeMotherGrid())
-            ->findOneOrCreate()
-            ->save();
+            ->findOneOrCreate();
+        $entity->setCountry($dataSet[static::KEY_COUNTRY]);
+        $entity->save();
+
+        $this->eventFacade->trigger(
+            SizeHarmonizationEvents::ENTITY_MYT_ATTRIBUTE_MOTHER_GRID_PRODUCT_ABSTRACT_UPDATE,
+            (new EventEntityTransfer())->setId($entity->getIdAttributeMotherGridProductAbstract())
+        );
     }
 }

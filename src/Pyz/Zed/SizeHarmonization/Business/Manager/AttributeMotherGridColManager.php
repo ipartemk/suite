@@ -9,6 +9,7 @@ namespace Pyz\Zed\SizeHarmonization\Business\Manager;
 
 use Generated\Shared\Transfer\AttributeMotherGridColTransfer;
 use Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridCol;
+use Pyz\Zed\SizeHarmonization\Business\Exception\AttributeMotherGridCollisionException;
 use Pyz\Zed\SizeHarmonization\Persistence\SizeHarmonizationQueryContainer;
 
 class AttributeMotherGridColManager
@@ -58,10 +59,29 @@ class AttributeMotherGridColManager
             return false;
         }
 
+        $this->checkAttributeMotherGridConsistency($attributeMotherGridColEntity, $attributeMotherGridColTransfer);
+
         $attributeMotherGridColEntity->fromArray($attributeMotherGridColTransfer->toArray());
         $attributeMotherGridColEntity->save();
 
         return true;
+    }
+
+    /**
+     * @param \Orm\Zed\SizeHarmonization\Persistence\MytAttributeMotherGridCol $attributeMotherGridColEntity
+     * @param \Generated\Shared\Transfer\AttributeMotherGridColTransfer $attributeMotherGridColTransfer
+     *
+     * @throws \Pyz\Zed\SizeHarmonization\Business\Exception\AttributeMotherGridCollisionException
+     */
+    protected function checkAttributeMotherGridConsistency(
+        MytAttributeMotherGridCol $attributeMotherGridColEntity,
+        AttributeMotherGridColTransfer $attributeMotherGridColTransfer
+    ) {
+        foreach ($attributeMotherGridColEntity->getMytAttributeMotherGridValues() as $attributeMotherGridValueEntity) {
+            if ($attributeMotherGridValueEntity->getMytAttributeMotherGridKey()->getFkAttributeMotherGrid() !== $attributeMotherGridColTransfer->getFkAttributeMotherGrid()) {
+                throw new AttributeMotherGridCollisionException("This Col has values from different Attribute Mother Grid");
+            }
+        }
     }
 
     /**

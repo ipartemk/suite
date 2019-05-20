@@ -37,12 +37,11 @@ class ProductAbstractManager extends SprykerProductAbstractManager
 
         $productAbstractTransfer = $this->notifyReadObservers($productAbstractTransfer);
 
+        $sizeHarmonizationTransfer = new ProductAbstractSizeHarmonizationTransfer();
         if ($productAbstractEntity->getFkAttributeGridGroup()) {
-            $sizeHarmonizationTransfer = new ProductAbstractSizeHarmonizationTransfer();
             $sizeHarmonizationTransfer->setFkAttributeGridGroup($productAbstractEntity->getFkAttributeGridGroup());
-
-            $productAbstractTransfer->setSizeHarmonization($sizeHarmonizationTransfer);
         }
+        $productAbstractTransfer->setSizeHarmonization($sizeHarmonizationTransfer);
 
         return $productAbstractTransfer;
     }
@@ -71,9 +70,7 @@ class ProductAbstractManager extends SprykerProductAbstractManager
         $productAbstractEntity->fromArray($productAbstractData);
         $productAbstractEntity->setAttributes($jsonAttributes);
 
-        if ($productAbstractTransfer->getSizeHarmonization()
-            && $productAbstractTransfer->getSizeHarmonization()->getFkAttributeGridGroup()
-        ) {
+        if ($productAbstractTransfer->getSizeHarmonization()) {
             $productAbstractEntity->setFkAttributeGridGroup(
                 $productAbstractTransfer->getSizeHarmonization()->getFkAttributeGridGroup()
             );

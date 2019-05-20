@@ -31,9 +31,10 @@ class AttributeMotherGridProductAbstractStorageListener extends AbstractPlugin i
             ->getEventBehaviorFacade()
             ->getEventTransferIds($eventTransfers);
 
-        $productAbstractIds = $this->getQueryContainer()
+        $q = $this->getQueryContainer()
             ->queryProductAbstractIdsByAMGProductAbstractIds($messageIds)
-            ->distinct()
+            ->distinct();
+        $productAbstractIds = $q
             ->find()
             ->getData();
 
